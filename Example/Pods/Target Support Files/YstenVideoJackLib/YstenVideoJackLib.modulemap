@@ -1,0 +1,6 @@
+framework module YstenVideoJackLib {
+  umbrella header "YstenVideoJackLib-umbrella.h"
+
+  export *
+  module * { export * }
+}

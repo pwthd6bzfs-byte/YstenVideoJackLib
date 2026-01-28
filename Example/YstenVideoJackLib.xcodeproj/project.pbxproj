@@ -58,13 +58,13 @@
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		850FBC3C8991EC0DA762439A /* YstenVideoJackLib.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = YstenVideoJackLib.podspec; path = ../YstenVideoJackLib.podspec; sourceTree = "<group>"; };
+		850FBC3C8991EC0DA762439A /* YstenVideoJackLib.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = YstenVideoJackLib.podspec; path = ../YstenVideoJackLib.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		928EFD487F657F21C1CB83B7 /* Pods_YstenVideoJackLib_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YstenVideoJackLib_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9562CA0C110CF3E7DCF98DA6 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		9562CA0C110CF3E7DCF98DA6 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		97A15BD2244235A6B3851C50 /* Pods-YstenVideoJackLib_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YstenVideoJackLib_Tests.debug.xcconfig"; path = "Target Support Files/Pods-YstenVideoJackLib_Tests/Pods-YstenVideoJackLib_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		A4EADA372E381336A2A9F557 /* Pods-YstenVideoJackLib_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YstenVideoJackLib_Tests.release.xcconfig"; path = "Target Support Files/Pods-YstenVideoJackLib_Tests/Pods-YstenVideoJackLib_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		C65EF3948EE098363E2A9DCA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		C65EF3948EE098363E2A9DCA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		D4EFDE1CE3CAB04283E72EE4 /* Pods-YstenVideoJackLib_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YstenVideoJackLib_Example.debug.xcconfig"; path = "Target Support Files/Pods-YstenVideoJackLib_Example/Pods-YstenVideoJackLib_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		F6A05EAA06F548599BD58CFC /* Pods-YstenVideoJackLib_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YstenVideoJackLib_Example.release.xcconfig"; path = "Target Support Files/Pods-YstenVideoJackLib_Example/Pods-YstenVideoJackLib_Example.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,7 +103,6 @@
 				97A15BD2244235A6B3851C50 /* Pods-YstenVideoJackLib_Tests.debug.xcconfig */,
 				A4EADA372E381336A2A9F557 /* Pods-YstenVideoJackLib_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -258,6 +257,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -302,10 +302,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-YstenVideoJackLib_Example/Pods-YstenVideoJackLib_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/YstenVideoJackLib/YstenVideoJackLib.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YstenVideoJackLib.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -497,6 +499,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YstenVideoJackLib/YstenVideoJackLib-Prefix.pch";
 				INFOPLIST_FILE = "YstenVideoJackLib/YstenVideoJackLib-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -513,6 +516,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YstenVideoJackLib/YstenVideoJackLib-Prefix.pch";
 				INFOPLIST_FILE = "YstenVideoJackLib/YstenVideoJackLib-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";

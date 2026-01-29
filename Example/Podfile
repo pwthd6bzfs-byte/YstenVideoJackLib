@@ -5,7 +5,8 @@ platform :ios, '13.0'
 target 'YstenVideoJackLib_Example' do
   pod 'YstenVideoJackLib', :path => '../'
 
-  
+#  pod 'YstenVideoJackLib', '0.2.0'
+
   
   post_install do |installer|
     installer.pods_project.targets.each do |target|

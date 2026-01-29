@@ -19,11 +19,12 @@
     "ios": "13.0"
   },
   "source_files": "YstenVideoJackLib/Classes/**/*",
+  "frameworks": [
+    "UIKit",
+    "MapKit"
+  ],
   "pod_target_xcconfig": {
-    "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "arm64"
-  },
-  "user_target_xcconfig": {
-    "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "arm64"
+    "VALID_ARCHS": "x86_64 armv7 armv7s arm64"
   },
   "static_framework": true,
   "dependencies": {

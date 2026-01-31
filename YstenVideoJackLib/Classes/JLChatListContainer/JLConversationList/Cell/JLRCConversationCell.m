@@ -435,7 +435,7 @@
     }
     
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    NSURL *bundleURL = [bundle URLForResource:@"LJChatSDK" withExtension:@"bundle"];
+    NSURL *bundleURL = [bundle URLForResource:@"YstenVideoJackLib" withExtension:@"bundle"];
     NSBundle *resourceBundle = [NSBundle bundleWithURL:bundleURL];
 
     [self.newHeaderView sd_setImageWithURL:[NSURL URLWithString:portraitUri] placeholderImage:[UIImage imageNamed:@"jl_un_auth_cer" inBundle:resourceBundle compatibleWithTraitCollection:nil]];

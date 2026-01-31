@@ -63,10 +63,10 @@ static JLUserService *shared = nil;
         // 获取用户数据
         [ws fetchUserInfo];
         JLLog(@"User login Success");
-        successBlock(result);
+//        successBlock(result);
     } failued:^(NSError * _Nonnull error) {
 //        [SVProgressHUD dismiss];
-        failuedBlock(error);
+//        failuedBlock(error);
     }];
 }
 

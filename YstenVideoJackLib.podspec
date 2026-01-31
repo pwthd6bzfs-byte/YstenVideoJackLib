@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'YstenVideoJackLib'
-  s.version          = '0.2.0'
+  s.version          = '0.4.0'
   s.summary          = 'A short description of YstenVideoJackLib.'
 
 # This description is used to generate tags and improve search results.
@@ -33,9 +33,9 @@ TODO: Add long description of the pod here.
 
   s.source_files = 'YstenVideoJackLib/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'YstenVideoJackLib' => ['YstenVideoJackLib/Assets/*.png']
-  # }
+  s.resource_bundles = {
+    'YstenVideoJackLib' => ['YstenVideoJackLib/Assets/*.png']
+  }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
    s.frameworks = 'UIKit', 'MapKit'

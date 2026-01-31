@@ -54,7 +54,7 @@ static JLUserService *shared = nil;
 
 - (void)initServiceWithUserID:(NSString *)userID success:(void(^)(NSDictionary *result))successBlock failued:(void (^)(NSError *error))failuedBlock {
     Weakself(ws);
-    [SVProgressHUD show];
+//    [SVProgressHUD show];
     [JLNetworkTool loginWithType:@"6" token:userID success:^(NSDictionary * _Nonnull result) {
         NSDictionary *data = result[@"data"];
         [JLStorageUtil cleanUserInfo];
@@ -65,7 +65,7 @@ static JLUserService *shared = nil;
         JLLog(@"User login Success");
         successBlock(result);
     } failued:^(NSError * _Nonnull error) {
-        [SVProgressHUD dismiss];
+//        [SVProgressHUD dismiss];
         failuedBlock(error);
     }];
 }

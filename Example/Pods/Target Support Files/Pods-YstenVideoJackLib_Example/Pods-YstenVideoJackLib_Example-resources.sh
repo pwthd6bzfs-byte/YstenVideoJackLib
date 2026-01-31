@@ -106,6 +106,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "${PODS_ROOT}/RongCloudOpenSource/Resources/Emoji.plist"
   install_resource "${PODS_ROOT}/RongCloudOpenSource/Resources/RCColor.plist"
   install_resource "${PODS_ROOT}/RongCloudOpenSource/IMKit/Supporting Files/PrivacyInfo.xcprivacy"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/YstenVideoJackLib/YstenVideoJackLib.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "${PODS_ROOT}/RongCloudIM/RongCloudIM/RCConfig.plist"
@@ -117,6 +118,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "${PODS_ROOT}/RongCloudOpenSource/Resources/Emoji.plist"
   install_resource "${PODS_ROOT}/RongCloudOpenSource/Resources/RCColor.plist"
   install_resource "${PODS_ROOT}/RongCloudOpenSource/IMKit/Supporting Files/PrivacyInfo.xcprivacy"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/YstenVideoJackLib/YstenVideoJackLib.bundle"
 fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

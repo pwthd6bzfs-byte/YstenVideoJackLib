@@ -21,6 +21,7 @@
 #import "JLSystemConfigUtil.h"
 #import "VideoViewController.h"
 #import "NSObject+CurrentViewController.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @interface JLIMService ()<RCIMReceiveMessageDelegate,RCIMUserInfoDataSource>
 
@@ -65,7 +66,8 @@ static JLIMService *shared = nil;
 
 
 - (void)initSystem{
-    
+    [SVProgressHUD setMaximumDismissTimeInterval:1];
+
     [JLAPIService getH5ConfigDatasuccess:^(NSDictionary * _Nonnull result) {
         
         NSString *h5String =  result[@"data"][@"downloadH5Address"];
@@ -104,11 +106,12 @@ static JLIMService *shared = nil;
     
     [JLNetworkTool requestRonngUserTokenWithSuccess:^(NSDictionary * _Nonnull result) {
         [ws rongCloundConnect:result[@"data"]];
-        [SVProgressHUD dismiss];
-        [SVProgressHUD showImage:nil status:@"登录成功"];
+//        [SVProgressHUD dismiss];
+//        [SVProgressHUD showImage:nil status:@"融云IM连接成功"];
+        JLLog(@"融云IM连接成功");
     } failued:^(NSError * _Nonnull error) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [SVProgressHUD dismiss];
+//            [SVProgressHUD dismiss];
             [self initService];
         });
     }];

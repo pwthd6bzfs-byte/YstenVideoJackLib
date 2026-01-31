@@ -1,6 +1,6 @@
 {
   "name": "YstenVideoJackLib",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "summary": "A short description of YstenVideoJackLib.",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/pwthd6bzfs-byte/YstenVideoJackLib",
@@ -13,12 +13,17 @@
   },
   "source": {
     "git": "https://github.com/pwthd6bzfs-byte/YstenVideoJackLib.git",
-    "tag": "0.2.0"
+    "tag": "0.4.0"
   },
   "platforms": {
     "ios": "13.0"
   },
   "source_files": "YstenVideoJackLib/Classes/**/*",
+  "resource_bundles": {
+    "YstenVideoJackLib": [
+      "YstenVideoJackLib/Assets/*.png"
+    ]
+  },
   "frameworks": [
     "UIKit",
     "MapKit"

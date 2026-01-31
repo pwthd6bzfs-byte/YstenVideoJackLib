@@ -32,12 +32,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [JLLocalizationUtil setLanguage:@"en"];
-    
         // 测试环境
     [JLAPIService environmentSetting:0];
-    
-    [SVProgressHUD setMaximumDismissTimeInterval:1];
-    [JLStorageUtil cleanUserInfo];
     [[JLIMService shared] initSystem];
     [JLIMService shared].delegate = self;
     
@@ -103,11 +99,14 @@
 
 - (void)clickbtn1:(UIButton *)btn{
     [self.view endEditing:YES];
-    [[JLUserService shared] initServiceWithUserID:self.txf.text success:^(NSDictionary * _Nonnull result) {
-        NSLog(@"%@",result);
-    } failued:^(NSError * _Nonnull error) {
-        NSLog(@"%@",error);
-    }];
+    
+    [[JLUserService shared] loginUserId:self.txf.text];
+    
+//    [[JLUserService shared] initServiceWithUserID:self.txf.text success:^(NSDictionary * _Nonnull result) {
+//        NSLog(@"%@",result);
+//    } failued:^(NSError * _Nonnull error) {
+//        NSLog(@"%@",error);
+//    }];
 }
 
 

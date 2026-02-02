@@ -13,8 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) WKWebView *webView;
 
+@property (nonatomic, copy) NSString *h5String;
 
-- (void)loadWeb;
+@property (nonatomic, assign) BOOL isDefault;
+
+
 
 @end
 

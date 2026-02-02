@@ -10,6 +10,7 @@
 #import <Masonry/Masonry.h>
 #import "UIColor+HexColor.h"
 #import "Config.h"
+#import "UIImage+Add.h"
 @interface JLVideoMessageCell ()
 
 @property (nonatomic, strong) JLVideoMessage *videoMessage;
@@ -93,7 +94,7 @@
  
     self.titleLab.text = statusName;
     self.vContainer.backgroundColor = [UIColor colorWithHexString:statusColorHex];
-    self.iconImageView.image = [UIImage imageNamed:statusImageStr];
+    self.iconImageView.image = [UIImage jl_name:statusImageStr class:self];
     
     NSString *text = statusName;
     UIFont *font = [UIFont systemFontOfSize:15];

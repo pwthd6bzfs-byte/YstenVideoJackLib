@@ -426,13 +426,13 @@
     
     [self.coinLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.nameLab.mas_bottom).offset(2);
-        make.centerX.equalTo(self).offset(-10);
+        make.centerX.equalTo(self).offset(-5);
     }];
     
 
     [self.coinIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.coinLab);
-        make.centerX.equalTo(self).offset(10);
+        make.centerX.equalTo(self).offset(5);
         make.size.mas_offset(CGSizeMake(8, 8));
     }];
 

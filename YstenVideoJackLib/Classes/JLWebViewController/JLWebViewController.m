@@ -21,6 +21,7 @@
 #import "JLSystemConfigUtil.h"
 #import "JLHeartMatchController.h"
 #import "JLWeakScriptMessageDelegate.h"
+#import "NSObject+CurrentNavigationViewController.h"
 
 @interface JLWebViewController ()<WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler>
 
@@ -28,11 +29,26 @@
 @property (nonatomic, strong) WKUserContentController *userContentController;
 @property (nonatomic, copy) NSString *heartbeatMatchPrice;
 @property (nonatomic, copy) NSString *token;
-@property (nonatomic, copy) NSString *h5String;
 
 @end
 
 @implementation JLWebViewController
+
+
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBarHidden = YES;
+}
+
+
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+    self.navigationController.navigationBarHidden = NO;
+}
 
 
 
@@ -41,8 +57,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    
-    self.h5String = [JLSystemConfigUtil getInfoWithH5String:@"h5String"];
+    self.navigationController.navigationBarHidden = YES;
+
     NSDictionary *dict = [JLSystemConfigUtil getInfoWithHeartbeatMatchDict:@"HeartbeatMatchDict"];
     self.heartbeatMatchPrice = dict[@"heartbeatMatchPrice"];
     
@@ -69,21 +85,33 @@
         make.left.right.bottom.equalTo(self.view);
     }];
     
-        // 进度条
-        //    [self setupProgressView];
+    // 进度条
+    //    [self setupProgressView]
     
-    // 加载web页面
-    [self loadWeb];
+    if (self.isDefault == NO) {
+        NSString *h5String = [JLSystemConfigUtil getInfoWithH5String:@"h5String"];
+        [self loadDefaultWeb:h5String];
+    }else{
+        [self loadDefaultWeb:self.h5String];
+    }
 }
 
 
 
 
-
-- (void)loadWeb{
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.h5String]];
-    [self.webView loadRequest:request];
+- (void)loadDefaultWeb:(NSString *)h5String{
+    if (h5String.length > 0) {
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:h5String]];
+        [self.webView loadRequest:request];
+    }
 }
+
+
+- (void)setH5String:(NSString *)h5String{
+    _h5String = h5String;
+    self.isDefault = YES;
+}
+
 
 
 
@@ -233,16 +261,14 @@
         NSString *url =  message.body[@"url"];
             //        url = @"https://testh5.yiimeet.com/#/recharge/list";
             // 重定向新URL
-        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+//        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
         
-        
-            //        if (url == "充值"){
-            // 构造 JavaScript 代码，调用 onClickRecharge 函数
-            //            NSString *js = [NSString stringWithFormat:@"%@()", @"onClickRecharge"];
-            //            [self.webView evaluateJavaScript:js completionHandler:^(id _Nullable htmlStr, NSError * _Nullable error) {
-            //                NSLog(@"%@",error);
-            //            }];
-            //        }
+        JLWebViewController *web = [[JLWebViewController alloc] init];
+        web.h5String = url;
+        web.isDefault = YES;
+        if ([NSObject currentNavigationController]) {
+            [[NSObject currentNavigationController] pushViewController:web animated:YES];
+        }
     }
     
     

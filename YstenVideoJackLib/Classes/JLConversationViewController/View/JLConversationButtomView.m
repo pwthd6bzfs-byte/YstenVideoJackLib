@@ -283,17 +283,17 @@
 
 
 
-- (UITextView *)contentTxf{
+- (UITextField *)contentTxf{
     if (!_contentTxf) {
-        UITextView *view = [[UITextView alloc] init];
+        UITextField *view = [[UITextField alloc] init];
         view.backgroundColor = [UIColor whiteColor];
         view.layer.cornerRadius = 12;
         view.layer.masksToBounds = YES;
-//        view.placeholder = @"Membership is free";
-//        view.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-//        view.leftViewMode = UITextFieldViewModeAlways;
-//        view.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-//        view.rightViewMode = UITextFieldViewModeAlways;
+        view.placeholder = @"Membership is free";
+        view.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+        view.leftViewMode = UITextFieldViewModeAlways;
+        view.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+        view.rightViewMode = UITextFieldViewModeAlways;
         _contentTxf = view;
     }
     

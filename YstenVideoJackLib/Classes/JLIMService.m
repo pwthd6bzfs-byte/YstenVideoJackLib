@@ -444,6 +444,8 @@ static JLIMService *shared = nil;
         
         [[RCIM sharedRCIM] refreshUserInfoCache:info withUserId:info.userId];
         
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"kNotificationMessageRecive" object:self];
+
         completion(info);
     } failued:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);

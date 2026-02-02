@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIButton *recordBtn;
 
-@property (nonatomic, strong) UITextView *contentTxf;
+@property (nonatomic, strong) UITextField *contentTxf;
 
 @property (nonatomic, strong) UIButton *sendBtn;
 

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'YstenVideoJackLib'
-  s.version          = '0.4.1'
+  s.version          = '0.4.2'
   s.summary          = 'A short description of YstenVideoJackLib.'
 
 # This description is used to generate tags and improve search results.
@@ -55,16 +55,16 @@ TODO: Add long description of the pod here.
   s.dependency 'RongCloudOpenSource/IMKit','~> 5.32.0'
   s.dependency 'AgoraRtcEngine_iOS', '~> 4.5.1'
   s.dependency 'SVProgressHUD'
-  s.dependency 'Masonry'
+  s.dependency 'Masonry','~> 1.1.0'
 
   
   
   
    
   # 图片加载
-  s.dependency 'SDWebImage', '~>5.19.7'
+  s.dependency 'SDWebImage', '~>5.8.2'
   s.dependency 'SVGAPlayer', '~>2.5.7'
   s.dependency 'Protobuf', '= 3.22.1'
   s.dependency 'JXCategoryView', '~>1.6.8'
-  s.dependency 'MJRefresh'
+  s.dependency 'MJRefresh', '~>3.7.5'
 end

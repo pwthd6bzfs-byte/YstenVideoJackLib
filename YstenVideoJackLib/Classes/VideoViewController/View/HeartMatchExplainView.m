@@ -79,7 +79,7 @@
 - (UIImageView *)coinImageView{
     if (!_coinImageView) {
         UIImageView *view = [[UIImageView alloc] init];
-        view.image = [UIImage jl_name:@"jl_heartMatch_head" class:self];
+        view.image = [UIImage jl_name:@"jl_heartMatch" class:self];
         view.clipsToBounds = YES;
         
         _coinImageView = view;

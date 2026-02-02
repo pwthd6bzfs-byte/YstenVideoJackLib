@@ -204,8 +204,8 @@
                                @"headFileName":userInfo.headFileName,
                                @"targetID":[NSString stringWithFormat:@"%ld",userInfo.userID],
         };
-        message.extra = [dict modelToJSONString];
-
+        textMessage.extra = [dict modelToJSONString];
+        
         [[RCIM sharedRCIM] sendMessage:message pushContent:nil pushData:nil successBlock:^(RCMessage * _Nonnull successMessage) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.view endEditing:YES];
@@ -759,7 +759,7 @@
     } failued:^(NSError * _Nonnull error) {
         [SVProgressHUD dismiss];
         NSLog(@"%@",error);
-        if (error.code == 1) {
+        if (error.code == 118) {
             [SVProgressHUD showImage:nil status:@"Insufficient Balance"];
         }
     }];
@@ -859,7 +859,7 @@
         
         JLUserModel *userInfo = [[JLUserService shared] userInfo];
         if (userInfo.coins < ws.anchorUserInfo.coinVideoPrice) {
-            return [SVProgressHUD showInfoWithStatus:@"你的金币不足"];
+            return [SVProgressHUD showInfoWithStatus:@"Insufficient Balance"];
         }
 
         
@@ -961,7 +961,7 @@
         JLUserModel *user = [JLUserService shared].userInfo;
         
         if ([model.senderUserId isEqualToString:[NSString stringWithFormat:@"%ld",user.userID]]) {
-            UIImage *image= [UIImage jl_name:@"cusotom_normal" class:self];
+            UIImage *image= [UIImage jl_name:@"jl_bubble" class:self];
             newCell.bubbleBackgroundView.image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(image.size.height * 0.5, image.size.width * 0.5,image.size.height * 0.5, image.size.width * 0.5)];
                 //      更改字体的颜色    }
         }

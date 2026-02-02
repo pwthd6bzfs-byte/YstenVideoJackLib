@@ -80,12 +80,12 @@
     [btn7 addTarget:self action:@selector(clickbtn7:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn7];
     
-    UIButton *btn5 = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn5.backgroundColor = [UIColor blackColor];
-    [btn5 setTitle:@"消息列表" forState:UIControlStateNormal];
-    btn5.frame = CGRectMake(60, 420, 200, 50);
-    [btn5 addTarget:self action:@selector(clickbtn5:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn5];
+//    UIButton *btn5 = [UIButton buttonWithType:UIButtonTypeCustom];
+//    btn5.backgroundColor = [UIColor blackColor];
+//    [btn5 setTitle:@"消息列表" forState:UIControlStateNormal];
+//    btn5.frame = CGRectMake(60, 420, 200, 50);
+//    [btn5 addTarget:self action:@selector(clickbtn5:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:btn5];
     
 }
 
@@ -127,6 +127,11 @@
 //    
 //    // 拨打视频通话
 //    [[JLIMService shared] pushCallVideoViewController:@"1794345539666542593"];
+    
+      // 消息未读数量
+//    [[JLIMService shared] updateAllUnreadMessages:^(int unreadCount) {
+//        
+//    }];
 }
 
 

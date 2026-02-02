@@ -43,10 +43,10 @@
       "1.0.9"
     ],
     "RongCloudIM/IMLib": [
-      "~> 5.32.0"
+      "5.32.0"
     ],
     "RongCloudOpenSource/IMKit": [
-      "~> 5.32.0"
+      "5.32.0"
     ],
     "AgoraRtcEngine_iOS": [
       "4.5.0"

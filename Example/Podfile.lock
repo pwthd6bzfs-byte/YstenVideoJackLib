@@ -98,8 +98,8 @@ PODS:
     - Masonry (= 1.1.0)
     - MJRefresh (= 3.7.5)
     - Protobuf (= 3.22.1)
-    - RongCloudIM/IMLib (~> 5.32.0)
-    - RongCloudOpenSource/IMKit (~> 5.32.0)
+    - RongCloudIM/IMLib (= 5.32.0)
+    - RongCloudOpenSource/IMKit (= 5.32.0)
     - SDWebImage (= 5.9.0)
     - SVGAPlayer (~> 2.5.7)
     - SVProgressHUD
@@ -109,6 +109,7 @@ PODS:
   - YYKit/no-arc (1.0.9)
 
 DEPENDENCIES:
+  - RongCloudIM/IMLib (= 5.32.0)
   - YstenVideoJackLib (from `../`)
 
 SPEC REPOS:
@@ -146,9 +147,9 @@ SPEC CHECKSUMS:
   SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
   SVGAPlayer: 318b85a78b61292d6ae9dfcd651f3f0d1cdadd86
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
-  YstenVideoJackLib: 048a7dfdc9fc7136b7b4fafc8d371c9b01b1ed69
+  YstenVideoJackLib: 0a21fd26c7807ea01aadedf2f18a4e382293a933
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 944e4fd970e3e6896228fbe49d65436db367aab3
+PODFILE CHECKSUM: 30ea310abeeb39e6378bc2807dd1a74d585624d2
 
 COCOAPODS: 1.16.2

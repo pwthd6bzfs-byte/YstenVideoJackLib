@@ -51,25 +51,26 @@ TODO: Add long description of the pod here.
     'VALID_ARCHS' => 'x86_64 arm64',
     'IPHONEOS_DEPLOYMENT_TARGET' => '12.0'
   }
-  
+
   s.static_framework = true
 
+
   
-  s.dependency 'AFNetworking', '~> 4.0'
-  s.dependency 'YYKit', '1.0.9'
-  s.dependency 'RongCloudIM/IMLib', '~> 5.32.0'
-#  #融云IMKit(含会话列表页面，会话页面，输入工具栏)
-s.dependency 'RongCloudOpenSource/IMKit','~> 5.32.0'
-  s.dependency 'AgoraRtcEngine_iOS', '4.5.0'
-  s.dependency 'SVProgressHUD'
-#  s.dependency 'MBProgressHUD','1.2.0'
+   s.dependency 'AFNetworking', '~> 4.0'
+   s.dependency 'YYKit', '1.0.9'
+   s.dependency 'RongCloudIM/IMLib', '5.32.0'
+# #  #融云IMKit(含会话列表页面，会话页面，输入工具栏)
+ s.dependency 'RongCloudOpenSource/IMKit','5.32.0'
+   s.dependency 'AgoraRtcEngine_iOS', '4.5.0'
+   s.dependency 'SVProgressHUD'
+ #  s.dependency 'MBProgressHUD','1.2.0'
   
-  s.dependency 'Masonry','1.1.0'
+   s.dependency 'Masonry','1.1.0'
   
-  # 图片加载
-  s.dependency 'SDWebImage', '5.9.0'
-  s.dependency 'SVGAPlayer', '~>2.5.7'
-  s.dependency 'Protobuf', '= 3.22.1'
-  s.dependency 'JXCategoryView', '~>1.6.8'
-  s.dependency 'MJRefresh', '3.7.5'
+   #图片加载
+   s.dependency 'SDWebImage', '5.9.0'
+   s.dependency 'SVGAPlayer', '~>2.5.7'
+   s.dependency 'Protobuf', '= 3.22.1'
+   s.dependency 'JXCategoryView', '~>1.6.8'
+   s.dependency 'MJRefresh', '3.7.5'
 end

@@ -1,0 +1,9 @@
+/Users/percent/Desktop/YstenVideoJackLib/Example/Pods/RongCloudIM/RongCloudIM/RCConfig.plist
+/Users/percent/Desktop/YstenVideoJackLib/Example/Pods/RongCloudOpenSource/Resources/RongCloud.bundle
+/Users/percent/Desktop/YstenVideoJackLib/Example/Pods/RongCloudOpenSource/Resources/RongCloudLively.bundle
+/Users/percent/Desktop/YstenVideoJackLib/Example/Pods/RongCloudOpenSource/Resources/en.lproj
+/Users/percent/Desktop/YstenVideoJackLib/Example/Pods/RongCloudOpenSource/Resources/zh-Hans.lproj
+/Users/percent/Desktop/YstenVideoJackLib/Example/Pods/RongCloudOpenSource/Resources/ar.lproj
+/Users/percent/Desktop/YstenVideoJackLib/Example/Pods/RongCloudOpenSource/Resources/Emoji.plist
+/Users/percent/Desktop/YstenVideoJackLib/Example/Pods/RongCloudOpenSource/Resources/RCColor.plist
+/Users/percent/Desktop/YstenVideoJackLib/Example/Pods/RongCloudOpenSource/IMKit/Supporting Files/PrivacyInfo.xcprivacy

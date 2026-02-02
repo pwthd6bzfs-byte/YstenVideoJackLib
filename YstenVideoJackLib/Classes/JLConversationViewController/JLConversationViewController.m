@@ -37,8 +37,6 @@
 #import <RongCloudOpenSource/RongIMKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "UIImage+Add.h"
-#import "UIImage+Add.h"
-
 
 
 @interface JLConversationViewController ()<RCMessageBlockDelegate,RCAlbumListViewControllerDelegate,JLInputContainerViewDelegate,RCVoiceRecordControlDelegate,SVGAPlayerDelegate>
@@ -156,7 +154,6 @@
 
         // 将其添加到父视图
     [self.view addSubview:self.customNaviBarView];
-    self.customNaviBarView.backgroundColor = [UIColor clearColor];
     self.customNaviBarView.clickBackBtnEvent = ^{
         weakSelf.navigationController.navigationBarHidden = NO;
         [weakSelf.navigationController popViewControllerAnimated:YES];
@@ -191,9 +188,6 @@
             return;
         }
         
-//        if ([self sendReferenceMessage:self.chatSessionInputBarControl.inputTextView.text]) {
-//            return;
-//        }
                 
         RCTextMessage *textMessage = [[RCTextMessage alloc] init];;
         textMessage.content = weakSelf.buttomView.contentTxf.text;
@@ -205,7 +199,13 @@
         message.senderUserId = [NSString stringWithFormat:@"%ld",[JLUserService shared].userInfo.userID];
         message.conversationType = ConversationType_PRIVATE;
         
-        
+        JLUserModel *userInfo = [JLUserService shared].userInfo;
+        NSDictionary *dict = @{@"nickName":userInfo.nickName,
+                               @"headFileName":userInfo.headFileName,
+                               @"targetID":[NSString stringWithFormat:@"%ld",userInfo.userID],
+        };
+        message.extra = [dict modelToJSONString];
+
         [[RCIM sharedRCIM] sendMessage:message pushContent:nil pushData:nil successBlock:^(RCMessage * _Nonnull successMessage) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.view endEditing:YES];
@@ -285,6 +285,7 @@
     };
     
     
+    
     // 点击删除表情
     self.emojiView.clickDelEmojiBlock = ^{
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -342,6 +343,8 @@
 
 
 
+
+
 - (void)setupLayouts{
     
     CGFloat conversationViewFrameY = CGRectGetMaxY([UIApplication sharedApplication].statusBarFrame) +
@@ -376,6 +379,21 @@
         make.left.right.mas_equalTo(self.view);
         make.height.equalTo(@300);
     }];
+
+    
+        
+    if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark ) {
+            // 处于深色模式
+        NSLog(@"当前为深色模式");
+            // 在这里更新你的 UI 适配深色模式
+        self.customNaviBarView.backgroundColor = [UIColor clearColor];
+        self.buttomView.contentTxf.textColor = [UIColor blackColor];
+
+    } else {
+            // 处于浅色模式
+        NSLog(@"当前为浅色模式");
+            // 在这里更新你的 UI 适配浅色模式
+    }
 
 }
 
@@ -741,6 +759,9 @@
     } failued:^(NSError * _Nonnull error) {
         [SVProgressHUD dismiss];
         NSLog(@"%@",error);
+        if (error.code == 1) {
+            [SVProgressHUD showImage:nil status:@"Insufficient Balance"];
+        }
     }];
 
 }
@@ -900,9 +921,6 @@
 }
 
 
-
-
-
     /// 结束录制语音消息
 - (void)voiceRecordControl:(RCVoiceRecordControl *)voiceRecordControl
                     didEnd:(NSData *)recordData
@@ -939,7 +957,16 @@
         }else{
             newCell.textLabel.textColor = [UIColor blackColor];
         }
+        
+        JLUserModel *user = [JLUserService shared].userInfo;
+        
+        if ([model.senderUserId isEqualToString:[NSString stringWithFormat:@"%ld",user.userID]]) {
+            UIImage *image= [UIImage jl_name:@"cusotom_normal" class:self];
+            newCell.bubbleBackgroundView.image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(image.size.height * 0.5, image.size.width * 0.5,image.size.height * 0.5, image.size.width * 0.5)];
+                //      更改字体的颜色    }
+        }
     }
+    
 }
 
 
@@ -960,7 +987,7 @@
 - (JLEmojiView *)emojiView{
     if (!_emojiView) {
         JLEmojiView *view = [JLEmojiView new];
-        view.backgroundColor = [UIColor blueColor];
+        view.backgroundColor = [UIColor whiteColor];
         view.hidden = YES;
         _emojiView = view;
     }
@@ -1012,6 +1039,7 @@
     
     if (!_customNaviBarView) {
         CustomNaviBarView *view = [[CustomNaviBarView alloc] init];
+        view.backgroundColor = [UIColor clearColor];
         _customNaviBarView = view;
     }
     return _customNaviBarView;
@@ -1107,7 +1135,7 @@
         NSInteger msgErrorCode = [number integerValue];
         // 1:用户余额不足
         if (msgErrorCode == 1){
-            [SVProgressHUD showImage:nil status:@"Partner offline, try later"];
+            [SVProgressHUD showImage:nil status:@"Insufficient Balance"];
             
                 // 通过 messageUID 获取对应的 message 信息
             RCMessage *blockMessage = [[RCCoreClient sharedCoreClient] getMessageByUId:blockedMessageInfo.blockedMsgUId];

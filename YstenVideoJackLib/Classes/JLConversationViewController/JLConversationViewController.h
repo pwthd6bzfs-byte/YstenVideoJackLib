@@ -5,7 +5,7 @@
 //  Created by percent on 2026/1/5.
 //
 
-#import <RongCloudOpenSource/RCConversationViewController.h>
+#import "RongIMKit.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

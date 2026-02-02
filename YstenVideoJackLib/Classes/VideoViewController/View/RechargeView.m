@@ -79,7 +79,6 @@
     if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeAlertView)]) {
         [[JLIMService shared].delegate showRechargeAlertView];
     }
-
 }
 
 

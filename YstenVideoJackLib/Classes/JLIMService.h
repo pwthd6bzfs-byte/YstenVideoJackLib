@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol JLIMServiceDelegate <NSObject>
 
 
-
 /// 监听接收到融云消息 (客户端使用)
 /// - Parameters:
 ///   - service: service
@@ -35,21 +34,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-
-
-
 /// 监听接收到融云消息 (SDK使用)
 /// - Parameters:
 ///   - service: service
 ///   - message: 融云消息
 - (void)imService:(JLIMService *)service didReceiveMessage:(RCMessage *)message;
 
+
+
 @end
+
 
 @interface JLIMService : NSObject
 
 // 设置代理，接收融云消息
-@property(nonatomic, weak) id<JLIMServiceDelegate> delegate;
+@property (nonatomic, weak) id<JLIMServiceDelegate> delegate;
+
 
 + (instancetype)shared;
 
@@ -58,10 +58,28 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)initSystem;
 
 
-
 // 连接IM服务器
 - (void)initService;
 
+
+
+
+/// 跳转深度聊天
+/// - Parameter UINavigationViewConller: nav
+ - (void)pushChatViewController:(UIViewController *)viewController;
+
+    
+
+    
+    /// 拨打视频通话
+/// - Parameter jlAnchorId: 主播id
+- (void)pushCallVideoViewController:(NSString *)jlAnchorId;
+
+
+
+
+// 获取所有未读消息
+- (void)updateAllUnreadMessages:(nullable void (^)(int unreadCount))completion;
 
 
 /// 融云登出

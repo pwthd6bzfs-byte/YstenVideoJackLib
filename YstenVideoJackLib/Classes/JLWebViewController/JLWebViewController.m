@@ -20,6 +20,7 @@
 #import "JLRTCService.h"
 #import "JLSystemConfigUtil.h"
 #import "JLHeartMatchController.h"
+#import "JLWeakScriptMessageDelegate.h"
 
 @interface JLWebViewController ()<WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler>
 
@@ -32,6 +33,9 @@
 @end
 
 @implementation JLWebViewController
+
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -68,7 +72,7 @@
         // 进度条
         //    [self setupProgressView];
     
-        // 加载web页面
+    // 加载web页面
     [self loadWeb];
 }
 
@@ -86,21 +90,25 @@
 
 - (void)registerMessageHandlers {
         // 注册各种消息处理器
-    [self.userContentController addScriptMessageHandler:self name:@"handleNativeParams"];    // 初始化APP参数
-    [self.userContentController addScriptMessageHandler:self name:@"goHeartMatch"]; // 打开匹配
-    [self.userContentController addScriptMessageHandler:self name:@"showToast"]; // 吐司
-    [self.userContentController addScriptMessageHandler:self name:@"openSettings"]; // 打开设置
-    [self.userContentController addScriptMessageHandler:self name:@"goSubscribeVip"]; //跳转订阅界面
-    [self.userContentController addScriptMessageHandler:self name:@"recommendVideoCall"]; // 推荐通话
-    [self.userContentController addScriptMessageHandler:self name:@"closePage"]; // 关闭界面
-    [self.userContentController addScriptMessageHandler:self name:@"navigateToChat"]; // 跳转聊天
-    [self.userContentController addScriptMessageHandler:self name:@"startVideoCall"]; // 跳转通话
-    [self.userContentController addScriptMessageHandler:self name:@"goNewPageH5"]; // 跳转H5
     
-    [self.userContentController addScriptMessageHandler:self name:@"openNotifications"]; // 通知
-    [self.userContentController addScriptMessageHandler:self name:@"qoToCheckInCenter"]; // 任务中心
+        // 使用 WeakScriptMessageDelegate 避免循环引用
+    JLWeakScriptMessageDelegate *weakDelegate =
+    [[JLWeakScriptMessageDelegate alloc] initWithDelegate:self];
     
     
+    [self.userContentController addScriptMessageHandler:weakDelegate name:@"handleNativeParams"];    // 初始化APP参数
+    [self.userContentController addScriptMessageHandler:weakDelegate name:@"goHeartMatch"]; // 打开匹配
+    [self.userContentController addScriptMessageHandler:weakDelegate name:@"showToast"]; // 吐司
+    [self.userContentController addScriptMessageHandler:weakDelegate name:@"openSettings"]; // 打开设置
+    [self.userContentController addScriptMessageHandler:weakDelegate name:@"goSubscribeVip"]; //跳转订阅界面
+    [self.userContentController addScriptMessageHandler:weakDelegate name:@"recommendVideoCall"]; // 推荐通话
+    [self.userContentController addScriptMessageHandler:weakDelegate name:@"closePage"]; // 关闭界面
+    [self.userContentController addScriptMessageHandler:weakDelegate name:@"navigateToChat"]; // 跳转聊天
+    [self.userContentController addScriptMessageHandler:weakDelegate name:@"startVideoCall"]; // 跳转通话
+    [self.userContentController addScriptMessageHandler:weakDelegate name:@"goNewPageH5"]; // 跳转H5
+    
+    [self.userContentController addScriptMessageHandler:weakDelegate name:@"openNotifications"]; // 通知
+    [self.userContentController addScriptMessageHandler:weakDelegate name:@"qoToCheckInCenter"]; // 任务中心
 }
 
 
@@ -207,7 +215,7 @@
     }
     
     
-        /// 跳转通话
+        /// 跳转私聊
     if ([message.name isEqualToString:@"navigateToChat"]) {
         NSString *jlAnchorId =  message.body[@"jlAnchorId"];
         
@@ -272,36 +280,37 @@
     [self.navigationController.navigationBar addSubview:self.progressView];
     
         // KVO 监听加载进度
-    [self.webView addObserver:self
-                   forKeyPath:@"estimatedProgress"
-                      options:NSKeyValueObservingOptionNew
-                      context:nil];
+//    [self.webView addObserver:self
+//                   forKeyPath:@"estimatedProgress"
+//                      options:NSKeyValueObservingOptionNew
+//                      context:nil];
 }
 
     // KVO 回调
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
-                       context:(void *)context {
-    if ([keyPath isEqualToString:@"estimatedProgress"]) {
-        float progress = [change[NSKeyValueChangeNewKey] floatValue];
-        [self.progressView setProgress:progress animated:YES];
-        
-        if (progress >= 1.0) {
-            [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                self.progressView.alpha = 0;
-            } completion:^(BOOL finished) {
-                [self.progressView setProgress:0 animated:NO];
-            }];
-        } else {
-            self.progressView.alpha = 1.0;
-        }
-    }
-}
+//- (void)observeValueForKeyPath:(NSString *)keyPath
+//                      ofObject:(id)object
+//                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+//                       context:(void *)context {
+//    if ([keyPath isEqualToString:@"estimatedProgress"]) {
+//        float progress = [change[NSKeyValueChangeNewKey] floatValue];
+//        [self.progressView setProgress:progress animated:YES];
+//        
+//        if (progress >= 1.0) {
+//            [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
+//                self.progressView.alpha = 0;
+//            } completion:^(BOOL finished) {
+//                [self.progressView setProgress:0 animated:NO];
+//            }];
+//        } else {
+//            self.progressView.alpha = 1.0;
+//        }
+//    }
+//}
 
     // 记得移除观察者
 - (void)dealloc {
-    [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
+    NSLog(@"JLWebViewController 销毁");
+//    [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
 }
 
 

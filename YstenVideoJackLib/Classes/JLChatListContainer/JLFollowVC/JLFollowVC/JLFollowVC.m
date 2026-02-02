@@ -77,7 +77,7 @@
         [self.tableView reloadData];
         
     } failued:^(NSError * _Nonnull error) {
-        
+        [self.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
     }];
     
@@ -121,7 +121,7 @@
     
     [SVProgressHUD show];
     [JLAPIService getFollowingInfowithWithPage:self.page size:self.size success:^(NSDictionary * _Nonnull result) {
-        
+        self.isReuqest = YES;
         [SVProgressHUD dismiss];
         
         self.page += 1;
@@ -131,6 +131,8 @@
         [self.tableView reloadData];
         
     } failued:^(NSError * _Nonnull error) {
+        self.isReuqest = YES;
+        [self.tableView reloadData];
         [SVProgressHUD dismiss];
     }];
 }
@@ -141,12 +143,10 @@
 - (void)requestFollowData:(NSString *)ID{
     [SVProgressHUD show];
     [JLAPIService cancelFollowWithAnchorID:[ID integerValue] success:^(NSDictionary * _Nonnull result) {
-        self.isReuqest = YES;
         [SVProgressHUD dismiss];
         [self requestData];
          
     } failued:^(NSError * _Nonnull error) {
-        self.isReuqest = YES;
         [SVProgressHUD dismiss];
     }];
 }

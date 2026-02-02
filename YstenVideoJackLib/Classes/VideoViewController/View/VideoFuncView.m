@@ -82,6 +82,9 @@
         NSString *heartbeatMatchFreeTimeString =  heartbeatMatchDict[@"heartbeatMatchFreeTime"];
         self.heartbeatMatchFreeTime = [heartbeatMatchFreeTimeString integerValue];
     }
+    
+    
+    
     return self;
 }
 

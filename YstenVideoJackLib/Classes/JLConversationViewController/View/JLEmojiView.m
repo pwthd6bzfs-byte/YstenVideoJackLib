@@ -121,6 +121,7 @@
         layout.minimumInteritemSpacing = 0.0;
         UICollectionView *view = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
         [view registerClass:[JLEmojiViewCell class] forCellWithReuseIdentifier:@"JLEmojiViewCell"];
+        view.backgroundColor = [UIColor whiteColor];
         view.contentInset = UIEdgeInsetsMake(0, 10, 0, 0);
         view.delegate = self;
         view.dataSource = self;

@@ -26,7 +26,7 @@
 }
 
 
-+ (NSDictionary *)getInfoWithH5String:(NSString *)h5String {
++ (NSString *)getInfoWithH5String:(NSString *)h5String {
     return [[NSUserDefaults standardUserDefaults] objectForKey:h5String];
 }
 

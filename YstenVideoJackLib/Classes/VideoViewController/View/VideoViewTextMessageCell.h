@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <RongCloudOpenSource/RongIMKit.h>
+#import "RongIMKit.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

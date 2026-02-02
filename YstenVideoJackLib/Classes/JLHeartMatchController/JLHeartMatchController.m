@@ -16,8 +16,9 @@
 #import "JLAPIService.h"
 #import "YYKit.h"
 #import "UIImage+Add.h"
+#import <AVFoundation/AVFoundation.h>
 
-@interface JLHeartMatchController ()
+@interface JLHeartMatchController ()<AVAudioPlayerDelegate>
 
 @property (nonatomic, strong) UIImageView *bgImageView;
 @property (nonatomic, strong) NSTimer *timer;
@@ -31,6 +32,12 @@
 @property (nonatomic, strong) UIView *allowedAreaView;
 
 @property (nonatomic, strong) UIButton *navBackBtn;
+
+@property (nonatomic, strong) UILabel *labTitle;
+
+@property (nonatomic, strong) UIButton *musicBtn;
+@property (strong, nonatomic) AVAudioPlayer *audioPlayer;
+
 
 @property (nonatomic, strong) JLHeartMatchModel *model;
 
@@ -87,8 +94,9 @@
     [self createUI];
     [self requestData];
     [self startHeadTimer];
-    
-    
+    [self setupAudioPlayer];
+    [self setupAudioSession];
+
 }
 
 
@@ -96,12 +104,26 @@
     [self.view addSubview:self.bgImageView];
     [self.view addSubview:self.animationView];
     [self.view addSubview:self.navBackBtn];
+    [self.view addSubview:self.labTitle];
+    [self.view addSubview:self.musicBtn];
     
     [self.animationView radAnimation:[UIColor colorWithHexString:@"#FE8990"]];
     
     [self.navBackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(6 + kStatusBarHeight);
         make.left.equalTo(self.view).offset(16);
+        make.size.mas_offset(CGSizeMake(32, 32));
+    }];
+    
+    
+    [self.labTitle mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.navBackBtn);
+        make.centerX.equalTo(self.view);
+    }];
+    
+    [self.musicBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.navBackBtn);
+        make.right.equalTo(self.view).offset(-16);
         make.size.mas_offset(CGSizeMake(32, 32));
     }];
 
@@ -160,6 +182,7 @@
 
 - (void)clickNavBackBtnEvnet{
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self.audioPlayer pause];
         self.navigationController.navigationBarHidden = NO;
         [self.navigationController popViewControllerAnimated:NO];
     });
@@ -169,10 +192,79 @@
 
 - (void)didReceiveMessage{
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self.audioPlayer pause];
+        self.navigationController.navigationBarHidden = NO;
         [self.navigationController popViewControllerAnimated:NO];
     });
 }
 
+
+
+
+- (void)clickMusicBtnEvnet{
+    self.musicBtn.selected = !self.musicBtn.selected;
+    if (self.musicBtn.selected == NO) {
+        [self.audioPlayer play];
+    }else{
+        [self.audioPlayer pause];
+    }
+}
+
+
+- (void)setupAudioPlayer {
+        // 获取本地音频文件路径
+    
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSURL *bundleURL = [bundle URLForResource:@"YstenVideoJackLib" withExtension:@"bundle"];
+    NSBundle *resourceBundle = [NSBundle bundleWithURL:bundleURL];
+
+    NSString *path = [resourceBundle pathForResource:@"jl_music" ofType:@"mp3"];
+    NSURL *audioURL = [NSURL fileURLWithPath:path];
+    
+        // 或者使用网络音频（注意：AVAudioPlayer不支持直接播放网络音频）
+        // NSURL *audioURL = [NSURL URLWithString:@"https://example.com/audio.mp3"];
+    
+    NSError *error = nil;
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioURL error:&error];
+    
+    if (error) {
+        NSLog(@"初始化播放器失败: %@", error.localizedDescription);
+        return;
+    }
+    
+    self.audioPlayer.delegate = self;
+//    self.audioPlayer.enableRate = YES; // 允许调节播放速率
+    self.audioPlayer.numberOfLoops = -1; // 0:不循环，-1:无限循环，n:循环n次
+    
+        // 预加载音频（缓冲）
+    [self.audioPlayer prepareToPlay];
+        // 4. 开始播放
+    [self.audioPlayer play];
+}
+
+
+- (void)setupAudioSession {
+    NSError *error = nil;
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    
+        // 设置类别
+    [audioSession setCategory:AVAudioSessionCategoryPlayback
+                  withOptions:AVAudioSessionCategoryOptionMixWithOthers |
+     AVAudioSessionCategoryOptionDuckOthers
+                        error:&error];
+    
+    if (error) {
+        NSLog(@"❌ 音频会话设置失败: %@", error.localizedDescription);
+    } else {
+        NSLog(@"✅ 音频会话设置成功");
+    }
+    
+        // 激活会话
+    [audioSession setActive:YES error:&error];
+    if (error) {
+        NSLog(@"❌ 激活音频会话失败: %@", error.localizedDescription);
+    }
+}
 
 
 
@@ -295,6 +387,8 @@
 
 - (void)timerFired{
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self.audioPlayer pause];
+        self.navigationController.navigationBarHidden = NO;
         [self.navigationController popViewControllerAnimated:YES];
     });
 }
@@ -346,6 +440,17 @@
         NSLog(@"取消速配发起失败");
     }];
 }
+
+
+    // AVAudioPlayerDelegate 方法
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    NSLog(@"音频播放完成");
+}
+
+- (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error {
+    NSLog(@"解码错误: %@", error.localizedDescription);
+}
+
 
 
 
@@ -411,7 +516,7 @@
     if (!_randomView) {
         UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 56, 56)];
         view.backgroundColor = [UIColor clearColor];
-        view.image = [UIImage jl_name:@"jl_heatMatch" class:self];
+        view.image = [UIImage jl_name:@"jl_heartMatch_head" class:self];
         view.hidden = YES;
         view.layer.cornerRadius = 56/2.0;
         view.layer.masksToBounds = YES;
@@ -424,11 +529,37 @@
 - (UIButton *)navBackBtn{
     if (!_navBackBtn) {
         UIButton *view = [[UIButton alloc] init];
-        [view setImage:[UIImage jl_name:@"navBackBlackIcon" class:self] forState:UIControlStateNormal];
+        [view setImage:[UIImage jl_name:@"jl_navBackBlackIcon" class:self] forState:UIControlStateNormal];
         [view addTarget:self action:@selector(clickNavBackBtnEvnet) forControlEvents:UIControlEventTouchUpInside];
         _navBackBtn = view;
     }
     return  _navBackBtn;
+}
+
+
+- (UIButton *)musicBtn{
+    if (!_musicBtn) {
+        UIButton *view = [[UIButton alloc] init];
+        [view setImage:[UIImage jl_name:@"jl_music" class:self] forState:UIControlStateNormal];
+        [view setImage:[UIImage jl_name:@"jl_music_no" class:self] forState:UIControlStateSelected];
+        [view addTarget:self action:@selector(clickMusicBtnEvnet) forControlEvents:UIControlEventTouchUpInside];
+        _musicBtn = view;
+    }
+    return  _musicBtn;
+}
+
+
+
+- (UILabel *)labTitle {
+    if (!_labTitle) {
+        UILabel *lab = [UILabel new];
+        lab.font = [UIFont boldSystemFontOfSize:17];
+        lab.textColor =  [UIColor blackColor];
+        lab.textAlignment = NSTextAlignmentCenter;
+        lab.text = @"Heartmatch";
+        _labTitle = lab;
+    }
+    return _labTitle;
 }
 
 

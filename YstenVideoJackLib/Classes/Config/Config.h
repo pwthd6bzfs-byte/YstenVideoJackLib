@@ -60,7 +60,24 @@
 
 
     /// 状态栏高度
-#define kStatusBarHeight ([[UIApplication sharedApplication] statusBarFrame].size.height)
+#define kStatusBarHeight ({ \
+CGFloat __height = 0; \
+if (@available(iOS 13.0, *)) { \
+for (UIWindowScene *__scene in UIApplication.sharedApplication.connectedScenes) { \
+if (__scene.activationState == UISceneActivationStateForegroundActive) { \
+__height = CGRectGetHeight(__scene.statusBarManager.statusBarFrame); \
+break; \
+} \
+} \
+if (__height <= 0) { \
+__height = UIApplication.sharedApplication.statusBarFrame.size.height; \
+} \
+} else { \
+__height = UIApplication.sharedApplication.statusBarFrame.size.height; \
+} \
+__height; \
+})
+
 
     // 状态栏高度大于20（热点被连接时/接电话、微信语音等）
 #define STATUS_BAR_BIGGER_THAN_20 ([UIApplication sharedApplication].statusBarFrame.size.height > 20)

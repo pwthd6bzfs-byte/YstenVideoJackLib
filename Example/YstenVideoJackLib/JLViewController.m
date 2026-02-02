@@ -121,17 +121,12 @@
 
 - (void)clickbtn5:(UIButton *)btn{
     
-    
-    JLConversationListVC *vc = [[JLConversationListVC alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-
-        //    if (![JLStorageUtil userToken]){
-        //        [SVProgressHUD showImage:nil status:@"未登录"];
-        //        return;
-        //    }
-        //
-        //    JLHeartMatchController *vc = [[JLHeartMatchController alloc] init];
-        //    [self.navigationController pushViewController:vc animated:YES];
+//    // 跳转深度聊天
+//    [[JLIMService shared] pushChatViewController:self.navigationController];
+//    
+//    
+//    // 拨打视频通话
+//    [[JLIMService shared] pushCallVideoViewController:@"1794345539666542593"];
 }
 
 

@@ -11,7 +11,6 @@
 #import "CustomNaviBarView.h"
 #import "config.h"
 #import <Masonry/Masonry.h>
-#import <Masonry/Masonry.h>
 #import "UIColor+HexColor.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "UIImage+Add.h"

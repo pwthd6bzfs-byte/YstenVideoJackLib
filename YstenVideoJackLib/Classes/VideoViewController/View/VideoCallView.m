@@ -91,7 +91,8 @@
 
     
     [self.explainLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self);
+        make.left.equalTo(self).offset(16);
+        make.right.equalTo(self).offset(-16);
         make.top.equalTo(self.priceLab.mas_bottom).offset(10);
     }];
     
@@ -361,6 +362,7 @@
         view.textColor = [UIColor colorWithHexString:@"#FFFFFF" alpha:0.5];
         view.text = @"Billing begins after the other party accepts; any time less than 1 minute will be billed as 1 minute.";
         view.font = [UIFont systemFontOfSize:14];
+        view.numberOfLines = 2;
         view.textAlignment = UITextAlignmentCenter;
         _explainLab = view;
     }

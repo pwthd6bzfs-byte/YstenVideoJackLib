@@ -444,6 +444,11 @@
             [ws addSvgaUrl:askGiftMessage.giftSvgaUrl];
         } failued:^(NSError * _Nonnull error) {
             [SVProgressHUD dismiss];
+            
+            if (error.code == 1) {
+                [SVProgressHUD showImage:nil status:@"Insufficient Balance"];
+            }
+
             NSLog(@"%@",error);
         }];
     }

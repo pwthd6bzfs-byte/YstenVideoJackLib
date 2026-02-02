@@ -27,14 +27,16 @@ TODO: Add long description of the pod here.
   s.author           = { 'pwthd6bzfs-byte' => '524269669@qq.com' }
   s.source           = { :git => 'https://github.com/pwthd6bzfs-byte/YstenVideoJackLib.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
-
+  s.swift_version = '5.0' # 根据项目实际使用的 Swift 版本调整
   
   s.ios.deployment_target = '13.0'
 
   s.source_files = 'YstenVideoJackLib/Classes/**/*'
   
   s.resource_bundles = {
-    'YstenVideoJackLib' => ['YstenVideoJackLib/Assets/*.png']
+    'YstenVideoJackLib' => [
+    'YstenVideoJackLib/Assets/*.png',
+    'YstenVideoJackLib/Assets/*.mp3']
   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
@@ -54,6 +56,8 @@ TODO: Add long description of the pod here.
   s.dependency 'AgoraRtcEngine_iOS', '~> 4.5.1'
   s.dependency 'SVProgressHUD'
   s.dependency 'Masonry'
+
+  
   
   
    

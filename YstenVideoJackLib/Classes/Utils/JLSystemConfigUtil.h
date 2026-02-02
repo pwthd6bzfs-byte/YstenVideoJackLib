@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSDictionary *)getInfoWithHeartbeatMatchDict:(NSString *)HeartbeatMatchDict;
 
 
-+ (NSDictionary *)getInfoWithH5String:(NSString *)h5String;
++ (NSString *)getInfoWithH5String:(NSString *)h5String;
 
 @end
 

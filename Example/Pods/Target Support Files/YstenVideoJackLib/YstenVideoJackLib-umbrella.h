@@ -56,6 +56,7 @@
 #import "JLIMService.h"
 #import "JLRTCService.h"
 #import "JLUserService.h"
+#import "JLWeakScriptMessageDelegate.h"
 #import "JLWebViewController.h"
 #import "JLCustomMessage.h"
 #import "JLUserModel.h"

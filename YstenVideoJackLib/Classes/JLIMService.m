@@ -10,7 +10,7 @@
 #import "Config/Config.h"
 #import "JLStorageUtil.h"
 #import "JLUserUtil.h"
-#import <RongCloudOpenSource/RongIMKit.h>
+#import "RongIMKit.h"
 #import <RongIMLibCore/RongIMLibCore.h>
 #import "JLCustomMessage.h"
 #import "JLUserService.h"
@@ -20,6 +20,7 @@
 #import "SVProgressHUD.h"
 #import "JLSystemConfigUtil.h"
 #import "VideoViewController.h"
+#import "JLChatListContainer.h"
 #import "NSObject+CurrentViewController.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 
@@ -108,6 +109,7 @@ static JLIMService *shared = nil;
         [ws rongCloundConnect:result[@"data"]];
 //        [SVProgressHUD dismiss];
 //        [SVProgressHUD showImage:nil status:@"融云IM连接成功"];
+        
         JLLog(@"融云IM连接成功");
     } failued:^(NSError * _Nonnull error) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -143,12 +145,18 @@ static JLIMService *shared = nil;
     [RCIM sharedRCIM].enablePersistentUserInfoCache = YES; // 缓存用户信息
     [RCIM sharedRCIM].userInfoDataSource = self; // 用户信息提供者代理
     
-        // IM全局UI及基础配置
+    // IM全局UI及基础配置
+    RCKitConfigCenter.ui.globalConversationAvatarStyle = RC_USER_AVATAR_CYCLE;
+    RCKitConfigCenter.ui.globalMessageAvatarStyle = RC_USER_AVATAR_CYCLE;
     RCKitConfigCenter.font.secondLevel = 15;  // 全局二级文本大小
     RCKitConfigCenter.message.enableEditMessage = NO; // 是否开启消息编辑
-    RCKitConfigCenter.ui.globalConversationAvatarStyle = RC_USER_AVATAR_RECTANGLE;
     
 }
+
+
+
+
+
 
 - (void)rongCloundConnect:(NSString *)rongcloundTonken {
     if(!rongcloundTonken || rongcloundTonken.length == 0 || [rongcloundTonken isKindOfClass:[NSNull class]]) {
@@ -195,6 +203,59 @@ static JLIMService *shared = nil;
 - (void)destroyRonglloudService {
     [[RCIM sharedRCIM] disconnect];
 }
+
+
+
+
+
+
+    // 跳转深度聊天
+- (void)pushChatViewController:(UIViewController *)viewController{
+    JLChatListContainer *vc = [[JLChatListContainer alloc] init];
+    if ([viewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *nav = (UINavigationController *)viewController;
+        [nav pushViewController:vc animated:YES];
+    }
+}
+
+
+
+
+
+    // 拨打视频通话
+- (void)pushCallVideoViewController:(NSString *)jlAnchorId{
+        // 拨打视频
+    [[JLRTCService shared] videoCallWithAnchorID:[jlAnchorId integerValue] success:^(NSString * _Nonnull channel, NSString * _Nonnull token,JLAnchorUserModel * _Nonnull anchorUserInfo) {
+        VideoViewController *controller = [[VideoViewController alloc] init];
+        controller.modalPresentationStyle = 0;
+        controller.channel = channel;
+        controller.token = token;
+        controller.isNeedPush = YES;
+        controller.anchorID = [jlAnchorId integerValue];
+        controller.anchorRtcToken = @"";
+        controller.anchorUserInfo = anchorUserInfo;
+        [[NSObject currentViewController] presentViewController:controller animated:YES completion:nil];
+        
+    } failued:^(NSError * _Nonnull error) {
+        
+    }];
+}
+
+
+
+
+
+    // 获取所有未读消息
+- (void)updateAllUnreadMessages:(nullable void (^)(int unreadCount))completion{
+    [[RCCoreClient sharedCoreClient] getTotalUnreadCountWith:completion];
+}
+
+
+
+
+
+
+
 
     /// 融云登出
 - (void)logout {

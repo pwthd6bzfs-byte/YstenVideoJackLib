@@ -15,6 +15,7 @@
 #import "UIColor+HexColor.h"
 #import <Masonry/Masonry.h>
 #import "UIImage+Add.h"
+#import "YYTextView.h"
 
 
 @interface JLConversationButtomView ()
@@ -282,17 +283,17 @@
 
 
 
-- (UITextField *)contentTxf{
+- (UITextView *)contentTxf{
     if (!_contentTxf) {
-        UITextField *view = [[UITextField alloc] init];
+        UITextView *view = [[UITextView alloc] init];
         view.backgroundColor = [UIColor whiteColor];
         view.layer.cornerRadius = 12;
         view.layer.masksToBounds = YES;
-        view.placeholder = @"Membership is free";
-        view.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-        view.leftViewMode = UITextFieldViewModeAlways;
-        view.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-        view.rightViewMode = UITextFieldViewModeAlways;
+//        view.placeholder = @"Membership is free";
+//        view.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+//        view.leftViewMode = UITextFieldViewModeAlways;
+//        view.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+//        view.rightViewMode = UITextFieldViewModeAlways;
         _contentTxf = view;
     }
     

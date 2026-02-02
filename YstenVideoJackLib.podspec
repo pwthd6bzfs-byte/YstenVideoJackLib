@@ -58,13 +58,10 @@ TODO: Add long description of the pod here.
   s.dependency 'Masonry','~> 1.1.0'
 
   
-  
-  
-   
   # 图片加载
-  s.dependency 'SDWebImage', '~>5.8.2'
+  s.dependency 'SDWebImage', '5.9.0'
   s.dependency 'SVGAPlayer', '~>2.5.7'
   s.dependency 'Protobuf', '= 3.22.1'
   s.dependency 'JXCategoryView', '~>1.6.8'
-  s.dependency 'MJRefresh', '~>3.7.5'
+  s.dependency 'MJRefresh', '3.7.5'
 end

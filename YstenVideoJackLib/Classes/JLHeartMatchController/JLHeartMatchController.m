@@ -17,6 +17,9 @@
 #import "YYKit.h"
 #import "UIImage+Add.h"
 #import <AVFoundation/AVFoundation.h>
+#import "JLAnchorUserModel.h"
+#import <RongCloudOpenSource/RongIMKit.h>
+
 
 @interface JLHeartMatchController ()<AVAudioPlayerDelegate>
 
@@ -40,6 +43,8 @@
 
 
 @property (nonatomic, strong) JLHeartMatchModel *model;
+
+@property (nonatomic, strong) NSMutableArray *iamges;
 
 @property (nonatomic, assign) BOOL isCancel;
 
@@ -96,7 +101,6 @@
     [self startHeadTimer];
     [self setupAudioPlayer];
     [self setupAudioSession];
-
 }
 
 
@@ -307,6 +311,12 @@
     self.randomView.alpha = 1;
     self.randomView.hidden = NO;
     
+    NSInteger count = self.model.anchors.count;
+    int randomNumber = arc4random_uniform(count);
+
+    [self.randomView sd_setImageWithURL:self.iamges[randomNumber] placeholderImage:[UIImage jl_name:@"jl_heartMatch_head" class:self]];
+    
+    
     [self addSubviewAtRandomPosition:self.randomView toView:self.allowedAreaView];
 
     [UIView animateWithDuration:5 animations:^{
@@ -413,6 +423,8 @@
             return;
         }
         
+        [ws dwonImage];
+        
         [ws startTimer];
         
         NSLog(@"发起心动速配成功");
@@ -423,6 +435,48 @@
     }];
 }
 
+
+
+
+
+- (void)dwonImage{
+    
+    Weakself(ws)
+    self.iamges = [[NSMutableArray alloc] init];
+    [[RCCoreClient sharedCoreClient] getUserProfiles:self.model.anchors success:^(NSArray<RCUserProfile *> *userProfiles) {
+        for (int i = 0; i < userProfiles.count; i++) {
+            RCUserProfile *model =  userProfiles[i];
+            [self.iamges addObject:model.portraitUri];
+        }
+        
+    } error:^(RCErrorCode errorCode) {
+            // 获取失败
+    }];
+    
+        
+    [ws downloadImagesWithURLs:self.iamges];
+}
+
+
+- (void)downloadImagesWithURLs:(NSArray<NSString *> *)urlStrings {
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    
+    for (NSString *urlString in urlStrings) {
+        NSURL *url = [NSURL URLWithString:urlString];
+        if (!url) continue;
+        
+        [manager loadImageWithURL:url
+                          options:SDWebImageHighPriority | SDWebImageRetryFailed
+                         progress:nil
+                        completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+            if (image && finished) {
+                NSLog(@"下载完成: %@", imageURL.absoluteString);
+                    // 处理下载完成的图片
+//                [self handleDownloadedImage:image forURL:imageURL];
+            }
+        }];
+    }
+}
 
 
 

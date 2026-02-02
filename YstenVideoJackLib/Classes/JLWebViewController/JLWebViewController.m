@@ -287,6 +287,11 @@
         
     }
     
+    
+    if ([message.name isEqualToString:@"closePage"]) {
+        [self.navigationController popViewControllerAnimated:NO];
+    }
+    
 }
 
 

@@ -428,10 +428,6 @@ enum WARN_CODE_TYPE {
    */
   WARN_ADM_IMPROPER_SETTINGS = 1053,
   /**
-   * 1055: Audio Device Module: The audio device is in a pop state.
-   */
-  WARN_ADM_POP_STATE = 1055,
-  /**
    * 1322: No recording device.
    */
   WARN_ADM_WIN_CORE_NO_RECORDING_DEVICE = 1322,
@@ -1795,19 +1791,19 @@ struct AdvanceOptions {
   */
   bool encodeAlpha;
 
-  AdvanceOptions() : encodingPreference(PREFER_AUTO),
+  AdvanceOptions() : encodingPreference(PREFER_AUTO), 
                      compressionPreference(PREFER_COMPRESSION_AUTO),
                      encodeAlpha(false) {}
 
-  AdvanceOptions(ENCODING_PREFERENCE encoding_preference,
+  AdvanceOptions(ENCODING_PREFERENCE encoding_preference, 
                  COMPRESSION_PREFERENCE compression_preference,
-                 bool encode_alpha) :
+                 bool encode_alpha) : 
                  encodingPreference(encoding_preference),
                  compressionPreference(compression_preference),
                  encodeAlpha(encode_alpha) {}
 
   bool operator==(const AdvanceOptions& rhs) const {
-    return encodingPreference == rhs.encodingPreference &&
+    return encodingPreference == rhs.encodingPreference && 
            compressionPreference == rhs.compressionPreference &&
            encodeAlpha == rhs.encodeAlpha;
   }
@@ -1857,7 +1853,7 @@ enum VIDEO_MODULE_TYPE {
   /** Video render module */
   VIDEO_MODULE_RENDERER = 5,
 };
-
+ 
 enum HDR_CAPABILITY {
   /** The result of static check is not reliable, by defualt*/
   HDR_CAPABILITY_UNKNOWN = -1,
@@ -2705,18 +2701,9 @@ enum AUDIO_SCENARIO_TYPE {
    */
   AUDIO_SCENARIO_MEETING = 8,
   /**
-   * 9: AI Server.
-   * @technical preview 
+   * 9: The number of enumerations.
    */
-  AUDIO_SCENARIO_AI_SERVER = 9,
-  /**
-   * 10: AI Client.
-   */
-  AUDIO_SCENARIO_AI_CLIENT = 10,
-  /**
-   * 11: The number of enumerations.
-   */
-  AUDIO_SCENARIO_NUM = 11,
+  AUDIO_SCENARIO_NUM = 9,
 };
 
 /**
@@ -4302,7 +4289,7 @@ struct LocalAudioMixerConfiguration {
   unsigned int streamCount;
   /**
    * The source of the streams to mixed;
-   */
+   */  
   MixedAudioStream* audioInputStreams;
 
   /**
@@ -4884,18 +4871,18 @@ struct FaceShapeAreaOptions {
     /** Mouth Scale, adjusts the size of mouth. */
     FACE_SHAPE_AREA_MOUTHSCALE = 11,
   };
-
+  
   /** The specific facial area to be adjusted, See #FACE_SHAPE_AREA.
     */
   FACE_SHAPE_AREA shapeArea;
-
+  
   /** The intensity of the pinching effect applied to the specified facial area.
    * For the following area values: #FACE_SHAPE_AREA_FOREHEAD, #FACE_SHAPE_AREA_FACELENGTH, #FACE_SHAPE_AREA_CHIN, #FACE_SHAPE_AREA_NOSELENGTH, #FACE_SHAPE_AREA_NOSEWIDTH, #FACE_SHAPE_AREA_MOUTHSCALE, the value ranges from -100 to 100.
    * The default value is 0. The greater the absolute value, the stronger the intensity applied to the specified facial area, and negative values indicate the opposite direction.
    * For enumeration values other than the above, the value ranges from 0 to 100. The default value is 0. The greater the value, the stronger the intensity applied to the specified facial area.
     */
   int shapeIntensity;
-
+  
   FaceShapeAreaOptions(FACE_SHAPE_AREA shapeArea, int areaIntensity) : shapeArea(shapeArea), shapeIntensity(areaIntensity) {}
 
   FaceShapeAreaOptions() : shapeArea(FACE_SHAPE_AREA_NONE), shapeIntensity(0) {}
@@ -4914,15 +4901,15 @@ struct FaceShapeBeautyOptions {
     /** Male face shape style. */
     FACE_SHAPE_BEAUTY_STYLE_MALE = 1,
   };
-
+  
   /** The face shape style, See #FACE_SHAPE_BEAUTY_STYLE.
     */
   FACE_SHAPE_BEAUTY_STYLE shapeStyle;
-
+  
   /** The intensity of the pinching effect applied to the specified facial style. The value ranges from 0 (original) to 100. The default value is 0. The greater the value, the stronger the intensity applied to face pinching.
     */
   int styleIntensity;
-
+  
   FaceShapeBeautyOptions(FACE_SHAPE_BEAUTY_STYLE shapeStyle, int styleIntensity) : shapeStyle(shapeStyle), styleIntensity(styleIntensity) {}
 
   FaceShapeBeautyOptions() : shapeStyle(FACE_SHAPE_BEAUTY_STYLE_FEMALE), styleIntensity(50) {}
@@ -4948,12 +4935,12 @@ struct FilterEffectOptions {
    * The SDK provides a built-in cube named `built_in_whiten.cube` for whitening. To use this cube, specify the path to `built_in_whiten_filter`
    */
   const char * path;
-
+  
   /**
    * The intensity of specified filter effect. The value ranges from 0.0 to 1.0. The default value is 0.5. The greater the value, the stronger the intensity of the filter.
    */
   float strength;
-
+  
   FilterEffectOptions(const char * lut3dPath, float filterStrength) : path(lut3dPath), strength(filterStrength) {}
 
   FilterEffectOptions() : path(OPTIONAL_NULLPTR), strength(0.5) {}
@@ -5557,51 +5544,9 @@ enum VOICE_AI_TUNER_TYPE {
 };
 
 /**
- * The audio configuration for the shared screen stream.
- */
-struct ScreenAudioParameters {
-  /**
-   * The audio sample rate (Hz). The default value is `48000`.
-   */
-  int sampleRate;
-  /**
-   * The number of audio channels. The default value is `2`, indicating dual channels.
-   */
-  int channels;
-  /**
-   * The volume of the captured system audio. The value range is [0,100]. The default value is
-   * `100`.
-   */
-  int captureSignalVolume;
-
-#if defined(__APPLE__) && !TARGET_OS_IOS
-  bool excludeCurrentProcessAudio = true;
-  ScreenAudioParameters(): sampleRate(48000), channels(2), captureSignalVolume(100) {}
-#else
-  ScreenAudioParameters(): sampleRate(16000), channels(2), captureSignalVolume(100) {}
-#endif
-};
-
-/**
  * Screen sharing configurations.
  */
 struct ScreenCaptureParameters {
-
-  /**
-   * Determines whether to capture system audio during screen sharing:
-   * - `true`: Capture.
-   * - `false`: (Default)  Do not capture.
-   *
-   * **Note**
-   * Due to system limitations, capturing system audio is only available for Android API level 29
-   * and later (that is, Android 10 and later).
-   */
-  bool captureAudio;
-  /**
-   * The audio configuration for the shared screen stream.
-   */
-  ScreenAudioParameters audioParams;
-
   /**
    * On Windows and macOS, it represents the video encoding resolution of the shared screen stream.
    * See `VideoDimensions`. The default value is 1920 x 1080, that is, 2,073,600 pixels. Agora uses
@@ -5671,8 +5616,7 @@ struct ScreenCaptureParameters {
   bool enableHighLight;
 
   ScreenCaptureParameters()
-      : captureAudio(false),
-        dimensions(1920, 1080),
+      : dimensions(1920, 1080),
         frameRate(5),
         bitrate(STANDARD_BITRATE),
         captureMouseCursor(true),
@@ -5683,7 +5627,7 @@ struct ScreenCaptureParameters {
         highLightColor(0),
         enableHighLight(false) {}
   ScreenCaptureParameters(const VideoDimensions& d, int f, int b)
-      : captureAudio(false),dimensions(d),
+      : dimensions(d),
         frameRate(f),
         bitrate(b),
         captureMouseCursor(true),
@@ -5694,8 +5638,7 @@ struct ScreenCaptureParameters {
         highLightColor(0),
         enableHighLight(false) {}
   ScreenCaptureParameters(int width, int height, int f, int b)
-      : captureAudio(false),
-        dimensions(width, height),
+      : dimensions(width, height),
         frameRate(f),
         bitrate(b),
         captureMouseCursor(true),
@@ -5706,8 +5649,7 @@ struct ScreenCaptureParameters {
         highLightColor(0),
         enableHighLight(false) {}
   ScreenCaptureParameters(int width, int height, int f, int b, bool cur, bool fcs)
-      : captureAudio(false),
-        dimensions(width, height),
+      : dimensions(width, height),
         frameRate(f),
         bitrate(b),
         captureMouseCursor(cur),
@@ -5718,8 +5660,7 @@ struct ScreenCaptureParameters {
         highLightColor(0),
         enableHighLight(false) {}
   ScreenCaptureParameters(int width, int height, int f, int b, view_t* ex, int cnt)
-      : captureAudio(false),
-        dimensions(width, height),
+      : dimensions(width, height),
         frameRate(f),
         bitrate(b),
         captureMouseCursor(true),
@@ -5731,8 +5672,7 @@ struct ScreenCaptureParameters {
         enableHighLight(false) {}
   ScreenCaptureParameters(int width, int height, int f, int b, bool cur, bool fcs, view_t* ex,
                           int cnt)
-      : captureAudio(false),
-        dimensions(width, height),
+      : dimensions(width, height),
         frameRate(f),
         bitrate(b),
         captureMouseCursor(cur),
@@ -6585,7 +6525,7 @@ enum THREAD_PRIORITY_TYPE {
   CRITICAL = 5,
 };
 
-#if defined(__ANDROID__) || (defined(__APPLE__) && (TARGET_OS_IOS || (defined(TARGET_OS_VISION) && TARGET_OS_VISION)))
+#if defined(__ANDROID__) || (defined(__APPLE__) && TARGET_OS_IOS)
 
 /**
  * The video configuration for the shared screen stream.
@@ -6635,6 +6575,25 @@ struct ScreenVideoParameters {
   VIDEO_CONTENT_HINT contentHint = VIDEO_CONTENT_HINT::CONTENT_HINT_MOTION;
 
   ScreenVideoParameters() : dimensions(1280, 720) {}
+};
+
+/**
+ * The audio configuration for the shared screen stream.
+ */
+struct ScreenAudioParameters {
+  /**
+   * The audio sample rate (Hz). The default value is `16000`.
+   */
+  int sampleRate = 16000;
+  /**
+   * The number of audio channels. The default value is `2`, indicating dual channels.
+   */
+  int channels = 2;
+  /**
+   * The volume of the captured system audio. The value range is [0,100]. The default value is
+   * `100`.
+   */
+  int captureSignalVolume = 100;
 };
 
 /**

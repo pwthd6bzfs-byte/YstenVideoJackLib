@@ -14,47 +14,47 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
-  - AgoraInfra_iOS (1.3.0)
-  - AgoraRtcEngine_iOS (4.5.2.2):
-    - AgoraRtcEngine_iOS/AIAEC (= 4.5.2.2)
-    - AgoraRtcEngine_iOS/AIAECLL (= 4.5.2.2)
-    - AgoraRtcEngine_iOS/AINS (= 4.5.2.2)
-    - AgoraRtcEngine_iOS/AINSLL (= 4.5.2.2)
-    - AgoraRtcEngine_iOS/AudioBeauty (= 4.5.2.2)
-    - AgoraRtcEngine_iOS/ClearVision (= 4.5.2.2)
-    - AgoraRtcEngine_iOS/ContentInspect (= 4.5.2.2)
-    - AgoraRtcEngine_iOS/FaceCapture (= 4.5.2.2)
-    - AgoraRtcEngine_iOS/FaceDetection (= 4.5.2.2)
-    - AgoraRtcEngine_iOS/LipSync (= 4.5.2.2)
-    - AgoraRtcEngine_iOS/ReplayKit (= 4.5.2.2)
-    - AgoraRtcEngine_iOS/RtcBasic (= 4.5.2.2)
-    - AgoraRtcEngine_iOS/SpatialAudio (= 4.5.2.2)
-    - AgoraRtcEngine_iOS/VideoAv1CodecDec (= 4.5.2.2)
-    - AgoraRtcEngine_iOS/VideoAv1CodecEnc (= 4.5.2.2)
-    - AgoraRtcEngine_iOS/VideoCodecDec (= 4.5.2.2)
-    - AgoraRtcEngine_iOS/VideoCodecEnc (= 4.5.2.2)
-    - AgoraRtcEngine_iOS/VirtualBackground (= 4.5.2.2)
-    - AgoraRtcEngine_iOS/VQA (= 4.5.2.2)
-  - AgoraRtcEngine_iOS/AIAEC (4.5.2.2)
-  - AgoraRtcEngine_iOS/AIAECLL (4.5.2.2)
-  - AgoraRtcEngine_iOS/AINS (4.5.2.2)
-  - AgoraRtcEngine_iOS/AINSLL (4.5.2.2)
-  - AgoraRtcEngine_iOS/AudioBeauty (4.5.2.2)
-  - AgoraRtcEngine_iOS/ClearVision (4.5.2.2)
-  - AgoraRtcEngine_iOS/ContentInspect (4.5.2.2)
-  - AgoraRtcEngine_iOS/FaceCapture (4.5.2.2)
-  - AgoraRtcEngine_iOS/FaceDetection (4.5.2.2)
-  - AgoraRtcEngine_iOS/LipSync (4.5.2.2)
-  - AgoraRtcEngine_iOS/ReplayKit (4.5.2.2)
-  - AgoraRtcEngine_iOS/RtcBasic (4.5.2.2):
-    - AgoraInfra_iOS (= 1.3.0)
-  - AgoraRtcEngine_iOS/SpatialAudio (4.5.2.2)
-  - AgoraRtcEngine_iOS/VideoAv1CodecDec (4.5.2.2)
-  - AgoraRtcEngine_iOS/VideoAv1CodecEnc (4.5.2.2)
-  - AgoraRtcEngine_iOS/VideoCodecDec (4.5.2.2)
-  - AgoraRtcEngine_iOS/VideoCodecEnc (4.5.2.2)
-  - AgoraRtcEngine_iOS/VirtualBackground (4.5.2.2)
-  - AgoraRtcEngine_iOS/VQA (4.5.2.2)
+  - AgoraInfra_iOS (1.2.13)
+  - AgoraRtcEngine_iOS (4.5.0):
+    - AgoraRtcEngine_iOS/AIAEC (= 4.5.0)
+    - AgoraRtcEngine_iOS/AIAECLL (= 4.5.0)
+    - AgoraRtcEngine_iOS/AINS (= 4.5.0)
+    - AgoraRtcEngine_iOS/AINSLL (= 4.5.0)
+    - AgoraRtcEngine_iOS/AudioBeauty (= 4.5.0)
+    - AgoraRtcEngine_iOS/ClearVision (= 4.5.0)
+    - AgoraRtcEngine_iOS/ContentInspect (= 4.5.0)
+    - AgoraRtcEngine_iOS/FaceCapture (= 4.5.0)
+    - AgoraRtcEngine_iOS/FaceDetection (= 4.5.0)
+    - AgoraRtcEngine_iOS/LipSync (= 4.5.0)
+    - AgoraRtcEngine_iOS/ReplayKit (= 4.5.0)
+    - AgoraRtcEngine_iOS/RtcBasic (= 4.5.0)
+    - AgoraRtcEngine_iOS/SpatialAudio (= 4.5.0)
+    - AgoraRtcEngine_iOS/VideoAv1CodecDec (= 4.5.0)
+    - AgoraRtcEngine_iOS/VideoAv1CodecEnc (= 4.5.0)
+    - AgoraRtcEngine_iOS/VideoCodecDec (= 4.5.0)
+    - AgoraRtcEngine_iOS/VideoCodecEnc (= 4.5.0)
+    - AgoraRtcEngine_iOS/VirtualBackground (= 4.5.0)
+    - AgoraRtcEngine_iOS/VQA (= 4.5.0)
+  - AgoraRtcEngine_iOS/AIAEC (4.5.0)
+  - AgoraRtcEngine_iOS/AIAECLL (4.5.0)
+  - AgoraRtcEngine_iOS/AINS (4.5.0)
+  - AgoraRtcEngine_iOS/AINSLL (4.5.0)
+  - AgoraRtcEngine_iOS/AudioBeauty (4.5.0)
+  - AgoraRtcEngine_iOS/ClearVision (4.5.0)
+  - AgoraRtcEngine_iOS/ContentInspect (4.5.0)
+  - AgoraRtcEngine_iOS/FaceCapture (4.5.0)
+  - AgoraRtcEngine_iOS/FaceDetection (4.5.0)
+  - AgoraRtcEngine_iOS/LipSync (4.5.0)
+  - AgoraRtcEngine_iOS/ReplayKit (4.5.0)
+  - AgoraRtcEngine_iOS/RtcBasic (4.5.0):
+    - AgoraInfra_iOS (= 1.2.13)
+  - AgoraRtcEngine_iOS/SpatialAudio (4.5.0)
+  - AgoraRtcEngine_iOS/VideoAv1CodecDec (4.5.0)
+  - AgoraRtcEngine_iOS/VideoAv1CodecEnc (4.5.0)
+  - AgoraRtcEngine_iOS/VideoCodecDec (4.5.0)
+  - AgoraRtcEngine_iOS/VideoCodecEnc (4.5.0)
+  - AgoraRtcEngine_iOS/VirtualBackground (4.5.0)
+  - AgoraRtcEngine_iOS/VQA (4.5.0)
   - JXCategoryView (1.6.8)
   - Masonry (1.1.0)
   - MJRefresh (3.7.5)
@@ -91,11 +91,11 @@ PODS:
   - SVProgressHUD (2.3.1):
     - SVProgressHUD/Core (= 2.3.1)
   - SVProgressHUD/Core (2.3.1)
-  - YstenVideoJackLib (0.4.3):
+  - YstenVideoJackLib (0.4.4):
     - AFNetworking (~> 4.0)
-    - AgoraRtcEngine_iOS (~> 4.5.1)
+    - AgoraRtcEngine_iOS (= 4.5.0)
     - JXCategoryView (~> 1.6.8)
-    - Masonry (~> 1.1.0)
+    - Masonry (= 1.1.0)
     - MJRefresh (= 3.7.5)
     - Protobuf (= 3.22.1)
     - RongCloudIM/IMLib (~> 5.32.0)
@@ -134,8 +134,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
-  AgoraInfra_iOS: bfbe01cc1cbc8cdd6fa2cba50393e621fd859c6b
-  AgoraRtcEngine_iOS: d45386f1c614f756234f9299658790c7595bf2f8
+  AgoraInfra_iOS: 65e11a2183ab7836258768868d06058c22701b13
+  AgoraRtcEngine_iOS: 38b5e0a49bbad5616f284e6a4f9e4f5bb3fb3b2e
   JXCategoryView: 262d503acea0b1278c79a1c25b7332ffaef4d518
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
@@ -146,9 +146,9 @@ SPEC CHECKSUMS:
   SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
   SVGAPlayer: 318b85a78b61292d6ae9dfcd651f3f0d1cdadd86
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
-  YstenVideoJackLib: aa69056e3bbdc27566b38e0c160664841414130b
+  YstenVideoJackLib: 048a7dfdc9fc7136b7b4fafc8d371c9b01b1ed69
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 584b40b9ae650a94fd9e9e72de702e420a136645
+PODFILE CHECKSUM: 944e4fd970e3e6896228fbe49d65436db367aab3
 
 COCOAPODS: 1.16.2

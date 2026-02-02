@@ -1318,14 +1318,7 @@ typedef NS_ENUM(NSInteger, AgoraAudioScenario) {
     /** Chorus */
     AgoraAudioScenarioChorus = 7,
     /** Meeting */
-    AgoraAudioScenarioMeeting = 8,
-    /** AI Server
-     * @technical preview
-     */
-    AgoraAudioScenarioAIServer = 9,
-    /** AI Client
-     */
-    AgoraAudioScenarioAiClient = 10
+    AgoraAudioScenarioMeeting = 8
 };
 
 /**
@@ -3149,10 +3142,6 @@ typedef NS_ENUM(NSInteger, AgoraMediaPlayerEvent) {
   AgoraMediaPlayerEventTryOpenSucceed = 17,
   /** Triggered when retrying to open media fails*/
   AgoraMediaPlayerEventTryOpenFailed = 18,
-  /** Triggered when an http redirect occurs
-   * @technical preview 
-  */
-  AgoraMediaPlayerEventHttpRedirect = 19,
 };
 
 /**

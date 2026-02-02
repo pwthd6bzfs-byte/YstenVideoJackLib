@@ -189,7 +189,7 @@ __attribute__((visibility("default"))) @interface AgoraRte : NSObject
  * @since v4.4.0
  * @param error AgoraRteError object may return the following AgoraRteErrorCode
  *   - AgoraRteOk: Success
- *   - AgoraRteErrorInvalidOperation: The corresponding internal AgoraRte object has already been destroyed or is invalid.
+ *   - AgoraRteErrorInvalidOperation: The corresponding internal AgoraRte object has been destroyed or is invalid.
  * @return BOOL Returns the result of destroying the AgoraRte object.
  *   - YES: Successfully destroyed
  *   - NO: Failed to destroy

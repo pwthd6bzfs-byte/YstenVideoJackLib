@@ -41,9 +41,6 @@ __attribute__((visibility("default"))) @interface AgoraRtePlayerObserver : NSObj
 /** 
  * Playback position change callback.
  * @since v4.4.0
- * @param currentTime Current playback progress (milisecond).
- * @param utcTime Current playback progress (milisecond).
- * @return void
  */
 - (void)onPositionChanged:(uint64_t)currentTime utcTime:(uint64_t)utcTime;
 
@@ -87,9 +84,9 @@ __attribute__((visibility("default"))) @interface AgoraRtePlayerObserver : NSObj
 - (void)onPlayerInfoUpdated:(AgoraRtePlayerInfo * _Nonnull)info;
 
 /**
- * Update player current volume.
+ * broadcaster audio volume update callback.
  * @since v4.4.0
- * @param volume The current volume of the player. The value range is [0, 255].
+ * @param volume The current volume of the broadcaster. The value range is [0, 255].
  * @return void
  */
 - (void)onAudioVolumeIndication:(int32_t)volume;

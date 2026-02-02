@@ -812,7 +812,7 @@ enum CLOUD_PROXY_TYPE {
 /** Camera capturer configuration.*/
 struct CameraCapturerConfiguration {
   /** Camera direction settings (for Android/iOS only). See: #CAMERA_DIRECTION. */
-#if defined(__ANDROID__) || (defined(__APPLE__) && (TARGET_OS_IOS || (defined(TARGET_OS_VISION) && TARGET_OS_VISION)))
+#if defined(__ANDROID__) || (defined(__APPLE__) && TARGET_OS_IOS)
   /**
    * The camera direction.
    */
@@ -1089,13 +1089,6 @@ struct ChannelMediaOptions {
    */
   Optional<bool> publishMicrophoneTrack;
 
-  /**
-   * Whether to publish the audio track of the screen capturer:
-   * - `true`: Publish the video audio of the screen capturer.
-   * - `false`: (Default) Do not publish the audio track of the screen capturer.
-   */
-  Optional<bool> publishScreenCaptureAudio;
-
   #if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
   /**
    * Whether to publish the video track of the screen capturer:
@@ -1103,6 +1096,12 @@ struct ChannelMediaOptions {
    * - `false`: (Default) Do not publish the video track of the screen capture.
    */
   Optional<bool> publishScreenCaptureVideo;
+  /**
+   * Whether to publish the audio track of the screen capturer:
+   * - `true`: Publish the video audio of the screen capturer.
+   * - `false`: (Default) Do not publish the audio track of the screen capturer.
+   */
+  Optional<bool> publishScreenCaptureAudio;
   #else
   /**
    * Whether to publish the captured video from the screen:
@@ -1293,9 +1292,9 @@ struct ChannelMediaOptions {
       SET_FROM(publishThirdCameraTrack);
       SET_FROM(publishFourthCameraTrack);      
       SET_FROM(publishMicrophoneTrack);
-      SET_FROM(publishScreenCaptureAudio);
 #if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
       SET_FROM(publishScreenCaptureVideo);
+      SET_FROM(publishScreenCaptureAudio);
 #else
       SET_FROM(publishScreenTrack);
       SET_FROM(publishSecondaryScreenTrack);
@@ -1342,9 +1341,9 @@ struct ChannelMediaOptions {
       ADD_COMPARE(publishThirdCameraTrack);
       ADD_COMPARE(publishFourthCameraTrack);
       ADD_COMPARE(publishMicrophoneTrack);
-      ADD_COMPARE(publishScreenCaptureAudio);
 #if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
       ADD_COMPARE(publishScreenCaptureVideo);
+      ADD_COMPARE(publishScreenCaptureAudio);
 #else
       ADD_COMPARE(publishScreenTrack);
       ADD_COMPARE(publishSecondaryScreenTrack);
@@ -1394,9 +1393,9 @@ struct ChannelMediaOptions {
         REPLACE_BY(publishThirdCameraTrack);
         REPLACE_BY(publishFourthCameraTrack);
         REPLACE_BY(publishMicrophoneTrack);
-        REPLACE_BY(publishScreenCaptureAudio);
 #if defined(__ANDROID__) || (defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE)
         REPLACE_BY(publishScreenCaptureVideo);
+        REPLACE_BY(publishScreenCaptureAudio);
 #else
         REPLACE_BY(publishScreenTrack);
         REPLACE_BY(publishSecondaryScreenTrack);
@@ -2123,7 +2122,7 @@ class IRtcEngineEventHandler {
     (void)width;
     (void)height;
   }
-#if defined(__ANDROID__) || (defined(__APPLE__) && (TARGET_OS_IOS || (defined(TARGET_OS_VISION) && TARGET_OS_VISION)))
+#if defined(__ANDROID__) || (defined(__APPLE__) && TARGET_OS_IOS)
   /**
    * Reports the face detection result of the local user.
    *
@@ -4009,7 +4008,7 @@ class IRtcEngine : public agora::base::IEngineBase {
   */
   virtual int stopEchoTest() = 0;
 
-#if defined(__APPLE__) && (TARGET_OS_IOS || (defined(TARGET_OS_VISION) && TARGET_OS_VISION))
+#if defined(__APPLE__) && TARGET_OS_IOS
   /** Enables the SDK use AVCaptureMultiCamSession or AVCaptureSession. Applies to iOS 13.0+ only.
    * @param enabled Whether to enable multi-camera when capturing video:
    * - true: Enable multi-camera, and the SDK uses AVCaptureMultiCamSession.
@@ -6707,9 +6706,7 @@ class IRtcEngine : public agora::base::IEngineBase {
    */
   virtual int destroyCustomEncodedVideoTrack(video_track_id_t video_track_id) = 0;
 
-
-#if defined(__ANDROID__) || (defined(__APPLE__) && (TARGET_OS_IOS || (defined(TARGET_OS_VISION) && TARGET_OS_VISION)))
-
+#if defined(__ANDROID__) || (defined(__APPLE__) && TARGET_OS_IOS)
   /**
    * Switches between front and rear cameras.
    *
@@ -6985,7 +6982,7 @@ class IRtcEngine : public agora::base::IEngineBase {
    */
   virtual int setRouteInCommunicationMode(int route) = 0;
 
-#endif  // __ANDROID__ || (__APPLE__ && (TARGET_OS_IOS || (defined(TARGET_OS_VISION) && TARGET_OS_VISION)))
+#endif  // __ANDROID__ || (__APPLE__ && TARGET_OS_IOS)
 
 #if defined(__APPLE__)
   /**
@@ -7021,7 +7018,7 @@ class IRtcEngine : public agora::base::IEngineBase {
     */
   virtual IScreenCaptureSourceList* getScreenCaptureSources(const SIZE& thumbSize, const SIZE& iconSize, const bool includeScreen) = 0;
 #endif // _WIN32 || (__APPLE__ && !TARGET_OS_IPHONE && TARGET_OS_MAC)
-#if (defined(__APPLE__) && (TARGET_OS_IOS || (defined(TARGET_OS_VISION) && TARGET_OS_VISION)))
+#if (defined(__APPLE__) && TARGET_OS_IOS)
   /** Sets the operational permission of the SDK on the audio session.
    *
    * The SDK and the app can both configure the audio session by default. If
@@ -7047,7 +7044,7 @@ class IRtcEngine : public agora::base::IEngineBase {
    * - < 0: Failure.
    */
   virtual int setAudioSessionOperationRestriction(AUDIO_SESSION_OPERATION_RESTRICTION restriction) = 0;
-#endif // __APPLE__ && (TARGET_OS_IOS || (defined(TARGET_OS_VISION) && TARGET_OS_VISION))
+#endif // __APPLE__ && TARGET_OS_IOS
 
 #if defined(_WIN32) || (defined(__APPLE__) && !TARGET_OS_IPHONE && TARGET_OS_MAC)
 
@@ -7188,7 +7185,7 @@ class IRtcEngine : public agora::base::IEngineBase {
   virtual int updateScreenCaptureParameters(const ScreenCaptureParameters& captureParams) = 0;
 #endif // _WIN32 || (__APPLE__ && !TARGET_OS_IPHONE && TARGET_OS_MAC)
 
-#if defined(__ANDROID__) || (defined(__APPLE__) && (TARGET_OS_IOS || (defined(TARGET_OS_VISION) && TARGET_OS_VISION)))
+#if defined(__ANDROID__) || (defined(__APPLE__) && TARGET_OS_IOS)
   /**
    * Starts screen sharing.
    *

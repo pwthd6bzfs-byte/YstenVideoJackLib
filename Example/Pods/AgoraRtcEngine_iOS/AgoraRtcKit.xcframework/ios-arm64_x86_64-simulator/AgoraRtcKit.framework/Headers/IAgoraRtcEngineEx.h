@@ -2062,15 +2062,6 @@ public:
      * @technical preview
     */
     virtual int sendAudioMetadataEx(const RtcConnection& connection, const char* metadata, size_t length) = 0;
-
-    /**
-     * @brief enable or disable video image source to replace the current video source published or resume it
-     *
-     * @param connection The RtcConnection object.
-     * @param enable true for enable, false for disable
-     * @param options options for image track
-     */
-    virtual int enableVideoImageSourceEx(bool enable, const ImageTrackOptions& options, const RtcConnection& connection) = 0;
 };
 
 }  // namespace rtc

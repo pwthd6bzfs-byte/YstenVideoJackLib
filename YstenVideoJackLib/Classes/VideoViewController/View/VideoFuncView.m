@@ -57,7 +57,6 @@
 // 心动速配明细提示
 @property (nonatomic, strong) HeartMatchExplainView *heartMatchExplainView;
 
-
 @property (nonatomic, strong) NSTimer *timer;
 
 

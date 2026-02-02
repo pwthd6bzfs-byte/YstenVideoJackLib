@@ -114,7 +114,8 @@
     [rechargeBtn addSubview:labMoney];
     
     UIImageView *iconArrowView = [[UIImageView alloc] init];
-    iconArrowView.image = [UIImage jl_name:@"jl_arrow" class:self];
+//    iconArrowView.image = [UIImage jl_name:@"jl_arrow" class:self];
+    iconArrowView.image = [UIImage jl_name:@"" class:self];
     [rechargeBtn addSubview:iconArrowView];
     
     UIView *vline = [[UIView alloc] init];

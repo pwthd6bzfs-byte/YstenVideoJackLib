@@ -614,57 +614,6 @@ struct RemoteAudioTrackStats {
    */
   int32_t downlink_effect_type;
 
-  /**
-   * The total duration of the remote audio stream.
-   */
-  int32_t total_stream_duration;
-  
-  /**
-   * The total duration of the remote audio frame.
-   */
-  int32_t total_frame_duration;
-
-  /**
-   * The duration of the bad network.
-   */
-  int32_t bad_network_duration;
-  
-  /**
-   * The total number of in-order packets.
-   */
-  int32_t total_inorder_packet_num;
-
-  /**
-   * The total number of out-of-order packets.
-   */
-  int32_t total_unorder_packet_num;
-
-  /**
-   * The total number of received packets.
-   */
-  int32_t tota_recv_packets_num;
-
-  /**
-   * The time elapse after the last received packet.
-   */
-  int32_t last_packet_recv_elapse;
-
-  /**
-   * The codec type of the remote audio stream.
-   */
-  int32_t codec_type;
-
-  /**
-   * The length of time in milliseconds represented by the media in a packet 
-   * of the remote audio stream.
-   */
-  uint32_t p_time;
-
-  /**
-   * Whether the remote audio stream dtx feature is enabled.
-   */
-  bool recv_dtx_enabled;
-  
   RemoteAudioTrackStats() :
     uid(0),
     quality(0),
@@ -711,17 +660,7 @@ struct RemoteAudioTrackStats {
     new_e2e_delay_ms(0),
     qoe_quality(0),
     quality_changed_reason(0),
-    downlink_effect_type(0),
-    total_stream_duration(0),
-    total_frame_duration(0),
-    bad_network_duration(0),
-    total_inorder_packet_num(0),
-    total_unorder_packet_num(0),
-    tota_recv_packets_num(0),
-    last_packet_recv_elapse(0),
-    codec_type(AUDIO_CODEC_OPUS),
-    p_time(0),
-    recv_dtx_enabled(false) {}
+    downlink_effect_type(0) {}
 };
 
 
@@ -943,15 +882,6 @@ class IRemoteAudioTrack : public IAudioTrack {
    - < 0: Failure.
    */
   virtual int adjustAudioDeceleration(int percentage, aosl_ref_t ares = AOSL_REF_INVALID) = 0;  
-
-  /** enable audio fast acceleration during audio packets burst arrival.
-
-   @param enable Whether to enable audio burst acceleration.
-   @return
-   - 0: Success.
-   - < 0: Failure.
-   */
-  virtual int enableAudioBurstAccelerate(bool enable, aosl_ref_t ares = AOSL_REF_INVALID) = 0;
 
   /** enable spatial audio
    

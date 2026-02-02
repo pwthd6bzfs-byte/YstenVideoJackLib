@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'YstenVideoJackLib'
-  s.version          = '0.4.3'
+  s.version          = '0.4.4'
   s.summary          = 'A short description of YstenVideoJackLib.'
 
 # This description is used to generate tags and improve search results.
@@ -43,8 +43,15 @@ TODO: Add long description of the pod here.
    s.frameworks = 'UIKit', 'MapKit'
 
   # 排除 arm64 模拟器架构
-  s.pod_target_xcconfig = { 'VALID_ARCHS' => 'x86_64 armv7 armv7s arm64' }
+#  s.pod_target_xcconfig = { 'VALID_ARCHS' => 'x86_64 armv7 armv7s arm64' }
 #  s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
+
+  s.pod_target_xcconfig = {
+    'ARCHS' => 'x86_64 arm64',
+    'VALID_ARCHS' => 'x86_64 arm64',
+    'IPHONEOS_DEPLOYMENT_TARGET' => '12.0'
+  }
+  
   s.static_framework = true
 
   
@@ -52,11 +59,12 @@ TODO: Add long description of the pod here.
   s.dependency 'YYKit', '1.0.9'
   s.dependency 'RongCloudIM/IMLib', '~> 5.32.0'
 #  #融云IMKit(含会话列表页面，会话页面，输入工具栏)
-  s.dependency 'RongCloudOpenSource/IMKit','~> 5.32.0'
-  s.dependency 'AgoraRtcEngine_iOS', '~> 4.5.1'
+s.dependency 'RongCloudOpenSource/IMKit','~> 5.32.0'
+  s.dependency 'AgoraRtcEngine_iOS', '4.5.0'
   s.dependency 'SVProgressHUD'
-  s.dependency 'Masonry','~> 1.1.0'
-
+#  s.dependency 'MBProgressHUD','1.2.0'
+  
+  s.dependency 'Masonry','1.1.0'
   
   # 图片加载
   s.dependency 'SDWebImage', '5.9.0'

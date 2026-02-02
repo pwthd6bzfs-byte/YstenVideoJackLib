@@ -18,7 +18,7 @@ typedef NS_ENUM(NSUInteger, AgoraRtePlayerState) {
    */
   AgoraRtePlayerStateOpenCompleted = 2,
   /**
-   * 3: Playing state. This state is notified when the url source is playing.
+   * 3: Playing state. This state is notified when audience members successfully subscribe to the broadcaster after opening an RTE URL.
    */
   AgoraRtePlayerStatePlaying = 3,
   /**
@@ -26,7 +26,7 @@ typedef NS_ENUM(NSUInteger, AgoraRtePlayerState) {
    */
   AgoraRtePlayerStatePaused = 4,
   /**
-   * Playback completed state. This state is notified when the url source playback completed
+   * Playback completed state. This state is notified when the broadcaster stops streaming and leaves the live streaming room after playing the rte URL
    */
   AgoraRtePlayerStatePlaybackCompleted = 5,
   /**
@@ -87,47 +87,7 @@ typedef NS_ENUM(NSUInteger, AgoraRtePlayerEvent) {
   /**
    * 10: ABR recovers from audio-only layer to video layer when fallback option is enabled.
    */
-  AgoraRtePlayerEventAbrRecoverFromAudioOnlyLayer = 10,
-  /**
-   * 11: Start switching to a new URL.
-   */
-  AgoraRtePlayerEventSwitchBegin = 11,
-   /**
-   * 12: Switching to a new URL completes.
-   */
-  AgoraRtePlayerEventSwitchComplete = 12,
-  /**
-   * 13: An error occurs when switching to a new URL.
-   */
-  AgoraRtePlayerEventSwitchError = 13,
-  /**
-   * 14: The first frame of the video is displayed.
-   */
-  AgoraRtePlayerEventFirstDisplayed = 14,
-  /**
-   * 15: The number of cached files reaches the maximum.
-   */
-  AgoraRtePlayerEventReachCacheFileMaxCount = 15,
-  /**
-   * 16: The size of the cached file reaches the maximum.
-   */
-  AgoraRtePlayerEventReachCacheFileMaxSize = 16,
-  /**
-   * 17: Start trying to open a new URL.
-   */
-  AgoraRtePlayerEventTryOpenStart = 17,
-  /**
-   * 18: Trying to open a new URL succeeds.
-   */
-  AgoraRtePlayerEventTryOpenSucceed = 18,
-  /**
-   * 19: Trying to open a new URL fails.
-   */
-  AgoraRtePlayerEventTryOpenFailed = 19,
-  /**
-   * 20: Audio track changed.
-   */
-  AgoraRtePlayerEventAudioTrackChanged = 20
+  AgoraRtePlayerEventAbrRecoverFromAudioOnlyLayer = 10
 };
 
 /**

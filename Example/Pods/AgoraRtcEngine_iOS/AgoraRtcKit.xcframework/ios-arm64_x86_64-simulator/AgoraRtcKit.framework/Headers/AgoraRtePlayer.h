@@ -57,24 +57,7 @@ __attribute__((visibility("default"))) @interface AgoraRtePlayerConfig : NSObjec
  */
 - (BOOL)autoPlay:(AgoraRteError * _Nullable)error;
 
-/**
- * Set the playback speed parameter.
- * @since v4.5.1
- * @note You can call this method after calling [AgoraRtePlayer openWithUrl:startTime:cb:].
- * @param speed  The playback speed. The value range is [50,400].
- * @param error AgoraRteError object may return the following AgoraRteErrorCode
- *  - AgoraRteOk: Success
- * - AgoraRteErrorInvalidArgument: The speed parameter is set to an illegal value.
- */
 - (void)setPlaybackSpeed:(int32_t)speed error:(AgoraRteError * _Nullable)error;
-
-/**
- * Get the playback speed parameter.
- * @since v4.5.1
- * @param error AgoraRteError object may return the following AgoraRteErrorCode
- *  - AgoraRteOk: Success
- * @return int32_t The value of playback speed.
- */
 - (int32_t)playbackSpeed:(AgoraRteError * _Nullable)error;
 
 - (void)setPlayoutAudioTrackIdx:(int)idx error:(AgoraRteError * _Nullable)error;
@@ -95,24 +78,7 @@ __attribute__((visibility("default"))) @interface AgoraRtePlayerConfig : NSObjec
 - (void)setAudioPitch:(int32_t)pitch error:(AgoraRteError * _Nullable)error;
 - (int32_t)audioPitch:(AgoraRteError * _Nullable)error;
 
-/**
- * Set the playout volume parameter.
- * @since v4.5.1
- * @param volume The volume value to be set. The value range is [0, 400].
- * @param error AgoraRteError object may return the following AgoraRteErrorCode
- *  - AgoraRteOk: Success  
- *  - AgoraRteErrorInvalidArgument: The volume parameter is set to an illegal value.
- * return void
- */
 - (void)setPlayoutVolume:(int32_t)volume error:(AgoraRteError * _Nullable)error;
-
-/**
- * Get the playout volume parameter.
- * @since v4.5.1
- * @param error AgoraRteError object may return the following AgoraRteErrorCode
- * - AgoraRteOk: Success
- * @return int32_t The volume value of the player.
- */
 - (int32_t)playoutVolume:(AgoraRteError * _Nullable)error;
 
 - (void)setAudioPlaybackDelay:(int32_t)delay error:(AgoraRteError * _Nullable)error;
@@ -124,27 +90,7 @@ __attribute__((visibility("default"))) @interface AgoraRtePlayerConfig : NSObjec
 - (void)setPublishVolume:(int32_t)volume error:(AgoraRteError * _Nullable)error;
 - (int32_t)publishVolume:(AgoraRteError * _Nullable)error;
 
-/**
- * Set the loop count parameter.
- * @since v4.5.1
- * @param count The number of times looping the media file.
- *   - 1: Play the media file once.
- *   - 2: Play the media file twice.
- *   - -1: Play the media file in a loop indefinitely, until stop() is called.
- * @param error AgoraRteError object may return the following AgoraRteErrorCode
- *  - AgoraRteOk: Success
- *  - AgoraRteErrorInvalidArgument: Indicates that the count parameter is set to an illegal value.
- * @return void
- */
 - (void)setLoopCount:(int32_t)count error:(AgoraRteError * _Nullable)error;
-
-/**
- * Get the loop count parameter.
- * @since v4.5.1
- * @param error AgoraRteError object may return the following AgoraRteErrorCode
- *  - AgoraRteOk: Success
- * @return int32_t The number of times looping the media file.
- */
 - (int32_t)loopCount:(AgoraRteError * _Nullable)error;
 
 /**
@@ -256,75 +202,52 @@ __attribute__((visibility("default"))) @interface AgoraRtePlayerInfo : NSObject
 - (int)state;
 
 /**
- * @brief Get the duration time of the current media source.
- * @since v4.5.1
- * @note This is valid when playing local media files or on-demand streams.
- * @return The duration time of the current media source, in milliseconds.
+ * Reserved parameter.
  */
 - (long)duration;
 
 /**
- * Stream count. This field is only valid when opening a non-RTE URL.
+ * Reserved parameter.
  */
 - (int)streamCount;
 
-/** 
- * Whether there is an audio stream. Indicates whether the url source contains the audio stream.
- * - YES: The url source contains the audio stream.
- * - NO: The url source does not contain the audio stream.
+/**
+ * Whether there is an audio stream. When opening an rte URL, it indicates whether the broadcaster has pushed audio.
  */
 - (BOOL)hasAudio;
 
-/** 
- * Whether there is a video stream. Indicates whether the url source contains the video stream.
- * - YES: The url source contains the video stream.
- * - NO: The url source does not contain the video stream.
+/**
+ * Whether there is a video stream. When opening an rte URL, it indicates whether the broadcaster has pushed video.
  */
 - (BOOL)hasVideo;
 
 /**
- * @brief Whether player stops receiving the audio stream.
- * @since v4.4.0
- * @details Indicates whether the player stops receiving the audio stream.
- * @return bool Whether player stops receiving the audio stream.
- *  - YES: Stop receiving the audio stream.
- *  - NO: Continue receiving the audio stream.
+ * Whether the audio is muted. Indicates whether the audience has subscribed to the audio stream.
  */
 - (BOOL)isAudioMuted;
 
-  /**
-   * @brief Whether player stops receiving the video stream.
-   * @since v4.4.0
-   * @details Indicates whether the player stops receiving the video stream.
-   * @return bool Whether player stops receiving the video stream.
-   *  - YES: Stop receiving the video stream.
-   *  - NO: Continue receiving the video stream.
-   */
+/**
+ * Whether the video is muted. Indicates whether the audience has subscribed to the video stream.
+ */
 - (BOOL)isVideoMuted;
 
 /**
- * @brief Get the video resolution height.
- * @since v4.5.1
- * @return The video resolution height, in pixels.
+ * Video resolution height
  */
 - (int)videoHeight;
 
 /**
- * @brief Get the video resolution width.
- * @since v4.5.1
- * @return The video resolution width, in pixels.
+ * Video resolution width
  */
 - (int)videoWidth;
 
 /**
- * The currently subscribed video layer. This field is only valid when you open an RTE URL.
+ * The currently subscribed video layer
  */
 - (AgoraRteAbrSubscriptionLayer)abrSubscriptionLayer;
 
 /**
- * @brief Get the audio sample rate.
- * @since v4.5.1
- * @return The audio sample rate, in Hz.
+ * Audio sample rate
  */
 - (int)audioSampleRate;
 
@@ -334,17 +257,9 @@ __attribute__((visibility("default"))) @interface AgoraRtePlayerInfo : NSObject
 - (int)audioChannels;
 
 /**
- * @brief Get the audio bits per sample.
- * @since v4.5.1
- * @note This field is only valid when opening a non-RTE URL.
- * @return The audio bits per sample, in bits.
+ * Reserved parameter.
  */
 - (int)audioBitsPerSample;
-
-/**
- * The URL being played.
- */
-- (NSString * _Nullable)currentUrl;
 
 @end
 
@@ -378,13 +293,13 @@ __attribute__((visibility("default"))) @interface AgoraRtePlayer : NSObject
 - (instancetype _Nonnull)initWithRte:(AgoraRte * _Nonnull)rte initialConfig:(AgoraRtePlayerInitialConfig * _Nullable)config;
 
 /** 
- * Open URL resource. Currently, the rte URLs and cdn URLs and files are supported.
- * This interface can also be used to refresh the token of an already opened RTE URL.
- * For RTE URL format definition and token refresh method description, refer to the doc:
+ * Open URL resource. Currently, only rte URLs are supported, and cdn URLs and files are not supported.
+ * This interface can also be used to refresh the token of an already opened URL.
+ * For URL format definition and token refresh method description, refer to the doc:
  *  https://doc.shengwang.cn/doc/rtc/android/best-practice/playing-url
  * @since v4.4.0
  * @param url The URL resource to open
- * @param startTime Set the starting position for playback, in ms.
+ * @param startTime Start time [currently not supported]
  * @param cb Asynchronous callback to notify the result of the open operation. If an error occurs during open, it will enter the AgoraRtePlayerStateFailed state. 
  *  You need to call the stop method before calling [AgoraRtePlayer openWithUrl:startTime:cb] again.
  *    @param err Possible ErrorCode returns. At this time, the new_state value corresponds to AgoraRtePlayerStateFailed.
@@ -407,30 +322,6 @@ __attribute__((visibility("default"))) @interface AgoraRtePlayer : NSObject
 - (void)openWithCustomSourceProvider:(AgoraRtePlayerCustomSourceProvider * _Nonnull)provider startTime:(uint64_t)startTime cb:(void (^_Nullable)(AgoraRteError* _Nullable err))cb;
 
 - (void)openWithStream:(AgoraRteStream * _Nonnull)stream cb:(void (^_Nullable)(AgoraRteError* _Nullable err))cb;
-
-/**
- * Switch to a new URL. This interface can be used to switch to a new URL during playback.
- * 
- * @note
- * - This method is only valid when the player opens a non-RTE URL.
- * - Call this method when the sdk returns the player state as AgoraRtePlayerStateOpenCompleted.
- * 
- * @since v4.5.1
- * @param url The new URL to switch to.
- * @param syncPts Whether to synchronize the playback position (ms) after the switch operation:
- *    - YES: Synchronize the playback position.  
- *    - NO: (Default)Do not synchronize the playback position.
- * @param cb Callback to asynchronously notify the result of the switch operation.
- *   @param err Possible return values for ErrorCode:
- *    - AgoraRteOk: Success
- *    - AgoraRteErrorDefault: Failed to switch to the new URL.
- *    - AgoraRteErrorInvalidArgument: The passed URL is empty or has an invalid format.
- *    - AgoraRteErrorInvalidOperation:
- *      - The corresponding internal AgoraRtePlayer object has been destroyed or is invalid.
- *      - The opened URL is an RTE URL, switch to a new URL is not supported.
- * @return void
- */
-- (void)switchWithUrl:(NSString * _Nonnull)url syncPts:(BOOL)syncPts cb:(void (^_Nullable)(AgoraRteError* _Nullable err))cb;
 
 /**
  * Get player playback statistics.
@@ -493,19 +384,6 @@ __attribute__((visibility("default"))) @interface AgoraRtePlayer : NSObject
  */
 - (BOOL)pause:(AgoraRteError * _Nullable)error;
 
-/**
- * Seek the playback position.
- * @since v4.5.1
- * @param newTime The new playback position to seek to.
- * @param error AgoraRteError object may return the following AgoraRteErrorCode
- * - AgoraRteOk: Success
- * - AgoraRteErrorInvalidOperation:
- *   - The corresponding internal AgoraRtePlayer object has been destroyed or is invalid.
- *   - The opened URL is an RTE URL, Seek is not supported.
- * @return BOOL The result of the seek operation. If it fails, you can check the specific error through err.
- *  - YES: Successfully seek.
- *  - NO: Failed to seek
- */
 - (BOOL)seek:(uint64_t)newTime error:(AgoraRteError * _Nullable)error;
 
 /**
@@ -535,14 +413,12 @@ __attribute__((visibility("default"))) @interface AgoraRtePlayer : NSObject
 - (BOOL)muteVideo:(BOOL)mute error:(AgoraRteError * _Nullable)error;
 
 /**
- * Get the playback position.
- * @since v4.5.1
+ * Get the current playback position.
+ * @since v4.4.0
  * @param error AgoraRteError object may return the following AgoraRteErrorCode
  *  - AgoraRteOk: Success
- *  - AgoraRteErrorInvalidOperation: 
- *    - The corresponding internal AgoraRtePlayer object has been destroyed or is invalid.
- *    - The opened URL is an RTE URL, getPosition is not supported.
- * @return uint64_t The current playback position, in milliseconds.
+ * @return uint64_t The current playback position.
+ * @technical preview
  */
 - (uint64_t)getPosition:(AgoraRteError * _Nullable)error;
 

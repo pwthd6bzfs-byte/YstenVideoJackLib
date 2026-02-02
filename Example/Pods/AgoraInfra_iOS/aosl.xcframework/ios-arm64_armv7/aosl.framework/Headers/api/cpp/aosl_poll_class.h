@@ -21,6 +21,7 @@
 #include <aosl/api/cpp/aosl_ares_class.h>
 
 #if (__cplusplus >= 201103) || (defined (_MSC_VER) && _MSC_VER >= 1800)
+#include <functional>
 #include <memory>
 #endif
 

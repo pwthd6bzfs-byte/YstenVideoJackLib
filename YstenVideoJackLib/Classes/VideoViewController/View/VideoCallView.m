@@ -18,8 +18,9 @@
 #import "JLRTCService.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 #import "UIImage+Add.h"
+#import <AVFoundation/AVFoundation.h>
 
-@interface VideoCallView ()
+@interface VideoCallView ()<AVAudioPlayerDelegate>
 
 // 视频视图
 @property (nonatomic, strong) CachedResourceLoader *resourceLoader;
@@ -153,6 +154,71 @@
 
 
 
+- (void)setupAudioPlayer {
+        // 获取本地音频文件路径
+    
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSURL *bundleURL = [bundle URLForResource:@"YstenVideoJackLib" withExtension:@"bundle"];
+    NSBundle *resourceBundle = [NSBundle bundleWithURL:bundleURL];
+    
+    NSString *path = [resourceBundle pathForResource:@"jl_photoInfo" ofType:@"mp3"];
+    NSURL *audioURL = [NSURL fileURLWithPath:path];
+    
+        // 或者使用网络音频（注意：AVAudioPlayer不支持直接播放网络音频）
+        // NSURL *audioURL = [NSURL URLWithString:@"https://example.com/audio.mp3"];
+    
+    NSError *error = nil;
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioURL error:&error];
+    
+    if (error) {
+        NSLog(@"初始化播放器失败: %@", error.localizedDescription);
+        return;
+    }
+    
+    self.audioPlayer.delegate = self;
+        //    self.audioPlayer.enableRate = YES; // 允许调节播放速率
+    self.audioPlayer.numberOfLoops = -1; // 0:不循环，-1:无限循环，n:循环n次
+    
+        // 预加载音频（缓冲）
+    [self.audioPlayer prepareToPlay];
+        // 4. 开始播放
+    [self.audioPlayer play];
+}
+
+
+- (void)setupAudioSession {
+    NSError *error = nil;
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    
+        // 设置类别
+    [audioSession setCategory:AVAudioSessionCategoryPlayback
+                  withOptions:AVAudioSessionCategoryOptionMixWithOthers |
+     AVAudioSessionCategoryOptionDuckOthers
+                        error:&error];
+    
+    if (error) {
+        NSLog(@"❌ 音频会话设置失败: %@", error.localizedDescription);
+    } else {
+        NSLog(@"✅ 音频会话设置成功");
+    }
+    
+        // 激活会话
+    [audioSession setActive:YES error:&error];
+    if (error) {
+        NSLog(@"❌ 激活音频会话失败: %@", error.localizedDescription);
+    }
+}
+
+
+- (void)setIsHeartMatch:(BOOL)isHeartMatch{
+    _isHeartMatch = isHeartMatch;
+    if (isHeartMatch == NO) {
+        [self setupAudioPlayer];
+        [self setupAudioSession];
+    }
+}
+
+
 - (void)setAnchorUserInfo:(JLAnchorUserModel *)anchorUserInfo{
     _anchorUserInfo = anchorUserInfo;
     [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:anchorUserInfo.headFileName]];
@@ -284,6 +350,7 @@
 
 
 - (void)clickCancelBtnEvnet{
+    [self.audioPlayer pause];
     if (self.clickCancelBlock) {
         self.clickCancelBlock();
     }

@@ -315,13 +315,6 @@ __attribute__((visibility("default"))) @interface AgoraRtcChannelMediaOptions : 
  * - `NO`: Do not publish the recorded audio of microphone.
  */
 @property(assign, nonatomic) BOOL publishMicrophoneTrack;
-
-/**
- * Determines whether to publish the audio of the screen capturer.
- * - `YES`: Publish the audio track of the screen capturer.
- * - `NO`: (Default) Do not publish the audio track of the screen capturer.
- */
-@property(assign, nonatomic) BOOL publishScreenCaptureAudio;
 #if TARGET_OS_IPHONE
 /**
  * Determines whether to publish the video of the screen capturer.
@@ -329,6 +322,12 @@ __attribute__((visibility("default"))) @interface AgoraRtcChannelMediaOptions : 
  * - `NO`: (Default) Do not publish the video track of the screen capturer.
  */
 @property(assign, nonatomic) BOOL publishScreenCaptureVideo;
+/**
+ * Determines whether to publish the audio of the screen capturer.
+ * - `YES`: Publish the audio track of the screen capturer.
+ * - `NO`: (Default) Do not publish the audio track of the screen capturer.
+ */
+@property(assign, nonatomic) BOOL publishScreenCaptureAudio;
 #elif TARGET_OS_MAC
 /**
  * Determines whether to publish the video of the third camera track.
@@ -527,7 +526,7 @@ __attribute__((visibility("default"))) @interface AgoraRtcVideoCanvas : NSObject
 @property(assign, nonatomic) NSUInteger uid;
 
 /**
-  * The uid of video stream composing the video stream from transcoder which will be drawn on this video canvas.
+  * The uid of video stream composing the video stream from transcoder which will be drawn on this video canvas. 
   */
 @property(assign, nonatomic) NSUInteger subviewUid;
 
@@ -549,7 +548,7 @@ __attribute__((visibility("default"))) @interface AgoraRtcVideoCanvas : NSObject
  * The video mirror mode. See \ref AgoraVideoMirrorMode.
  * The default value is AgoraVideoMirrorModeAuto.
  * @note
- * - For the mirror mode of the local video view:
+ * - For the mirror mode of the local video view: 
  * If you use a front camera, the SDK enables the mirror mode by default;
  * if you use a rear camera, the SDK disables the mirror mode by default.
  * - For the remote user: The mirror mode is disabled by default.
@@ -566,14 +565,14 @@ __attribute__((visibility("default"))) @interface AgoraRtcVideoCanvas : NSObject
  */
 @property(nonatomic, assign) AgoraVideoSourceType sourceType;
 /**
- * The media player id of AgoraMediaPlayer. It should set this parameter when the
+ * The media player id of AgoraMediaPlayer. It should set this parameter when the 
  * sourceType is AgoraVideoSourceTypeMediaPlayer to show the video that AgoraMediaPlayer is playing.
  * You can get this value by calling the method \ref getMediaPlayerId().
  */
 @property(nonatomic, assign) int mediaPlayerId;
 /**
- * If you want to display a certain part of a video frame, you can set
- * this value to crop the video frame to show.
+ * If you want to display a certain part of a video frame, you can set 
+ * this value to crop the video frame to show. 
  * The default value is empty(that is, if it has zero width or height), which means no cropping.
  */
 @property(assign, nonatomic) CGRect cropArea;
@@ -768,8 +767,8 @@ __attribute__((visibility("default"))) @interface AgoraRtcLocalVideoStats : NSOb
  * The brightness level of the video image captured by the local camera. See AgoraCaptureBrightnessLevelType.
  */
 @property(assign, nonatomic) AgoraCaptureBrightnessLevelType captureBrightnessLevel NS_SWIFT_NAME(captureBrightnessLevel);
-/**
- * Whether we send dual stream now.
+/** 
+ * Whether we send dual stream now. 
  */
 @property(assign, nonatomic) BOOL dualStreamEnabled;
 @end
@@ -796,6 +795,9 @@ __attribute__((visibility("default"))) @interface AgoraRtcRemoteVideoStats : NSO
 /** Data receive bitrate (Kbps) since last count.
  */
 @property(assign, nonatomic) NSUInteger receivedBitrate;
+/** Data receive frame rate (fps) since last count.
+ */
+@property(assign, nonatomic) NSUInteger receivedFrameRate;
 /** Video stream type; high- or low-video stream.
  */
 @property(assign, nonatomic) AgoraVideoStreamType rxStreamType;
@@ -837,9 +839,9 @@ __attribute__((visibility("default"))) @interface AgoraRtcRemoteVideoStats : NSO
  */
 @property(assign, nonatomic) NSInteger avSyncTimeMs;
 /**
- * The quality of the remote video stream in the reported interval.
- * The quality is determined by the Agora real-time video MOS (Mean Opinion Score) measurement method.
- * The return value range is [0, 500].
+ * The quality of the remote video stream in the reported interval. 
+ * The quality is determined by the Agora real-time video MOS (Mean Opinion Score) measurement method. 
+ * The return value range is [0, 500]. 
  * Dividing the return value by 100 gets the MOS score, which ranges from 0 to 5. The higher the score, the better the video quality.
  * @note For textured video data, this parameter always returns 0.
  */
@@ -873,7 +875,7 @@ __attribute__((visibility("default"))) @interface AgoraRtcLocalAudioStats : NSOb
 /** The audio packet loss rate (%) from the local client to the Agora edge server before applying the anti-packet loss strategies.
  */
 @property(assign, nonatomic) NSUInteger txPacketLossRate;
-/**
+/** 
  * The audio delay of the device, contains record and playout delay
  */
 @property(assign, nonatomic) NSUInteger audioDeviceDelay;
@@ -1164,7 +1166,7 @@ __attribute__((visibility("default"))) @interface AgoraVideoCodecCapLevels : NSO
 
 @end
 
-/**
+/** 
  * The camera focal length support information.
 */
 __attribute__((visibility("default"))) @interface AgoraFocalLengthInfo : NSObject
@@ -1175,14 +1177,14 @@ __attribute__((visibility("default"))) @interface AgoraFocalLengthInfo : NSObjec
 
 @end
 
-/**
+/** 
  * The codec support information.
 */
 __attribute__((visibility("default"))) @interface AgoraVideoCodecCapInfo : NSObject
 
 /** The codec type. */
 @property(assign, nonatomic) AgoraVideoCodecType codecType;
-/** The codec type mask. bit 1 Hardware decoder support flag, bit 2: Hardware encoder support flag,
+/** The codec type mask. bit 1 Hardware decoder support flag, bit 2: Hardware encoder support flag, 
    * bit 3: Software decoder support flag, bit 4: Software encoder support flag */
 @property(assign, nonatomic) NSUInteger codecCapMask;
 
@@ -2304,7 +2306,7 @@ __attribute__((visibility("default"))) @interface AgoraCameraCapturerConfigurati
  - AgoraCameraDirectionRear: The rear camera.
  - AgoraCameraDirectionFront: The front camera.
  */
-#if (TARGET_OS_IOS || (defined(TARGET_OS_VISION) && TARGET_OS_VISION))
+#if TARGET_OS_IOS
 @property (assign, nonatomic) AgoraCameraDirection cameraDirection;
 /*- AgoraFocalLengthDefault:
 For iOS, if iPhone/iPad has 3 or 2 back camera, it means combination of triple (wide + ultra wide + telephoto) camera
@@ -2461,7 +2463,7 @@ The default value is 0.1. The value ranges from 0.0 (original) to 1.0.
 @end
 
 /** Face shape area options in [setFaceShapeAreaOptions]([AgoraRtcEngineKit setFaceShapeAreaOptions:]).
-
+ 
 This structure defines options for facial adjustments on different facial areas.
 */
 __attribute__((visibility("default"))) @interface AgoraFaceShapeAreaOptions : NSObject
@@ -2485,7 +2487,7 @@ __attribute__((visibility("default"))) @interface AgoraFaceShapeAreaOptions : NS
 */
 @property(nonatomic, assign) AgoraFaceShapeArea shapeArea;
 /** The intensity of the pinching effect applied to the specified facial area.
-
+ 
 For the following area values: #AgoraFaceShapeAreaForehead, #AgoraFaceShapeAreaFaceLength, #AgoraFaceShapeAreaChin, #AgoraFaceShapeAreaNoseLength, #AgoraFaceShapeAreaNoseWidth, #AgoraFaceShapeAreaMouthScale, the value ranges from -100 to 100.
 The default value is 0. The greater the absolute value, the stronger the intensity applied to the specified facial area, and negative values indicate the opposite direction.
 
@@ -2496,7 +2498,7 @@ For enumeration values other than the above, the value ranges from 0 to 100. The
 @end
 
 /** The face shape beauty options in [setFaceShapeBeautyOptions]([AgoraRtcEngineKit setFaceShapeBeautyOptions:options:]).
-
+ 
 This structure defines options for facial adjustments of different facial styles.
 */
 __attribute__((visibility("default"))) @interface AgoraFaceShapeBeautyOptions: NSObject
@@ -2799,8 +2801,6 @@ __attribute__((visibility("default"))) @interface AgoraScreenCaptureParameters: 
 
  */
 @property(assign, nonatomic) NSUInteger highLightWidth;
-
-@property(assign, nonatomic) BOOL captureAudio;
 
 @end
 
@@ -3112,8 +3112,6 @@ __attribute__((visibility("default"))) @interface AgoraContentInspectModule: NSO
 @property (assign, nonatomic) AgoraContentInspectType type;
 
 @property (assign, nonatomic) NSInteger interval;
-
-@property (assign, nonatomic) AgoraVideoModulePosition position;
 @end
 
 __attribute__((visibility("default"))) @interface AgoraContentInspectConfig: NSObject
@@ -3412,7 +3410,7 @@ __attribute__((visibility("default"))) @interface AgoraSpatialAudioParams : NSOb
 @property(assign, nonatomic) BOOL enable_doppler;
 @end
 
-NS_SWIFT_NAME(AgoraEchoTestConfiguration)
+NS_SWIFT_NAME(AgoraEchoTestConfiguration) 
 __attribute__((visibility("default"))) @interface AgoraEchoTestConfiguration : NSObject
 /** The video display view.
 
@@ -3632,21 +3630,21 @@ __attribute__((visibility("default"))) @interface AgoraVideoLayout: NSObject
 @property (assign, nonatomic) NSUInteger height NS_SWIFT_NAME(height);
 @end
 
-/**
+/** 
  *  The definition of AgoraVideoLayoutInfo.
  */
 __attribute__((visibility("default"))) @interface AgoraVideoLayoutInfo: NSObject
 /**
  * width of transcoded video stream.
- */
+ */ 
 @property (assign, nonatomic) NSUInteger width NS_SWIFT_NAME(width);
 /**
  * height of transcoded video stream.
- */
+ */ 
 @property (assign, nonatomic) NSUInteger height NS_SWIFT_NAME(height);
 /**
  * count of video layout info in transcoded video stream.
- */
+ */ 
 @property (assign, nonatomic) NSUInteger layoutCount NS_SWIFT_NAME(layoutCount);
 /**
  * video layout info in transcoded video stream.
@@ -3664,7 +3662,7 @@ NS_SWIFT_NAME(AgoraVideoRenderingTracingInfo) __attribute__((visibility("default
 @property (assign, nonatomic) NSInteger elapsedTime NS_SWIFT_NAME(elapsedTime);
 /**
  * Elapsed time from the start tracing time to the time when join channel.
- *
+ * 
  * **Note**
  * If the start tracing time is behind the time when join channel, this value will be negative.
  */
@@ -3675,7 +3673,7 @@ NS_SWIFT_NAME(AgoraVideoRenderingTracingInfo) __attribute__((visibility("default
 @property (assign, nonatomic) NSInteger join2JoinSuccess NS_SWIFT_NAME(join2JoinSuccess);
 /**
  * Elapsed time from finishing joining channel to remote user joined.
- *
+ * 
  * **Note**
  * If the start tracing time is after the time finishing join channel, this value will be
  * the elapsed time from the start tracing time to remote user joined. The minimum value is 0.
@@ -3683,7 +3681,7 @@ NS_SWIFT_NAME(AgoraVideoRenderingTracingInfo) __attribute__((visibility("default
 @property (assign, nonatomic) NSInteger joinSuccess2RemoteJoined NS_SWIFT_NAME(joinSuccess2RemoteJoined);
 /**
  * Elapsed time from remote user joined to set the view.
- *
+ * 
  * **Note**
  * If the start tracing time is after the time when remote user joined, this value will be
  * the elapsed time from the start tracing time to set the view. The minimum value is 0.
@@ -3691,7 +3689,7 @@ NS_SWIFT_NAME(AgoraVideoRenderingTracingInfo) __attribute__((visibility("default
 @property (assign, nonatomic) NSInteger remoteJoined2SetView NS_SWIFT_NAME(remoteJoined2SetView);
 /**
  * Elapsed time from remote user joined to the time subscribing remote video stream.
- *
+ * 
  * **Note**
  * If the start tracing time is after the time when remote user joined, this value will be
  * the elapsed time from the start tracing time to the time subscribing remote video stream.
@@ -3700,7 +3698,7 @@ NS_SWIFT_NAME(AgoraVideoRenderingTracingInfo) __attribute__((visibility("default
 @property (assign, nonatomic) NSInteger remoteJoined2UnmuteVideo NS_SWIFT_NAME(remoteJoined2UnmuteVideo);
 /**
  * Elapsed time from remote user joined to the remote video packet received.
- *
+ * 
  * **Note**
  * If the start tracing time is after the time when remote user joined, this value will be
  * the elapsed time from the start tracing time to the time subscribing remote video stream.

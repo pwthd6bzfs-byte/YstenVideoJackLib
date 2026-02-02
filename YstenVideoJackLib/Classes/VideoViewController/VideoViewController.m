@@ -121,9 +121,11 @@
     if (self.isHeartMatch == YES){
             // 隐藏拨打视图
         self.videoCallView.hidden = YES;
-            // 是否是心动速配
-        self.videoFuncView.isHeartMatch = self.isHeartMatch;
     }
+    
+        // 是否是心动速配
+    self.videoFuncView.isHeartMatch = self.isHeartMatch;
+    self.videoCallView.isHeartMatch = self.isHeartMatch;
 }
 
 

@@ -1073,16 +1073,6 @@ If the remote user does not receive the data stream within five seconds, the SDK
   - -4 (`AgoraErrorCodeNotSupported`): The encryption mode is incorrect or the SDK fails to load the external encryption library. Check the enumeration or reload the external encryption library.
  */
 - (int)enableEncryptionEx:(BOOL)enabled encryptionConfig:(AgoraEncryptionConfig *_Nonnull)config connection:(AgoraRtcConnection* _Nonnull)connection NS_SWIFT_NAME(enableEncryptionEx(_:encryptionConfig:connection:));
-/**
-   Enable or disable video image source to replace the current video source published or resume it
-
-   @param enable true for enable, false for disable
-   @param options options for image track
-   @param connection The AgoraRtcConnection object.
- */
-- (int)enableVideoImageSourceEx:(BOOL)enable
-                       options:(AgoraImageTrackOptions *_Nullable)options
-                       connection:(AgoraRtcConnection* _Nonnull)connection NS_SWIFT_NAME(enableVideoImageSourceEx(_:options:connection:));
 @end
 
 NS_ASSUME_NONNULL_END

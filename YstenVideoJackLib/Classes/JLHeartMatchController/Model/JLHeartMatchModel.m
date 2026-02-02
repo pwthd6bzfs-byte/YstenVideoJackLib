@@ -6,7 +6,15 @@
 //
 
 #import "JLHeartMatchModel.h"
+#import "JLAnchorUserModel.h"
 
 @implementation JLHeartMatchModel
+
+@end
+
+
+
+@implementation JLSystemHeartMatchModel
+
 
 @end

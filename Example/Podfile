@@ -6,8 +6,6 @@ target 'YstenVideoJackLib_Example' do
   pod 'YstenVideoJackLib', :path => '../'
 
 #  pod 'YstenVideoJackLib', '0.4.3'
-  
-  
 #  pod 'LookinServer', :subspecs => ['Swift'], :configurations => ['Debug']
 #  pod 'SVProgressHUD'
 #  pod 'Masonry','1.1.0'

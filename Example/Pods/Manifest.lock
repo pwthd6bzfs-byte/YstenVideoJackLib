@@ -56,9 +56,6 @@ PODS:
   - AgoraRtcEngine_iOS/VirtualBackground (4.5.2.2)
   - AgoraRtcEngine_iOS/VQA (4.5.2.2)
   - JXCategoryView (1.6.8)
-  - LookinServer/Core (1.2.8)
-  - LookinServer/Swift (1.2.8):
-    - LookinServer/Core
   - Masonry (1.1.0)
   - MJRefresh (3.7.5)
   - Protobuf (3.22.1)
@@ -112,11 +109,6 @@ PODS:
   - YYKit/no-arc (1.0.9)
 
 DEPENDENCIES:
-  - LookinServer/Swift
-  - Masonry (= 1.1.0)
-  - MJRefresh (= 3.7.5)
-  - SDWebImage (= 5.9.0)
-  - SVProgressHUD
   - YstenVideoJackLib (from `../`)
 
 SPEC REPOS:
@@ -125,7 +117,6 @@ SPEC REPOS:
     - AgoraInfra_iOS
     - AgoraRtcEngine_iOS
     - JXCategoryView
-    - LookinServer
     - Masonry
     - MJRefresh
     - Protobuf
@@ -146,7 +137,6 @@ SPEC CHECKSUMS:
   AgoraInfra_iOS: bfbe01cc1cbc8cdd6fa2cba50393e621fd859c6b
   AgoraRtcEngine_iOS: d45386f1c614f756234f9299658790c7595bf2f8
   JXCategoryView: 262d503acea0b1278c79a1c25b7332ffaef4d518
-  LookinServer: 1b2b61c6402ae29fa22182d48f5cd067b4e99e80
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   Protobuf: d7f7c8329edf5eb8af65547a8ba3e9c1cee927d5
@@ -159,6 +149,6 @@ SPEC CHECKSUMS:
   YstenVideoJackLib: aa69056e3bbdc27566b38e0c160664841414130b
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 0928dec08888d22364360a511e6276a24d915a67
+PODFILE CHECKSUM: 584b40b9ae650a94fd9e9e72de702e420a136645
 
 COCOAPODS: 1.16.2

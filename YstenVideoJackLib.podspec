@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'YstenVideoJackLib'
-  s.version          = '0.4.0'
+  s.version          = '0.4.1'
   s.summary          = 'A short description of YstenVideoJackLib.'
 
 # This description is used to generate tags and improve search results.
@@ -27,7 +27,7 @@ TODO: Add long description of the pod here.
   s.author           = { 'pwthd6bzfs-byte' => '524269669@qq.com' }
   s.source           = { :git => 'https://github.com/pwthd6bzfs-byte/YstenVideoJackLib.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
-  s.swift_version = '5.0' # 根据项目实际使用的 Swift 版本调整
+#  s.swift_version = '5.0' # 根据项目实际使用的 Swift 版本调整
   
   s.ios.deployment_target = '13.0'
 

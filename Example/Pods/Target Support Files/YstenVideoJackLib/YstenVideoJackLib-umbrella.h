@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "NSObject+CurrentNavigationViewController.h"
 #import "NSObject+CurrentViewController.h"
 #import "NSString+JLAddtion.h"
 #import "UIImage+Add.h"

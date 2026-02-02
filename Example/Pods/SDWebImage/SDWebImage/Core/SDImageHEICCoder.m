@@ -18,6 +18,8 @@ static NSString * kSDCGImagePropertyHEICSUnclampedDelayTime = @"UnclampedDelayTi
 @implementation SDImageHEICCoder
 
 + (void)initialize {
+#if __IPHONE_13_0 || __TVOS_13_0 || __MAC_10_15 || __WATCHOS_6_0
+    // Xcode 11
     if (@available(iOS 13, tvOS 13, macOS 10.15, watchOS 6, *)) {
         // Use SDK instead of raw value
         kSDCGImagePropertyHEICSDictionary = (__bridge NSString *)kCGImagePropertyHEICSDictionary;
@@ -25,6 +27,7 @@ static NSString * kSDCGImagePropertyHEICSUnclampedDelayTime = @"UnclampedDelayTi
         kSDCGImagePropertyHEICSDelayTime = (__bridge NSString *)kCGImagePropertyHEICSDelayTime;
         kSDCGImagePropertyHEICSUnclampedDelayTime = (__bridge NSString *)kCGImagePropertyHEICSUnclampedDelayTime;
     }
+#endif
 }
 
 + (instancetype)sharedCoder {
@@ -75,11 +78,7 @@ static NSString * kSDCGImagePropertyHEICSUnclampedDelayTime = @"UnclampedDelayTi
 }
 
 + (NSString *)imageUTType {
-    // See: https://nokiatech.github.io/heif/technical.html
-    // Actually HEIC has another concept called `non-timed Image Sequence`, which can be encoded using `public.heic`
-    // But current SDWebImage does not has this design, I don't know whether there are use case for this
-    // So we just replace and always use `timed Image Sequence`, means, animated image for encoding
-    return (__bridge NSString *)kSDUTTypeHEICS;
+    return (__bridge NSString *)kSDUTTypeHEIC;
 }
 
 + (NSString *)dictionaryProperty {

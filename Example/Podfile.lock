@@ -79,9 +79,9 @@ PODS:
     - RongCloudIM/IMLibCore
   - RongCloudOpenSource/IMKit (5.32.0):
     - RongCloudIM/IMLib (= 5.32.0)
-  - SDWebImage (5.19.7):
-    - SDWebImage/Core (= 5.19.7)
-  - SDWebImage/Core (5.19.7)
+  - SDWebImage (5.9.0):
+    - SDWebImage/Core (= 5.9.0)
+  - SDWebImage/Core (5.9.0)
   - SSZipArchive (2.4.3)
   - SVGAPlayer (2.5.7):
     - SVGAPlayer/Core (= 2.5.7)
@@ -94,16 +94,16 @@ PODS:
   - SVProgressHUD (2.3.1):
     - SVProgressHUD/Core (= 2.3.1)
   - SVProgressHUD/Core (2.3.1)
-  - YstenVideoJackLib (0.4.1):
+  - YstenVideoJackLib (0.4.3):
     - AFNetworking (~> 4.0)
     - AgoraRtcEngine_iOS (~> 4.5.1)
     - JXCategoryView (~> 1.6.8)
-    - Masonry
-    - MJRefresh
+    - Masonry (~> 1.1.0)
+    - MJRefresh (= 3.7.5)
     - Protobuf (= 3.22.1)
     - RongCloudIM/IMLib (~> 5.32.0)
     - RongCloudOpenSource/IMKit (~> 5.32.0)
-    - SDWebImage (~> 5.19.7)
+    - SDWebImage (= 5.9.0)
     - SVGAPlayer (~> 2.5.7)
     - SVProgressHUD
     - YYKit (= 1.0.9)
@@ -115,9 +115,9 @@ DEPENDENCIES:
   - LookinServer/Swift
   - Masonry (= 1.1.0)
   - MJRefresh (= 3.7.5)
-  - SDWebImage
+  - SDWebImage (= 5.9.0)
   - SVProgressHUD
-  - YstenVideoJackLib (= 0.4.1)
+  - YstenVideoJackLib (from `../`)
 
 SPEC REPOS:
   trunk:
@@ -135,8 +135,11 @@ SPEC REPOS:
     - SSZipArchive
     - SVGAPlayer
     - SVProgressHUD
-    - YstenVideoJackLib
     - YYKit
+
+EXTERNAL SOURCES:
+  YstenVideoJackLib:
+    :path: "../"
 
 SPEC CHECKSUMS:
   AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
@@ -149,13 +152,13 @@ SPEC CHECKSUMS:
   Protobuf: d7f7c8329edf5eb8af65547a8ba3e9c1cee927d5
   RongCloudIM: 8cdc4aff25584496e6ee39a613698289721ed7cd
   RongCloudOpenSource: 89a88bb288b248b56558200207926e152a6fa25e
-  SDWebImage: 8a6b7b160b4d710e2a22b6900e25301075c34cb3
+  SDWebImage: 62ae4a18473520c67b79e9724c31a63599cc9423
   SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
   SVGAPlayer: 318b85a78b61292d6ae9dfcd651f3f0d1cdadd86
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
-  YstenVideoJackLib: 34b1d1fdab32758671f3663a83478609bab52e79
+  YstenVideoJackLib: aa69056e3bbdc27566b38e0c160664841414130b
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: b15e6acfbf7b2ff791c28d74a7036c8012311dcc
+PODFILE CHECKSUM: 0928dec08888d22364360a511e6276a24d915a67
 
 COCOAPODS: 1.16.2

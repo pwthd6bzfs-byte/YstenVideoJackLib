@@ -3,17 +3,17 @@ use_frameworks!
 platform :ios, '13.0'
 
 target 'YstenVideoJackLib_Example' do
-#  pod 'YstenVideoJackLib', :path => '../'
+  pod 'YstenVideoJackLib', :path => '../'
 
-  pod 'YstenVideoJackLib', '0.4.3'
+#  pod 'YstenVideoJackLib', '0.4.3'
   
   
-  pod 'LookinServer', :subspecs => ['Swift'], :configurations => ['Debug']
-  pod 'SVProgressHUD'
-  pod 'Masonry','1.1.0'
-  # 图片加载
-  pod 'SDWebImage'
-  pod 'MJRefresh', '3.7.5'
+#  pod 'LookinServer', :subspecs => ['Swift'], :configurations => ['Debug']
+#  pod 'SVProgressHUD'
+#  pod 'Masonry','1.1.0'
+#  # 图片加载
+#  pod 'SDWebImage','5.9.0'
+#  pod 'MJRefresh', '3.7.5'
 
   
   post_install do |installer|

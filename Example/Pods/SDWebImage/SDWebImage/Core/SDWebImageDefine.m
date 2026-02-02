@@ -9,12 +9,11 @@
 #import "SDWebImageDefine.h"
 #import "UIImage+Metadata.h"
 #import "NSImage+Compatibility.h"
-#import "SDAnimatedImage.h"
 #import "SDAssociatedObject.h"
 
 #pragma mark - Image scale
 
-static inline NSArray<NSNumber *> * _Nonnull SDImageScaleFactors(void) {
+static inline NSArray<NSNumber *> * _Nonnull SDImageScaleFactors() {
     return @[@2, @3];
 }
 
@@ -23,7 +22,14 @@ inline CGFloat SDImageScaleFactorForKey(NSString * _Nullable key) {
     if (!key) {
         return scale;
     }
-    // Now all OS supports retina display scale system
+    // Check if target OS support scale
+#if SD_WATCH
+    if ([[WKInterfaceDevice currentDevice] respondsToSelector:@selector(screenScale)])
+#elif SD_UIKIT
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
+#elif SD_MAC
+    if ([[NSScreen mainScreen] respondsToSelector:@selector(backingScaleFactor)])
+#endif
     {
         // a@2x.png -> 8
         if (key.length >= 8) {
@@ -69,38 +75,19 @@ inline UIImage * _Nullable SDScaledImageForScaleFactor(CGFloat scale, UIImage * 
         return image;
     }
     UIImage *scaledImage;
-    // Check SDAnimatedImage support for shortcut
-    if ([image.class conformsToProtocol:@protocol(SDAnimatedImage)]) {
-        if ([image respondsToSelector:@selector(animatedCoder)]) {
-            id<SDAnimatedImageCoder> coder = [(id<SDAnimatedImage>)image animatedCoder];
-            if (coder) {
-                scaledImage = [[image.class alloc] initWithAnimatedCoder:coder scale:scale];
-            }
-        } else {
-            // Some class impl does not support `animatedCoder`, keep for compatibility
-            NSData *data = [(id<SDAnimatedImage>)image animatedImageData];
-            if (data) {
-                scaledImage = [[image.class alloc] initWithData:data scale:scale];
-            }
-        }
-    }
-    if (scaledImage) {
-        SDImageCopyAssociatedObject(image, scaledImage);
-        return scaledImage;
-    }
     if (image.sd_isAnimated) {
         UIImage *animatedImage;
 #if SD_UIKIT || SD_WATCH
         // `UIAnimatedImage` images share the same size and scale.
-        NSArray<UIImage *> *images = image.images;
-        NSMutableArray<UIImage *> *scaledImages = [NSMutableArray arrayWithCapacity:images.count];
+        NSMutableArray<UIImage *> *scaledImages = [NSMutableArray array];
         
-        for (UIImage *tempImage in images) {
+        for (UIImage *tempImage in image.images) {
             UIImage *tempScaledImage = [[UIImage alloc] initWithCGImage:tempImage.CGImage scale:scale orientation:tempImage.imageOrientation];
             [scaledImages addObject:tempScaledImage];
         }
         
         animatedImage = [UIImage animatedImageWithImages:scaledImages duration:image.duration];
+        animatedImage.sd_imageLoopCount = image.sd_imageLoopCount;
 #else
         // Animated GIF for `NSImage` need to grab `NSBitmapImageRep`;
         NSRect imageRect = NSMakeRect(0, 0, image.size.width, image.size.height);
@@ -124,36 +111,26 @@ inline UIImage * _Nullable SDScaledImageForScaleFactor(CGFloat scale, UIImage * 
         scaledImage = [[UIImage alloc] initWithCGImage:image.CGImage scale:scale orientation:kCGImagePropertyOrientationUp];
 #endif
     }
-    if (scaledImage) {
-        SDImageCopyAssociatedObject(image, scaledImage);
-        return scaledImage;
-    }
+    SDImageCopyAssociatedObject(image, scaledImage);
     
-    return nil;
+    return scaledImage;
 }
 
 #pragma mark - Context option
 
 SDWebImageContextOption const SDWebImageContextSetImageOperationKey = @"setImageOperationKey";
 SDWebImageContextOption const SDWebImageContextCustomManager = @"customManager";
-SDWebImageContextOption const SDWebImageContextCallbackQueue = @"callbackQueue";
 SDWebImageContextOption const SDWebImageContextImageCache = @"imageCache";
 SDWebImageContextOption const SDWebImageContextImageLoader = @"imageLoader";
 SDWebImageContextOption const SDWebImageContextImageCoder = @"imageCoder";
 SDWebImageContextOption const SDWebImageContextImageTransformer = @"imageTransformer";
-SDWebImageContextOption const SDWebImageContextImageForceDecodePolicy = @"imageForceDecodePolicy";
-SDWebImageContextOption const SDWebImageContextImageDecodeOptions = @"imageDecodeOptions";
 SDWebImageContextOption const SDWebImageContextImageScaleFactor = @"imageScaleFactor";
 SDWebImageContextOption const SDWebImageContextImagePreserveAspectRatio = @"imagePreserveAspectRatio";
 SDWebImageContextOption const SDWebImageContextImageThumbnailPixelSize = @"imageThumbnailPixelSize";
-SDWebImageContextOption const SDWebImageContextImageTypeIdentifierHint = @"imageTypeIdentifierHint";
-SDWebImageContextOption const SDWebImageContextImageScaleDownLimitBytes = @"imageScaleDownLimitBytes";
-SDWebImageContextOption const SDWebImageContextImageEncodeOptions = @"imageEncodeOptions";
 SDWebImageContextOption const SDWebImageContextQueryCacheType = @"queryCacheType";
 SDWebImageContextOption const SDWebImageContextStoreCacheType = @"storeCacheType";
 SDWebImageContextOption const SDWebImageContextOriginalQueryCacheType = @"originalQueryCacheType";
 SDWebImageContextOption const SDWebImageContextOriginalStoreCacheType = @"originalStoreCacheType";
-SDWebImageContextOption const SDWebImageContextOriginalImageCache = @"originalImageCache";
 SDWebImageContextOption const SDWebImageContextAnimatedImageClass = @"animatedImageClass";
 SDWebImageContextOption const SDWebImageContextDownloadRequestModifier = @"downloadRequestModifier";
 SDWebImageContextOption const SDWebImageContextDownloadResponseModifier = @"downloadResponseModifier";

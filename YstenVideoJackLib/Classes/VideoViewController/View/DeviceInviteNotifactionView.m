@@ -155,9 +155,10 @@
 
 
 - (void)show:(JLAnchorUserModel *)anchorUserInfo{
+    self.timeCount = 10;
+    self.labTime.text = [NSString stringWithFormat:@"%lds",self.timeCount];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:anchorUserInfo.headFileName]];
     self.hidden = NO;
-    self.timeCount = 10;
     [self startTimer];
 }
 

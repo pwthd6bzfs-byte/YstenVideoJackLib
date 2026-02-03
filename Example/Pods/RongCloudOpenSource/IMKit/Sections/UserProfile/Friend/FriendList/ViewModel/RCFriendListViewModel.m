@@ -11,9 +11,6 @@
 #import <RongIMLibCore/RongIMLibCore.h>
 #import "RCApplyFriendListViewController.h"
 #import "RCSearchFriendsViewController.h"
-#import "RCUserOnlineStatusManager.h"
-#import "RCUserOnlineStatusUtil.h"
-#import "RCIM.h"
 
 static void *__rc_friendlist_operation_queueTag = &__rc_friendlist_operation_queueTag;
 
@@ -31,9 +28,6 @@ static void *__rc_friendlist_operation_queueTag = &__rc_friendlist_operation_que
 // 搜索匹配cell
 @property (nonatomic, strong) NSArray *matchFriendList;
 
-// userID:cellviewmodel
-@property (nonatomic, strong) NSMutableDictionary *userIDToCellViewModelMap;
-
 @property (nonatomic, weak) UIViewController <RCListViewModelResponder> *responder;
 
 @property (nonatomic, strong) dispatch_queue_t queue;
@@ -49,14 +43,8 @@ static void *__rc_friendlist_operation_queueTag = &__rc_friendlist_operation_que
     if (self) {
         self.queue = dispatch_queue_create("rc_friendlist_operation_queue", DISPATCH_QUEUE_SERIAL);
         dispatch_queue_set_specific(self.queue, __rc_friendlist_operation_queueTag, __rc_friendlist_operation_queueTag, NULL);
-        self.userIDToCellViewModelMap = [NSMutableDictionary dictionary];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onUserOnlineStatusChanged:) name:RCKitUserOnlineStatusChangedNotification object:nil];
     }
     return self;
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)registerCellForTableView:(UITableView *)tableView {
@@ -215,42 +203,16 @@ static void *__rc_friendlist_operation_queueTag = &__rc_friendlist_operation_que
     }];
 }
 
-- (BOOL)isDisplayOnlineStatus:(RCFriendListCellViewModel *)viewModel {
-    if (![RCUserOnlineStatusUtil shouldDisplayOnlineStatus]) {
-        return NO;
-    }
-    NSString *currentUserId = [RCCoreClient sharedCoreClient].currentUserInfo.userId;
-    if ([currentUserId isEqualToString:viewModel.friendInfo.userId]) {
-        return NO;
-    }
-    return YES;
-}
-
 - (void)configureDataSourceWithArray:(NSArray *)friendInfos {
     [self performOperationQueueBlock:^{
             NSArray *array = nil;
             NSMutableArray *tmp = [NSMutableArray array];
-            NSMutableArray *needFetchOnlineStatusUserIds = [NSMutableArray array];
+            
             for (RCFriendInfo *friend in friendInfos) {
                 RCFriendListCellViewModel *vm = [[RCFriendListCellViewModel alloc] initWithFriend:friend];
-                
-                if (friend.userId.length > 0 && [self isDisplayOnlineStatus:vm]) {
-                    RCSubscribeUserOnlineStatus *onlineStatus = [RCUserOnlineStatusManager.sharedManager getCachedOnlineStatus:friend.userId];
-                    vm.displayOnlineStatus = YES;
-                    vm.onlineStatus = onlineStatus;
-                    if (!onlineStatus) {
-                        [needFetchOnlineStatusUserIds addObject:friend.userId];
-                    }
-                }
                 [tmp addObject:vm];
-                if (friend.userId.length > 0) {
-                    [self.userIDToCellViewModelMap setObject:vm forKey:friend.userId];
-                }
             }
             array = tmp;
-            if (needFetchOnlineStatusUserIds.count > 0) {
-                [RCUserOnlineStatusManager.sharedManager fetchFriendOnlineStatus:needFetchOnlineStatusUserIds];
-            }
             // 通知用户修改数据源
         if ([self.delegate respondsToSelector:@selector(friendListViewModel:willLoadItemsInDataSource:)]) {
                 array = [self.delegate friendListViewModel:self
@@ -262,21 +224,6 @@ static void *__rc_friendlist_operation_queueTag = &__rc_friendlist_operation_que
 
 - (void)bindResponder:(UIViewController <RCListViewModelResponder>*)responder {
     self.responder = responder;
-}
-
-- (void)onUserOnlineStatusChanged:(NSNotification *)notification {
-    NSArray<NSString *> *changedUserIds = notification.userInfo[RCKitUserOnlineStatusChangedUserIdsKey];
-    for (NSString *userId in changedUserIds) {
-        RCFriendListCellViewModel *vm = [self.userIDToCellViewModelMap objectForKey:userId];
-        if (![self isDisplayOnlineStatus:vm]) {
-            return;
-        }
-        // 匹配好友ID
-        if ([vm.friendInfo.userId isEqualToString:userId]) {
-            RCSubscribeUserOnlineStatus *onlineStatus = [RCUserOnlineStatusManager.sharedManager getCachedOnlineStatus:userId];
-            [vm refreshOnlineStatus:onlineStatus];
-        }
-    }
 }
 
 #pragma mark - Private

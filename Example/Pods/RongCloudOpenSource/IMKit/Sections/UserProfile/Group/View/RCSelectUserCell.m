@@ -47,10 +47,10 @@ NSString  * const RCSelectUserCellIdentifier = @"RCSelectUserCellIdentifier";
 - (void)updateSelectState:(RCSelectState)state {
     switch (state) {
         case RCSelectStateUnselect:
-            self.selectImageView.image = RCDynamicImage(@"conversation_msg_cell_unselect_img", @"message_cell_unselect");
+            self.selectImageView.image = RCResourceImage(@"message_cell_unselect");
             break;
         case RCSelectStateSelect:
-            self.selectImageView.image = RCDynamicImage(@"conversation_msg_cell_select_img", @"message_cell_select");
+            self.selectImageView.image = RCResourceImage(@"message_cell_select");
             break;
         case RCSelectStateDisable:
             self.selectImageView.image = RCResourceImage(@"disable_select");
@@ -72,7 +72,7 @@ NSString  * const RCSelectUserCellIdentifier = @"RCSelectUserCellIdentifier";
             _portraitImageView.layer.cornerRadius = 5.f;
         }
         _portraitImageView.layer.masksToBounds = YES;
-        [_portraitImageView setPlaceholderImage:RCDynamicImage(@"conversation-list_cell_portrait_msg_img",@"default_portrait_msg")];
+        [_portraitImageView setPlaceholderImage:RCResourceImage(@"default_portrait_msg")];
     }
     return _portraitImageView;
 }
@@ -80,7 +80,7 @@ NSString  * const RCSelectUserCellIdentifier = @"RCSelectUserCellIdentifier";
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] init];
-        _nameLabel.textColor = RCDYCOLOR(0x111f2c, 0x9f9f9f);
+        _nameLabel.textColor = RCDYCOLOR(0x11f2c, 0x9f9f9f);
         _nameLabel.font = [UIFont systemFontOfSize:RCSelectUserCellNameFont];
     }
     return _nameLabel;

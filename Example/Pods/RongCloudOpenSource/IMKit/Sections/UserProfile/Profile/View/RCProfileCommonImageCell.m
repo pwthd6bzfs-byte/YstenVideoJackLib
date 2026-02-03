@@ -50,7 +50,7 @@ NSString  * const RCUProfileImageCellIdentifier = @"RCUProfileImageCellIdentifie
             _portraitImageView.layer.cornerRadius = 5.f;
         }
         _portraitImageView.layer.masksToBounds = YES;
-        [_portraitImageView setPlaceholderImage:RCDynamicImage(@"conversation-list_cell_portrait_msg_img",@"default_portrait_msg")];
+        [_portraitImageView setPlaceholderImage:RCResourceImage(@"default_portrait_msg")];
     }
     return _portraitImageView;
 }

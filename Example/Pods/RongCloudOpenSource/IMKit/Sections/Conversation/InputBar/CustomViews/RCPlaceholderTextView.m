@@ -7,7 +7,6 @@
 //
 
 #import "RCPlaceholderTextView.h"
-#import "RCKitCommonDefine.h"
 
 @interface RCPlaceholderTextView ()
 
@@ -76,7 +75,7 @@
     if (!_placeholderLabel) {
         _placeholderLabel = [[UILabel alloc] init];
         _placeholderLabel.numberOfLines = 0;
-        _placeholderLabel.textColor = RCDynamicColor(@"text_secondary_color", @"0xD3D3D3", @"0xD3D3D3");
+        _placeholderLabel.textColor = [UIColor lightGrayColor];
     }
     return _placeholderLabel;
 }

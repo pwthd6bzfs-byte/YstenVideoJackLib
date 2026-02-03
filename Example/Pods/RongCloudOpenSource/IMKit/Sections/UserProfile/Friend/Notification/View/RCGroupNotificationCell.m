@@ -97,7 +97,7 @@ NSInteger const RCGroupNotificationOperationCellBtnMinWidth = 45;
     if (url.length) {
         [self.portraitImageView setImageURL:[NSURL URLWithString:url]];
     } else {
-        [self.portraitImageView setImage:RCDynamicImage(@"conversation-list_cell_portrait_msg_img",@"default_portrait_msg")];
+        [self.portraitImageView setImage:RCResourceImage(@"default_portrait_msg")];
     }
 }
 
@@ -250,7 +250,7 @@ NSInteger const RCGroupNotificationOperationCellBtnMinWidth = 45;
         }
         _portraitImageView.bounds = CGRectMake(0, 0, RCGroupNotificationCellPortraitWidth, RCGroupNotificationCellPortraitWidth);
         _portraitImageView.layer.masksToBounds = YES;
-        [_portraitImageView setPlaceholderImage:RCDynamicImage(@"conversation-list_cell_portrait_msg_img",@"default_portrait_msg")];
+        [_portraitImageView setPlaceholderImage:RCResourceImage(@"default_portrait_msg")];
 
     }
     return _portraitImageView;

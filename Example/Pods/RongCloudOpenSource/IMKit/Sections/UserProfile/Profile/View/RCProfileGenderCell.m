@@ -46,7 +46,7 @@ NSString  * const RCProfileGenderCellIdentifier = @"RCProfileGenderCellIdentifie
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] init];
-        _titleLabel.textColor = RCDYCOLOR(0x111f2c, 0x9f9f9f);
+        _titleLabel.textColor = RCDYCOLOR(0x11f2c, 0x9f9f9f);
         _titleLabel.font = [UIFont systemFontOfSize:RCProfileGenderCellTitleFontSize];
     }
     return _titleLabel;
@@ -54,7 +54,7 @@ NSString  * const RCProfileGenderCellIdentifier = @"RCProfileGenderCellIdentifie
 
 - (RCBaseImageView *)selectView {
     if (!_selectView) {
-        _selectView = [[RCBaseImageView alloc] initWithImage:RCDynamicImage(@"conversation_msg_cell_select_img", @"message_cell_select")];
+        _selectView = [[RCBaseImageView alloc] initWithImage:RCResourceImage(@"message_cell_select")];
     }
     return _selectView;
 }

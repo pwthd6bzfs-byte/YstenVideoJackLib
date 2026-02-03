@@ -16,11 +16,10 @@
 #import "RCStreamMessageCellViewModel+internal.h"
 #import "RCStreamTextContentViewModel.h"
 #import "RCStreamMarkdownContentViewModel.h"
-#import "NSDictionary+RCAccessor.h"
-#import "RCStreamHTMLContentViewModel.h"
-
+#import "NSDictionary+safeaccessor.h"
 #import "RCStreamUtilities.h"
 
+// TODO: zgh
 NSUInteger const RCStreamMessageCellDisplayTextLimit = 10000;
 NSUInteger const RCStreamMessageCellLoadingLimit = 20;
 CGFloat const rcUnfoldButtonHeight = 42;
@@ -173,8 +172,6 @@ CGFloat const rcTextLeadingX = 12;
     RCStreamMessage *streamMsg = (RCStreamMessage *)self.model.content;
     if ([streamMsg.type.lowercaseString isEqualToString:@"markdown"]) {
         self.contentType = RCStreamContentTypeMarkdown;
-    }else if([streamMsg.type.lowercaseString isEqualToString:@"html"]) {
-        self.contentType = RCStreamContentTypeHTML;
     } else {
         self.contentType = RCStreamContentTypeText;
     }
@@ -186,10 +183,8 @@ CGFloat const rcTextLeadingX = 12;
 }
 
 - (void)createStreamContentModel {
-    if (self.contentType == RCStreamContentTypeMarkdown ) {
+    if (self.contentType == RCStreamContentTypeMarkdown) {
         self.contentViewModel = [[RCStreamMarkdownContentViewModel alloc] init];
-    } else if(self.contentType == RCStreamContentTypeHTML) {
-        self.contentViewModel = [[RCStreamHTMLContentViewModel alloc] init];
     } else {
         self.contentViewModel = [[RCStreamTextContentViewModel alloc] init];
     }

@@ -67,7 +67,7 @@ NSString  * const RCGroupMemberCellIdentifier = @"RCGroupMemberCellIdentifier";
             _portraitImageView.layer.cornerRadius = 5.f;
         }
         _portraitImageView.layer.masksToBounds = YES;
-        [_portraitImageView setPlaceholderImage:RCDynamicImage(@"conversation-list_cell_portrait_msg_img",@"default_portrait_msg")];
+        [_portraitImageView setPlaceholderImage:RCResourceImage(@"default_portrait_msg")];
     }
     return _portraitImageView;
 }
@@ -75,7 +75,7 @@ NSString  * const RCGroupMemberCellIdentifier = @"RCGroupMemberCellIdentifier";
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] init];
-        _nameLabel.textColor = RCDYCOLOR(0x111f2c, 0x9f9f9f);
+        _nameLabel.textColor = RCDYCOLOR(0x11f2c, 0x9f9f9f);
         _nameLabel.font = [UIFont systemFontOfSize:RCGroupMemberCellNameFont];
     }
     return _nameLabel;
@@ -93,7 +93,7 @@ NSString  * const RCGroupMemberCellIdentifier = @"RCGroupMemberCellIdentifier";
 
 - (RCBaseImageView *)arrowView {
    if (!_arrowView) {
-       _arrowView = [[RCBaseImageView alloc] initWithImage:RCDynamicImage(@"cell_right_arrow_img", @"right_arrow")];
+       _arrowView = [[RCBaseImageView alloc] initWithImage:RCResourceImage(@"right_arrow")];
    }
    return _arrowView;
 }

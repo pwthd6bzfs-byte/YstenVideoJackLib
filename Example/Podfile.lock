@@ -59,23 +59,23 @@ PODS:
   - Masonry (1.1.0)
   - MJRefresh (3.7.5)
   - Protobuf (3.22.1)
-  - RongCloudIM/ChatRoom (5.32.0):
+  - RongCloudIM/ChatRoom (5.16.0):
     - RongCloudIM/IMLibCore
-  - RongCloudIM/CustomerService (5.32.0):
+  - RongCloudIM/CustomerService (5.16.0):
     - RongCloudIM/IMLibCore
-  - RongCloudIM/Discussion (5.32.0):
+  - RongCloudIM/Discussion (5.16.0):
     - RongCloudIM/IMLibCore
-  - RongCloudIM/IMLib (5.32.0):
+  - RongCloudIM/IMLib (5.16.0):
     - RongCloudIM/ChatRoom
     - RongCloudIM/CustomerService
     - RongCloudIM/Discussion
     - RongCloudIM/IMLibCore
     - RongCloudIM/PublicService
-  - RongCloudIM/IMLibCore (5.32.0)
-  - RongCloudIM/PublicService (5.32.0):
+  - RongCloudIM/IMLibCore (5.16.0)
+  - RongCloudIM/PublicService (5.16.0):
     - RongCloudIM/IMLibCore
-  - RongCloudOpenSource/IMKit (5.32.0):
-    - RongCloudIM/IMLib (= 5.32.0)
+  - RongCloudOpenSource/IMKit (5.16.0):
+    - RongCloudIM/IMLib (= 5.16.0)
   - SDWebImage (5.9.0):
     - SDWebImage/Core (= 5.9.0)
   - SDWebImage/Core (5.9.0)
@@ -91,15 +91,15 @@ PODS:
   - SVProgressHUD (2.3.1):
     - SVProgressHUD/Core (= 2.3.1)
   - SVProgressHUD/Core (2.3.1)
-  - YstenVideoJackLib (0.4.4):
+  - YstenVideoJackLib (0.4.5):
     - AFNetworking (~> 4.0)
     - AgoraRtcEngine_iOS (= 4.5.0)
     - JXCategoryView (~> 1.6.8)
     - Masonry (= 1.1.0)
     - MJRefresh (= 3.7.5)
     - Protobuf (= 3.22.1)
-    - RongCloudIM/IMLib (= 5.32.0)
-    - RongCloudOpenSource/IMKit (= 5.32.0)
+    - RongCloudIM/IMLib (= 5.16.0)
+    - RongCloudOpenSource/IMKit (= 5.16.0)
     - SDWebImage (= 5.9.0)
     - SVGAPlayer (~> 2.5.7)
     - SVProgressHUD
@@ -109,7 +109,6 @@ PODS:
   - YYKit/no-arc (1.0.9)
 
 DEPENDENCIES:
-  - RongCloudIM/IMLib (= 5.32.0)
   - YstenVideoJackLib (from `../`)
 
 SPEC REPOS:
@@ -141,15 +140,15 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   Protobuf: d7f7c8329edf5eb8af65547a8ba3e9c1cee927d5
-  RongCloudIM: 8cdc4aff25584496e6ee39a613698289721ed7cd
-  RongCloudOpenSource: 89a88bb288b248b56558200207926e152a6fa25e
+  RongCloudIM: 27b8a9d96694a10d4db641eee4c1dc588adaa4ab
+  RongCloudOpenSource: fd096ece50fa3b22b4af03ca2af209f9e9adf370
   SDWebImage: 62ae4a18473520c67b79e9724c31a63599cc9423
   SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
   SVGAPlayer: 318b85a78b61292d6ae9dfcd651f3f0d1cdadd86
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
-  YstenVideoJackLib: 0a21fd26c7807ea01aadedf2f18a4e382293a933
+  YstenVideoJackLib: 1efc2a1f2a8983476adf7d9854bd4243a7a07cea
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 30ea310abeeb39e6378bc2807dd1a74d585624d2
+PODFILE CHECKSUM: 597dffaac89d3d82ab7af662a02153e7f4ce443a
 
 COCOAPODS: 1.16.2

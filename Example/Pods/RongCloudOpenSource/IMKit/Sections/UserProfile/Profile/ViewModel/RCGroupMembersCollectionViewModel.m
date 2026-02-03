@@ -71,7 +71,7 @@
     if (self.members.count > indexPath.row) {
         RCGroupMemberInfo *member = self.members[indexPath.row];
         cell.nameLabel.hidden = NO;
-        cell.portraitImageView.placeholderImage = RCDynamicImage(@"conversation-list_cell_portrait_msg_img",@"default_portrait_msg");
+        cell.portraitImageView.placeholderImage = RCResourceImage(@"default_portrait_msg");
         cell.portraitImageView.imageURL = [NSURL URLWithString:member.portraitUri];
         NSString *remark = [self remarkWithUserId:member.userId];
         if (remark.length > 0) {

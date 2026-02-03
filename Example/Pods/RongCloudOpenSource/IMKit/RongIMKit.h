@@ -177,25 +177,6 @@
 #import <RongIMKit/RCSearchGroupsViewController.h>
 #import <RongIMKit/RCMyGroupsView.h>
 
-// STT
-#import <RongIMKit/RCSTTContentViewModel.h>
-
-// RRS
-#import <RongIMKit/RCMessageReadDetailViewController.h>
-#import <RongIMKit/RCMessageReadDetailViewConfig.h>
-#import <RongIMKit/RCMessageReadDetailViewModel.h>
-#import <RongIMKit/RCMessageReadDetailCellViewModel.h>
-#import <RongIMKit/RCMessageReadDetailView.h>
-#import <RongIMKit/RCMessageReadDetailTabView.h>
-#import <RongIMKit/RCMessageReadDetailDefine.h>
-
-//New Skin
-#import <RongIMKit/RCIMKitTheme.h>
-#import <RongIMKit/RCIMKitThemeManager.h>
-#import <RongIMKit/RCMenuItem.h>
-
-#import <RongIMKit/RCOnlineStatusView.h>
-
 #else
 /// IMKit核心类
 #import "RCIM.h"
@@ -368,24 +349,5 @@
 #import "RCSearchGroupsViewModel.h"
 #import "RCSearchGroupsViewController.h"
 #import "RCMyGroupsView.h"
-
-// STT
-#import "RCSTTContentViewModel.h"
-
-// RRS
-#import "RCMessageReadDetailViewController.h"
-#import "RCMessageReadDetailViewConfig.h"
-#import "RCMessageReadDetailViewModel.h"
-#import "RCMessageReadDetailCellViewModel.h"
-#import "RCMessageReadDetailView.h"
-#import "RCMessageReadDetailTabView.h"
-#import "RCMessageReadDetailDefine.h"
-
-// New Skin
-#import "RCIMKitTheme.h"
-#import "RCIMKitThemeManager.h"
-#import "RCMenuItem.h"
-
-#import "RCOnlineStatusView.h"
 
 #endif

@@ -49,7 +49,7 @@ NSString  * const RCFriendListCellIdentifier = @"RCFriendListCellIdentifier";
     if (url.length) {
         [self.portraitImageView setImageURL:[NSURL URLWithString:url]];
     } else {
-        [self.portraitImageView setImage:RCDynamicImage(@"conversation-list_cell_portrait_msg_img",@"default_portrait_msg")];
+        [self.portraitImageView setImage:RCResourceImage(@"default_portrait_msg")];
     }
 }
 

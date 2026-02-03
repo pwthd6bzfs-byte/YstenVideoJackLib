@@ -59,10 +59,6 @@
     return [RCStreamMarkdownContentView new];
 }
 
-- (NSString *)javascriptStringForHeight {
-    NSString *js = @"(function() { return Math.max(document.body.scrollHeight, document.body.offsetHeight); })();";
-    return js;
-}
 #pragma mark -- private
 
 - (CGSize)quickCoreText {
@@ -92,6 +88,7 @@
     NSString *htmlBase = @"<!DOCTYPE html>"
                          "<html>"
                          "<head>"
+                         "<meta name='viewport' content='width=device-width, initial-scale=1.0,user-scalable=no'>"
                          "<link href='%@' rel='stylesheet' type='text/css'>"
                          "</head>"
                          "<body>"

@@ -98,6 +98,8 @@
     return cell;
 }
 
+
+
     // 高度
 -(CGFloat)rcConversationListTableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return  76.0;
@@ -193,11 +195,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
 
-#pragma mark - JXCategoryListContentViewDelegate
+//#pragma mark - JXCategoryListContentViewDelegate
     // 协议核心方法：返回列表视图[citation:9]
 - (UIView *)listView {
     return self.view;
 }
+
+
 
 
 
@@ -211,9 +215,15 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 
+
+
+
 - (void)refreshUI{
     [self refreshConversationTableViewIfNeeded];
 }
+
+
+
 
 
 -(UIView *)emptyView{

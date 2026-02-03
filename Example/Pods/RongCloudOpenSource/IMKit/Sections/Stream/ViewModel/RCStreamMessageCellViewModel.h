@@ -26,7 +26,6 @@ typedef enum : NSUInteger {
 typedef enum : NSUInteger {
     RCStreamContentTypeText,
     RCStreamContentTypeMarkdown,
-    RCStreamContentTypeHTML,
 } RCStreamContentType;
 
 extern CGFloat const rcUnfoldButtonHeight;

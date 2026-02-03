@@ -61,7 +61,7 @@ NSInteger const RCGroupFollowCellActionButtonTrailingSpace = 16;
             _portraitImageView.layer.cornerRadius = 5.f;
         }
         _portraitImageView.layer.masksToBounds = YES;
-        [_portraitImageView setPlaceholderImage:RCDynamicImage(@"conversation-list_cell_portrait_msg_img",@"default_portrait_msg")];
+        [_portraitImageView setPlaceholderImage:RCResourceImage(@"default_portrait_msg")];
     }
     return _portraitImageView;
 }
@@ -69,7 +69,7 @@ NSInteger const RCGroupFollowCellActionButtonTrailingSpace = 16;
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] init];
-        _nameLabel.textColor = RCDYCOLOR(0x111f2c, 0x9f9f9f);
+        _nameLabel.textColor = RCDYCOLOR(0x11f2c, 0x9f9f9f);
         _nameLabel.font = [UIFont systemFontOfSize:RCGroupFollowCellNameFont];
     }
     return _nameLabel;

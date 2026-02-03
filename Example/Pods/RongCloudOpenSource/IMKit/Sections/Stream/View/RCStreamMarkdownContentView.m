@@ -77,7 +77,7 @@ extern NSString *const RCConversationViewScrollNotification;
     [self.webView.configuration.userContentController removeScriptMessageHandlerForName:@"longpress"];
     [self.webView.configuration.userContentController removeScriptMessageHandlerForName:@"heightChanged"];
     [self.webView.configuration.userContentController removeAllUserScripts];
-    
+
     self.webView.navigationDelegate = nil;
     self.webView.UIDelegate = nil;
     [self.webView stopLoading];
@@ -90,12 +90,6 @@ extern NSString *const RCConversationViewScrollNotification;
     if (!self.webView) {
         WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
         [config.userContentController addScriptMessageHandler:[[WeakScriptMessageHandler alloc] initWithDelegate:self] name:@"heightChanged"];
-        
-        //  设置正确的视口大小[多次调用loadHTMLString, 会导致web视图计算出错]
-        NSString *viewportScript = @"var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'); document.getElementsByTagName('head')[0].appendChild(meta);";
-        WKUserScript *script = [[WKUserScript alloc] initWithSource:viewportScript injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
-        [config.userContentController addUserScript:script];
-        
         self.webView = [[WKWebView alloc] initWithFrame:self.bounds configuration:config];
         self.webView.backgroundColor = [UIColor clearColor];
         self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -106,7 +100,7 @@ extern NSString *const RCConversationViewScrollNotification;
         [self addSubview:self.webView];
     }
     NSString *bundlePath = [RCKitUtility bundlePathWithName:@"RongCloud"];
-    
+
     [self.webView loadHTMLString:self.viewModel.htmlContent baseURL:[NSURL fileURLWithPath:bundlePath]];
 }
 
@@ -128,7 +122,7 @@ extern NSString *const RCConversationViewScrollNotification;
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    NSString *js = [self.viewModel javascriptStringForHeight];
+    NSString *js = @"(function() { return Math.max(document.body.scrollHeight, document.body.offsetHeight); })();";
     [webView evaluateJavaScript:js completionHandler:^(id _Nullable result, NSError * _Nullable error) {
         // 处理结果同上
         CGFloat height = [result floatValue];

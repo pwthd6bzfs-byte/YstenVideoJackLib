@@ -84,7 +84,7 @@
             _portraitImageView.layer.cornerRadius = 5.f;
         }
         _portraitImageView.layer.masksToBounds = YES;
-        [_portraitImageView setPlaceholderImage:RCDynamicImage(@"conversation-list_cell_group_portrait_img", @"default_group_portrait")];
+        [_portraitImageView setPlaceholderImage:RCResourceImage(@"default_group_portrait")];
         _portraitImageView.userInteractionEnabled = YES;
         
         // 添加 Tap 手势识别器

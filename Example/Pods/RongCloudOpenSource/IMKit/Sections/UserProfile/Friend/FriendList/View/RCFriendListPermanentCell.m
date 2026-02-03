@@ -7,7 +7,6 @@
 //
 
 #import "RCFriendListPermanentCell.h"
-#import "RCOnlineStatusView.h"
 #import "RCloudImageView.h"
 #import "RCKitUtility.h"
 #import "RCKitCommonDefine.h"
@@ -21,52 +20,31 @@ NSString  * const RCFriendListPermanentCellIdentifier = @"RCFriendListPermanentC
     // Initialization code
 }
 
-- (void)prepareForReuse {
-    [super prepareForReuse];
-    [self.onlineStatusView reset];
-}
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 }
 
 - (void)setupView {
     [super setupView];
-    self.contentView.backgroundColor = [RCKitUtility generateDynamicColor:HEXCOLOR(0xffffff)
+   self.contentView.backgroundColor = [RCKitUtility generateDynamicColor:HEXCOLOR(0xffffff)
                                                         darkColor:[HEXCOLOR(0x1c1c1e) colorWithAlphaComponent:0.4]];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    
     [self.contentView addSubview:self.portraitImageView];
-    [self.contentView addSubview:self.contentStackView];
-    
-    // 将在线状态和名称添加到 StackView
-    [self.contentStackView addArrangedSubview:self.onlineStatusView];
-    [self.contentStackView addArrangedSubview:self.labName];
+    [self.contentView addSubview:self.labName];
 }
 
-- (void)setupConstraints {
-    [super setupConstraints];
+- (void)layoutSubviews {
+    [super layoutSubviews];
     CGFloat portraitWidth = 40;
     CGFloat marginWidth = 15;
+    self.portraitImageView.bounds = CGRectMake(0, 0, portraitWidth, portraitWidth);
+    self.portraitImageView.center = CGPointMake(marginWidth+portraitWidth/2, self.contentView.center.y);
     
-    self.portraitImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.contentStackView.translatesAutoresizingMaskIntoConstraints = NO;
-
-    // onlineStatusView 压缩优先级
-    [self.onlineStatusView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
-    
-    [NSLayoutConstraint activateConstraints:@[
-        // portraitImageView 约束
-        [self.portraitImageView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:marginWidth],
-        [self.portraitImageView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
-        [self.portraitImageView.widthAnchor constraintEqualToConstant:portraitWidth],
-        [self.portraitImageView.heightAnchor constraintEqualToConstant:portraitWidth],
-        
-        // contentStackView 约束
-        [self.contentStackView.leadingAnchor constraintEqualToAnchor:self.portraitImageView.trailingAnchor constant:marginWidth],
-        [self.contentStackView.trailingAnchor constraintLessThanOrEqualToAnchor:self.contentView.trailingAnchor constant:-marginWidth],
-        [self.contentStackView.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor]
-    ]];
+    CGFloat width = self.contentView.bounds.size.width;
+    CGFloat labWidth = width - CGRectGetMaxX(self.portraitImageView.frame) -marginWidth*2;
+    self.labName.bounds= CGRectMake(0, 0, labWidth, 40);
+    CGFloat xCenter = CGRectGetMaxX(self.portraitImageView.frame) +marginWidth + labWidth/2;
+    self.labName.center = CGPointMake(xCenter, self.contentView.center.y);
 }
 
 - (void)showPortraitByImage:(UIImage *)image {
@@ -83,27 +61,9 @@ NSString  * const RCFriendListPermanentCellIdentifier = @"RCFriendListPermanentC
             _portraitImageView.layer.cornerRadius = 5.f;
         }
         _portraitImageView.layer.masksToBounds = YES;
-        [_portraitImageView setPlaceholderImage:RCDynamicImage(@"conversation-list_cell_portrait_msg_img",@"default_portrait_msg")];
+        [_portraitImageView setPlaceholderImage:RCResourceImage(@"default_portrait_msg")];
     }
     return _portraitImageView;
-}
-
-- (UIStackView *)contentStackView {
-    if (!_contentStackView) {
-        _contentStackView = [[UIStackView alloc] init];
-        _contentStackView.axis = UILayoutConstraintAxisHorizontal;
-        _contentStackView.alignment = UIStackViewAlignmentCenter;
-        _contentStackView.distribution = UIStackViewDistributionFill;
-        _contentStackView.spacing = 5;
-    }
-    return _contentStackView;
-}
-
-- (RCOnlineStatusView *)onlineStatusView {
-    if (!_onlineStatusView) {
-        _onlineStatusView = [[RCOnlineStatusView alloc] init];
-    }
-    return _onlineStatusView;
 }
 
 - (UILabel *)labName {

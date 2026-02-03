@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *htmlContent;
 
 - (void)reloadContentHeight:(CGFloat)height;
-- (NSString *)javascriptStringForHeight;
+
 @end
 
 NS_ASSUME_NONNULL_END

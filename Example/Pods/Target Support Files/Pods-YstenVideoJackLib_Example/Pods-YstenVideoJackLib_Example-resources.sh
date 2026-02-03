@@ -99,7 +99,6 @@ EOM
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "${PODS_ROOT}/RongCloudIM/RongCloudIM/RCConfig.plist"
   install_resource "${PODS_ROOT}/RongCloudOpenSource/Resources/RongCloud.bundle"
-  install_resource "${PODS_ROOT}/RongCloudOpenSource/Resources/RongCloudLively.bundle"
   install_resource "${PODS_ROOT}/RongCloudOpenSource/Resources/en.lproj"
   install_resource "${PODS_ROOT}/RongCloudOpenSource/Resources/zh-Hans.lproj"
   install_resource "${PODS_ROOT}/RongCloudOpenSource/Resources/ar.lproj"
@@ -111,7 +110,6 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "${PODS_ROOT}/RongCloudIM/RongCloudIM/RCConfig.plist"
   install_resource "${PODS_ROOT}/RongCloudOpenSource/Resources/RongCloud.bundle"
-  install_resource "${PODS_ROOT}/RongCloudOpenSource/Resources/RongCloudLively.bundle"
   install_resource "${PODS_ROOT}/RongCloudOpenSource/Resources/en.lproj"
   install_resource "${PODS_ROOT}/RongCloudOpenSource/Resources/zh-Hans.lproj"
   install_resource "${PODS_ROOT}/RongCloudOpenSource/Resources/ar.lproj"

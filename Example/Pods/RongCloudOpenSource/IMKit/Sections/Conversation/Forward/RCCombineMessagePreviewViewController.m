@@ -88,7 +88,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = RCDynamicColor(@"common_background_color", @"0xffffff", @"0xffffff");
+    self.view.backgroundColor = [UIColor whiteColor];
     [self setNav];
     [self addSubViews];
     if (self.ifWebViewPush) {
@@ -272,7 +272,7 @@
 
 #pragma mark - Private Methods
 - (void)setNav {
-    UIImage *imgMirror = RCDynamicImage(@"navigation_bar_btn_back_img", @"navigator_btn_back");
+    UIImage *imgMirror = RCResourceImage(@"navigator_btn_back");
     imgMirror = [RCSemanticContext imageflippedForRTL:imgMirror];
     self.navigationItem.leftBarButtonItems = [RCKitUtility getLeftNavigationItems:imgMirror title:RCLocalizedString(@"Back") target:self action:@selector(clickBackBtn:)];
     self.navigationItem.title = self.navTitle;
@@ -539,7 +539,7 @@
                                                         self.view.bounds.size.height - navBarHeight - homeBarHeight)];
         _combineMsgWebView.UIDelegate = self;
         _combineMsgWebView.navigationDelegate = self;
-        _combineMsgWebView.backgroundColor = RCDynamicColor(@"common_background_color", @"0xffffff", @"0xffffff");
+        _combineMsgWebView.backgroundColor = [UIColor whiteColor];
     }
     return _combineMsgWebView;
 }
@@ -555,7 +555,7 @@
 - (RCBaseImageView *)loadingImageView {
     if (!_loadingImageView) {
         _loadingImageView = [[RCBaseImageView alloc] initWithFrame:CGRectMake((TIPVIEWWIDTH - 27) / 2, 0, 27, 27)];
-        _loadingImageView.image = RCDynamicImage(@"conversation_msg_combine_loading_img", @"combine_loading");
+        _loadingImageView.image = RCResourceImage(@"combine_loading");
     }
     return _loadingImageView;
 }
@@ -567,7 +567,7 @@
         _loadingLabel.numberOfLines = 1;
         _loadingLabel.textAlignment = NSTextAlignmentCenter;
         _loadingLabel.backgroundColor = [UIColor clearColor];
-        _loadingLabel.textColor = RCDynamicColor(@"text_secondary_color", @"0x666666", @"0x666666");
+        _loadingLabel.textColor = [UIColor colorWithRed:102 / 255.0 green:102 / 255.0 blue:102 / 255.0 alpha:1 / 1.0];
         _loadingLabel.text = RCLocalizedString(@"CombineMessageLoading");
     }
     return _loadingLabel;
@@ -584,7 +584,7 @@
 - (RCBaseImageView *)loadFailedImageView {
     if (!_loadFailedImageView) {
         _loadFailedImageView = [[RCBaseImageView alloc] initWithFrame:CGRectMake((TIPVIEWWIDTH - 45) / 2, 0, 45, 54)];
-        _loadFailedImageView.image = RCDynamicImage(@"combine_msg_preview_failed_img", @"combine_failed");
+        _loadFailedImageView.image = RCResourceImage(@"combine_failed");
         _loadFailedImageView.userInteractionEnabled = NO;
     }
     return _loadFailedImageView;
@@ -597,7 +597,8 @@
         _loadFailedLabel.numberOfLines = 1;
         _loadFailedLabel.textAlignment = NSTextAlignmentCenter;
         _loadFailedLabel.backgroundColor = [UIColor clearColor];
-        _loadFailedLabel.textColor = RCDynamicColor(@"text_secondary_color", @"0x666666", @"0x666666");
+        _loadFailedLabel.textColor =
+            [UIColor colorWithRed:102 / 255.0 green:102 / 255.0 blue:102 / 255.0 alpha:1 / 1.0];
         _loadFailedLabel.text = RCLocalizedString(@"CombineMessageLoadFailed");
     }
     return _loadFailedLabel;

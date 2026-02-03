@@ -7,7 +7,7 @@
 //
 
 #import "RCBaseViewModel.h"
-#import <RongIMLibCore/RongIMLibCore.h>
+#import <RongIMLibcore/RongIMLibcore.h>
 #import "RCCollectionViewModelProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN

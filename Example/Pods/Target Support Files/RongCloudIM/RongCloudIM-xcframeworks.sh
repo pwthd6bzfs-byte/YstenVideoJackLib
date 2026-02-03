@@ -20,37 +20,37 @@ variant_for_slice()
   "RongChatRoom.xcframework/ios-arm64_armv7")
     echo ""
     ;;
-  "RongChatRoom.xcframework/ios-arm64_x86_64-simulator")
+  "RongChatRoom.xcframework/ios-arm64_i386_x86_64-simulator")
     echo "simulator"
     ;;
   "RongCustomerService.xcframework/ios-arm64_armv7")
     echo ""
     ;;
-  "RongCustomerService.xcframework/ios-arm64_x86_64-simulator")
+  "RongCustomerService.xcframework/ios-arm64_i386_x86_64-simulator")
     echo "simulator"
     ;;
   "RongDiscussion.xcframework/ios-arm64_armv7")
     echo ""
     ;;
-  "RongDiscussion.xcframework/ios-arm64_x86_64-simulator")
+  "RongDiscussion.xcframework/ios-arm64_i386_x86_64-simulator")
     echo "simulator"
     ;;
   "RongIMLib.xcframework/ios-arm64_armv7")
     echo ""
     ;;
-  "RongIMLib.xcframework/ios-arm64_x86_64-simulator")
+  "RongIMLib.xcframework/ios-arm64_i386_x86_64-simulator")
     echo "simulator"
     ;;
   "RongIMLibCore.xcframework/ios-arm64_armv7")
     echo ""
     ;;
-  "RongIMLibCore.xcframework/ios-arm64_x86_64-simulator")
+  "RongIMLibCore.xcframework/ios-arm64_i386_x86_64-simulator")
     echo "simulator"
     ;;
   "RongPublicService.xcframework/ios-arm64_armv7")
     echo ""
     ;;
-  "RongPublicService.xcframework/ios-arm64_x86_64-simulator")
+  "RongPublicService.xcframework/ios-arm64_i386_x86_64-simulator")
     echo "simulator"
     ;;
   esac
@@ -62,38 +62,38 @@ archs_for_slice()
   "RongChatRoom.xcframework/ios-arm64_armv7")
     echo "arm64 armv7"
     ;;
-  "RongChatRoom.xcframework/ios-arm64_x86_64-simulator")
-    echo "arm64 x86_64"
+  "RongChatRoom.xcframework/ios-arm64_i386_x86_64-simulator")
+    echo "arm64 i386 x86_64"
     ;;
   "RongCustomerService.xcframework/ios-arm64_armv7")
     echo "arm64 armv7"
     ;;
-  "RongCustomerService.xcframework/ios-arm64_x86_64-simulator")
-    echo "arm64 x86_64"
+  "RongCustomerService.xcframework/ios-arm64_i386_x86_64-simulator")
+    echo "arm64 i386 x86_64"
     ;;
   "RongDiscussion.xcframework/ios-arm64_armv7")
     echo "arm64 armv7"
     ;;
-  "RongDiscussion.xcframework/ios-arm64_x86_64-simulator")
-    echo "arm64 x86_64"
+  "RongDiscussion.xcframework/ios-arm64_i386_x86_64-simulator")
+    echo "arm64 i386 x86_64"
     ;;
   "RongIMLib.xcframework/ios-arm64_armv7")
     echo "arm64 armv7"
     ;;
-  "RongIMLib.xcframework/ios-arm64_x86_64-simulator")
-    echo "arm64 x86_64"
+  "RongIMLib.xcframework/ios-arm64_i386_x86_64-simulator")
+    echo "arm64 i386 x86_64"
     ;;
   "RongIMLibCore.xcframework/ios-arm64_armv7")
     echo "arm64 armv7"
     ;;
-  "RongIMLibCore.xcframework/ios-arm64_x86_64-simulator")
-    echo "arm64 x86_64"
+  "RongIMLibCore.xcframework/ios-arm64_i386_x86_64-simulator")
+    echo "arm64 i386 x86_64"
     ;;
   "RongPublicService.xcframework/ios-arm64_armv7")
     echo "arm64 armv7"
     ;;
-  "RongPublicService.xcframework/ios-arm64_x86_64-simulator")
-    echo "arm64 x86_64"
+  "RongPublicService.xcframework/ios-arm64_i386_x86_64-simulator")
+    echo "arm64 i386 x86_64"
     ;;
   esac
 }
@@ -177,10 +177,10 @@ install_xcframework() {
   echo "Copied $source to $destination"
 }
 
-install_xcframework "${PODS_ROOT}/RongCloudIM/RongCloudIM/RongChatRoom.xcframework" "RongCloudIM/ChatRoom" "framework" "ios-arm64_armv7" "ios-arm64_x86_64-simulator"
-install_xcframework "${PODS_ROOT}/RongCloudIM/RongCloudIM/RongCustomerService.xcframework" "RongCloudIM/CustomerService" "framework" "ios-arm64_armv7" "ios-arm64_x86_64-simulator"
-install_xcframework "${PODS_ROOT}/RongCloudIM/RongCloudIM/RongDiscussion.xcframework" "RongCloudIM/Discussion" "framework" "ios-arm64_armv7" "ios-arm64_x86_64-simulator"
-install_xcframework "${PODS_ROOT}/RongCloudIM/RongCloudIM/RongIMLib.xcframework" "RongCloudIM/IMLib" "framework" "ios-arm64_armv7" "ios-arm64_x86_64-simulator"
-install_xcframework "${PODS_ROOT}/RongCloudIM/RongCloudIM/RongIMLibCore.xcframework" "RongCloudIM/IMLibCore" "framework" "ios-arm64_armv7" "ios-arm64_x86_64-simulator"
-install_xcframework "${PODS_ROOT}/RongCloudIM/RongCloudIM/RongPublicService.xcframework" "RongCloudIM/PublicService" "framework" "ios-arm64_armv7" "ios-arm64_x86_64-simulator"
+install_xcframework "${PODS_ROOT}/RongCloudIM/RongCloudIM/RongChatRoom.xcframework" "RongCloudIM/ChatRoom" "framework" "ios-arm64_armv7" "ios-arm64_i386_x86_64-simulator"
+install_xcframework "${PODS_ROOT}/RongCloudIM/RongCloudIM/RongCustomerService.xcframework" "RongCloudIM/CustomerService" "framework" "ios-arm64_armv7" "ios-arm64_i386_x86_64-simulator"
+install_xcframework "${PODS_ROOT}/RongCloudIM/RongCloudIM/RongDiscussion.xcframework" "RongCloudIM/Discussion" "framework" "ios-arm64_armv7" "ios-arm64_i386_x86_64-simulator"
+install_xcframework "${PODS_ROOT}/RongCloudIM/RongCloudIM/RongIMLib.xcframework" "RongCloudIM/IMLib" "framework" "ios-arm64_armv7" "ios-arm64_i386_x86_64-simulator"
+install_xcframework "${PODS_ROOT}/RongCloudIM/RongCloudIM/RongIMLibCore.xcframework" "RongCloudIM/IMLibCore" "framework" "ios-arm64_armv7" "ios-arm64_i386_x86_64-simulator"
+install_xcframework "${PODS_ROOT}/RongCloudIM/RongCloudIM/RongPublicService.xcframework" "RongCloudIM/PublicService" "framework" "ios-arm64_armv7" "ios-arm64_i386_x86_64-simulator"
 

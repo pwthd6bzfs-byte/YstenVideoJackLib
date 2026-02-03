@@ -7,7 +7,7 @@
 //
 
 #import "RCStreamUtilities.h"
-#import "NSDictionary+RCAccessor.h"
+#import "NSDictionary+safeaccessor.h"
 #import <RongIMLibCore/RCStreamMessage.h>
 @implementation RCStreamSummaryModel
 

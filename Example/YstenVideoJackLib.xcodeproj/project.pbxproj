@@ -429,7 +429,6 @@
 				"${PODS_ROOT}/Target Support Files/Pods-YstenVideoJackLib_Example/Pods-YstenVideoJackLib_Example-resources.sh",
 				"${PODS_ROOT}/RongCloudIM/RongCloudIM/RCConfig.plist",
 				"${PODS_ROOT}/RongCloudOpenSource/Resources/RongCloud.bundle",
-				"${PODS_ROOT}/RongCloudOpenSource/Resources/RongCloudLively.bundle",
 				"${PODS_ROOT}/RongCloudOpenSource/Resources/en.lproj",
 				"${PODS_ROOT}/RongCloudOpenSource/Resources/zh-Hans.lproj",
 				"${PODS_ROOT}/RongCloudOpenSource/Resources/ar.lproj",
@@ -442,7 +441,6 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RCConfig.plist",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RongCloud.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RongCloudLively.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/en.lproj",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/zh-Hans.lproj",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ar.lproj",

@@ -54,7 +54,7 @@ NSString  * const RCGroupMemberHeaderCellIdentifier = @"RCGroupMemberHeaderCellI
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] init];
-        _nameLabel.textColor = RCDYCOLOR(0x111f2c, 0x9f9f9f);
+        _nameLabel.textColor = RCDYCOLOR(0x11f2c, 0x9f9f9f);
         _nameLabel.font = [UIFont systemFontOfSize:RCGroupMemberHeaderCellNameFont];
         _nameLabel.textAlignment = NSTextAlignmentCenter;
     }

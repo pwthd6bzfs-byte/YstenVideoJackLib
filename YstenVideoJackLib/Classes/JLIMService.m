@@ -149,8 +149,7 @@ static JLIMService *shared = nil;
     RCKitConfigCenter.ui.globalConversationAvatarStyle = RC_USER_AVATAR_CYCLE;
     RCKitConfigCenter.ui.globalMessageAvatarStyle = RC_USER_AVATAR_CYCLE;
     RCKitConfigCenter.font.secondLevel = 15;  // 全局二级文本大小
-    RCKitConfigCenter.message.enableEditMessage = NO; // 是否开启消息编辑
-    
+//    RCKitConfigCenter.message.enableEditMessage = NO; // 是否开启消息编辑
 }
 
 

@@ -46,11 +46,6 @@ static JLUserService *shared = nil;
 
 
 
-- (void)loginUserId:(NSString *)userID{
-    [self initServiceWithUserID:userID success:nil failued:nil];
-}
-
-
 
 - (void)initServiceWithUserID:(NSString *)userID success:(void(^)(NSDictionary *result))successBlock failued:(void (^)(NSError *error))failuedBlock {
     Weakself(ws);
@@ -63,10 +58,10 @@ static JLUserService *shared = nil;
         // 获取用户数据
         [ws fetchUserInfo];
         JLLog(@"User login Success");
-//        successBlock(result);
+        successBlock(result);
     } failued:^(NSError * _Nonnull error) {
 //        [SVProgressHUD dismiss];
-//        failuedBlock(error);
+        failuedBlock(error);
     }];
 }
 

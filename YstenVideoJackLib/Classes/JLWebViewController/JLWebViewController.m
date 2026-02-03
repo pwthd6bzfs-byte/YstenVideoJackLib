@@ -22,6 +22,7 @@
 #import "JLHeartMatchController.h"
 #import "JLWeakScriptMessageDelegate.h"
 #import "NSObject+CurrentNavigationViewController.h"
+#import "Config.h"
 
 @interface JLWebViewController ()<WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler>
 
@@ -29,6 +30,8 @@
 @property (nonatomic, strong) WKUserContentController *userContentController;
 @property (nonatomic, copy) NSString *heartbeatMatchPrice;
 @property (nonatomic, copy) NSString *token;
+/// 是否加载主播列表  NO 默认加载
+@property (nonatomic, assign) BOOL isDefault;
 
 @end
 
@@ -52,12 +55,10 @@
 
 
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.navigationController.navigationBarHidden = YES;
 
     NSDictionary *dict = [JLSystemConfigUtil getInfoWithHeartbeatMatchDict:@"HeartbeatMatchDict"];
     self.heartbeatMatchPrice = dict[@"heartbeatMatchPrice"];
@@ -80,17 +81,32 @@
     [self.view addSubview:self.webView];
     
     
-    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(0);
-        make.left.right.bottom.equalTo(self.view);
-    }];
     
     // 进度条
     //    [self setupProgressView]
+    self.navigationController.navigationBar.hidden = self.isNavigation;
+    
+    if (self.isNavigation == NO) {
+        [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view).offset(0);
+            make.left.right.bottom.equalTo(self.view);
+        }];
+    }else{
+        [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view).offset(kNavigationBar_Height);
+            make.left.right.bottom.equalTo(self.view);
+        }];
+    }
+    
+    
     
     if (self.isDefault == NO) {
+        
         NSString *h5String = [JLSystemConfigUtil getInfoWithH5String:@"h5String"];
-        [self loadDefaultWeb:h5String];
+        if (h5String && h5String.length > 0) {
+            [self loadDefaultWeb:h5String];
+        }
+
     }else{
         [self loadDefaultWeb:self.h5String];
     }
@@ -250,6 +266,7 @@
         if (jlAnchorId) {
             JLConversationViewController *conversationVC = [[JLConversationViewController alloc] initWithConversationType:ConversationType_PRIVATE targetId:jlAnchorId];
                 //            conversationVC.title = model.conversationTitle;
+            conversationVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:conversationVC animated:YES];
         }
         return;
@@ -266,6 +283,8 @@
         JLWebViewController *web = [[JLWebViewController alloc] init];
         web.h5String = url;
         web.isDefault = YES;
+        web.isNavigation = NO;
+        web.hidesBottomBarWhenPushed = YES;
         if ([NSObject currentNavigationController]) {
             [[NSObject currentNavigationController] pushViewController:web animated:YES];
         }
@@ -276,6 +295,7 @@
         /// 心动速配
     if ([message.name isEqualToString:@"goHeartMatch"]) {
         JLHeartMatchController *vc = [[JLHeartMatchController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
     

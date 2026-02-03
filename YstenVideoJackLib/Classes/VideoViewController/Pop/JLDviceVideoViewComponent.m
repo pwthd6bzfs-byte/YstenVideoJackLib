@@ -5,14 +5,14 @@
 //  Created by percent on 2026/1/20.
 //
 
-#import "JLMoreViewComponent.h"
+#import "JLDviceVideoViewComponent.h"
 #import <Masonry/Masonry.h>
-#import "config.h"
+#import "Config.h"
 
-@implementation JLMoreViewComponent
+@implementation JLDviceVideoViewComponent
 
-+ (JLMoreView *)initWithCamera:(BOOL)isCamera microphone:(BOOL)isMicrophone ClickSelectCameraBlock:(void(^)())cameraClock clickSelectMicroPhoneBlock:(void(^)())microPhoneBlock{
-    JLMoreView *view = [[JLMoreView alloc] initWithCamera:isCamera microphone:isMicrophone ClickSelectCameraBlock:cameraClock clickSelectMicroPhoneBlock:microPhoneBlock];
++ (JLDiviceVideoView *)initWitCliclStarVideoBtnBlock:(void(^)(void))starVideoBtnBlock{
+    JLDiviceVideoView *view = [[JLDiviceVideoView alloc] initWitCliclStarVideoBtnBlock:starVideoBtnBlock];
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     [window addSubview:view];
     

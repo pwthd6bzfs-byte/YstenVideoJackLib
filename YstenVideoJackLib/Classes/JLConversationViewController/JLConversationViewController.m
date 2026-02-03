@@ -37,6 +37,7 @@
 #import <RongCloudOpenSource/RongIMKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "UIImage+Add.h"
+#import "JLDviceVideoViewComponent.h"
 
 
 @interface JLConversationViewController ()<RCMessageBlockDelegate,RCAlbumListViewControllerDelegate,JLInputContainerViewDelegate,RCVoiceRecordControlDelegate,SVGAPlayerDelegate>
@@ -276,7 +277,25 @@
             }
         });
     };
-
+    
+    
+    
+    
+    
+    // 点击设备
+    self.buttomView.clickDeviceBlock = ^{
+        Weakself(ws);
+        [JLDviceVideoViewComponent initWitCliclStarVideoBtnBlock:^{
+            [ws.view endEditing:YES];
+            [ws sendVideoCall];
+        }];
+    };
+    
+    
+    
+    
+    
+    
     // 点击插入表情
     self.emojiView.clickSelectEmojiBlock = ^(NSString * string) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -396,6 +415,15 @@
     }
 
 }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -572,6 +600,9 @@
         
         JLAnchorUserModel *newUserInfo = [JLAnchorUserModel modelWithJSON:result[@"data"]];
         ws.anchorUserInfo = newUserInfo;
+        
+        // 添加设备UI
+        [ws.buttomView addDeviceLayout];
         
         ws.followBtn.hidden = NO;
         if ([ws.anchorUserInfo.followFlag isEqualToString:@"1"]) {

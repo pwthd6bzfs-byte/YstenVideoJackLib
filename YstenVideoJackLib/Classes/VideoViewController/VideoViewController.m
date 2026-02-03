@@ -23,6 +23,7 @@
 #import "JLUserService.h"
 #import "JLCustomMessage.h"
 #import "JLPopupViewComponent.h"
+#import "DeviceInviteNotifactionView.h"
 
 @interface VideoViewController ()<JLRTCServiceDelegate>
 
@@ -41,6 +42,8 @@
 @property (nonatomic, strong) VideoCallView *videoCallView;
 // 聊天室视图
 @property (nonatomic, strong) VideoFuncView *videoFuncView;
+// 设备邀请视图
+@property (nonatomic, strong) DeviceInviteNotifactionView *deviceInviteNotifactionView;
 
 
 // 数据源
@@ -119,8 +122,11 @@
     
     
     if (self.isHeartMatch == YES){
-            // 隐藏拨打视图
+        // 关闭音乐
+        [self.videoCallView stopAuduio];
+        // 隐藏拨打视图
         self.videoCallView.hidden = YES;
+        
     }
     
         // 是否是心动速配
@@ -143,6 +149,9 @@
     [self.view addSubview:self.videoCallView];
     [self.view addSubview:self.localView];
     [self.view addSubview:self.localBtn];
+    [self.view addSubview:self.deviceInviteNotifactionView];
+    
+
     [self.view addSubview:self.svgaPlayer];
     
     
@@ -212,6 +221,40 @@
     self.videoFuncView.clickMaskViewBlock = ^{
         [ws hideKeyboard];
     };
+    
+    
+    
+    // 收到设备邀请消息回调
+    self.videoFuncView.deviceInvitemessageBlock = ^{
+        
+        [ws.deviceInviteNotifactionView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view).offset(kStatusBarHeight + 7);
+            make.left.equalTo(self.view).offset(16);
+            make.right.equalTo(self.view).offset(-16);
+            make.height.equalTo(@196);
+        }];
+
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            [ws.deviceInviteNotifactionView show:ws.anchorUserInfo];
+            [ws.view layoutIfNeeded];
+        }];
+    };
+    
+    
+    
+    // 收到设备邀请退出
+    self.deviceInviteNotifactionView.clickCloseBlock = ^{
+        
+        [ws.deviceInviteNotifactionView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view).offset(-196);
+            make.left.equalTo(self.view).offset(16);
+            make.right.equalTo(self.view).offset(-16);
+            make.height.equalTo(@196);
+        }];
+    };
+    
+    
     
     
         // 点击退出房间
@@ -315,6 +358,14 @@
     
     [self.localBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.localView);
+    }];
+    
+    
+    [self.deviceInviteNotifactionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(-196);
+        make.left.equalTo(self.view).offset(16);
+        make.right.equalTo(self.view).offset(-16);
+        make.height.equalTo(@196);
     }];
     
 }
@@ -744,6 +795,17 @@
     }
     return  _videoFuncView;
 }
+
+
+- (DeviceInviteNotifactionView *)deviceInviteNotifactionView{
+    if (!_deviceInviteNotifactionView) {
+        DeviceInviteNotifactionView *view = [[DeviceInviteNotifactionView alloc] init];
+        view.hidden = YES;
+        _deviceInviteNotifactionView = view;
+    }
+    return  _deviceInviteNotifactionView;
+}
+
 
 
 

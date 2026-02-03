@@ -5,11 +5,11 @@ platform :ios, '13.0'
 target 'YstenVideoJackLib_Example' do
   pod 'YstenVideoJackLib', :path => '../'
 
-#  pod 'YstenVideoJackLib', '0.4.4'
+#  pod 'YstenVideoJackLib', '0.4.6'
 
+
+  pod 'LookinServer', :subspecs => ['Swift'], :configurations => ['Debug']
 # pod 'RongCloudIM/IMLib', '5.32.0'
-
-#  pod 'LookinServer', :subspecs => ['Swift'], :configurations => ['Debug']
 #  pod 'SVProgressHUD'
 #  pod 'Masonry','1.1.0'
 #  # 图片加载

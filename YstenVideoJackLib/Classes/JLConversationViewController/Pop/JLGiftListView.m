@@ -6,7 +6,7 @@
 //
 
 #import "JLGiftListView.h"
-#import "config.h"
+#import "Config.h"
 #import <Masonry/Masonry.h>
 #import "UIColor+HexColor.h"
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -412,7 +412,9 @@
     [self addSubview:self.coinLab];
     [self addSubview:self.coinIcon];
     
-    
+    UIView *vline = [[UIView alloc] init];
+    [self addSubview:vline];
+
     [self.imageIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@64);
         make.height.equalTo(@64);
@@ -425,15 +427,22 @@
         make.top.equalTo(self.imageIcon.mas_bottom).offset(2);
     }];
     
+    
+    [vline mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.nameLab.mas_bottom).offset(2);
+        make.centerX.equalTo(self);
+    }];
+    
+    
     [self.coinLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.nameLab.mas_bottom).offset(2);
-        make.centerX.equalTo(self).offset(-5);
+        make.right.equalTo(vline.mas_left).offset(-1.5);
     }];
     
 
     [self.coinIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.coinLab);
-        make.centerX.equalTo(self).offset(5);
+        make.left.equalTo(vline.mas_right).offset(1.5);
         make.size.mas_offset(CGSizeMake(8, 8));
     }];
 

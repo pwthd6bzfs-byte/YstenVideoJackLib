@@ -73,10 +73,11 @@
 #import "CachedResourceLoader.h"
 #import "NSString+MD5.h"
 #import "PlayerManager.h"
-#import "JLMoreView.h"
-#import "JLMoreViewComponent.h"
+#import "JLDiviceVideoView.h"
+#import "JLDviceVideoViewComponent.h"
 #import "VideoViewController.h"
 #import "CountdownLabel.h"
+#import "DeviceInviteNotifactionView.h"
 #import "HeartMatchExplainView.h"
 #import "LocalView.h"
 #import "RechargeView.h"
@@ -87,6 +88,7 @@
 #import "VideoViewButtomView.h"
 #import "VideoViewGiftMessageCell.h"
 #import "VideoViewTextMessageCell.h"
+#import "VideoViewTopTextMessageCell.h"
 
 FOUNDATION_EXPORT double YstenVideoJackLibVersionNumber;
 FOUNDATION_EXPORT const unsigned char YstenVideoJackLibVersionString[];

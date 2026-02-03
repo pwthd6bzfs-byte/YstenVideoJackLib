@@ -19,14 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)shared;
 
 
-///  用户登录
-- (void)loginUserId:(NSString *)userID;
-
 
 ///  用户退出
 - (void)logout;
-
-
 
 
     /// 用户登录

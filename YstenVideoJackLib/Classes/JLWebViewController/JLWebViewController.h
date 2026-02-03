@@ -15,7 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *h5String;
 
-@property (nonatomic, assign) BOOL isDefault;
+/// 是否隐藏导航栏 默认:  NO   不显示
+@property (nonatomic, assign) BOOL isNavigation;
 
 
 

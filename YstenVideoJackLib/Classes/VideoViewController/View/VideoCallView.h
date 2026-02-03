@@ -40,12 +40,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton *reverseBtn;
 // 通话每分钟金币
 @property (nonatomic, strong) UILabel *priceLab;
-// 拨打音乐
-@property (strong, nonatomic) AVAudioPlayer *audioPlayer;
-    // 是否属于心动速配
+// 是否属于心动速配
 @property (nonatomic, assign) BOOL isHeartMatch;
 // 主播信息详情
 @property (nonatomic, strong) JLAnchorUserModel *anchorUserInfo;
+
+// 暂停播放主播宣传视频
+- (void)stopAuduio;
 
 - (void)clickCameraBtnEvnet;
 

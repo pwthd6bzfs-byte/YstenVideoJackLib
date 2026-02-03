@@ -38,6 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 // 点击蒙层回调
 @property (nonatomic, copy) void(^clickMaskViewBlock)();
 
+// 设备邀请消息回调
+@property (nonatomic, copy) void(^deviceInvitemessageBlock)();
+
 
 // 发送文本消息成功回调
 @property (nonatomic, copy) void(^sendMessageSuccessBlock)();

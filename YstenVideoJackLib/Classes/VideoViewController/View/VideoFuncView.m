@@ -9,6 +9,7 @@
 #import "VideoViewTextMessageCell.h"
 #import "VideoViewAskGiftMessageCell.h"
 #import "VideoViewGiftMessageCell.h"
+#import "VideoViewTopTextMessageCell.h"
 #import "RechargeView.h"
 #import "HeartMatchExplainView.h"
 #import "RCIM.h"
@@ -50,12 +51,17 @@
 @property (nonatomic, strong) UIView *countdownView;
 // 倒计时icon
 @property (nonatomic, strong) UIImageView *countdownImageView;
+// 爱心按钮
+@property (nonatomic, strong) UIButton *heartBtn;
 // 消息TableView
 @property (nonatomic, strong) UITableView *tableView;
 // 金币不足提示
 @property (nonatomic, strong) RechargeView *rechargeView;
 // 心动速配明细提示
 @property (nonatomic, strong) HeartMatchExplainView *heartMatchExplainView;
+
+
+
 
 @property (nonatomic, strong) NSTimer *timer;
 
@@ -74,15 +80,10 @@
 - (instancetype)init{
     self = [super init];
     if (self) {
-        [self initialize];
         self.isGetMeesage = YES;
-        
-        NSDictionary *heartbeatMatchDict =  [JLSystemConfigUtil getInfoWithHeartbeatMatchDict:@"HeartbeatMatchDict"];
-        NSString *heartbeatMatchFreeTimeString =  heartbeatMatchDict[@"heartbeatMatchFreeTime"];
-        self.heartbeatMatchFreeTime = [heartbeatMatchFreeTimeString integerValue];
+        [self initialize];
+        [self setData];
     }
-    
-    
     
     return self;
 }
@@ -112,11 +113,13 @@
     [self addSubview:self.countdownView];
     [self addSubview:self.countdownImageView];
     [self addSubview:self.countdownLab];
+    [self addSubview:self.heartBtn];
     [self addSubview:self.tableView];
     [self addSubview:self.heartMatchExplainView];
     [self addSubview:self.rechargeView];
     [self addSubview:self.vMask];
     [self addSubview:self.videoViewButtomView];
+
     
     
     [self.headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -189,6 +192,15 @@
     }];
     
     
+    [self.heartBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self).offset(-9);
+        make.width.equalTo(@60);
+        make.height.equalTo(@60);
+        make.bottom.equalTo(self.tableView.mas_top).offset(-12);
+    }];
+    
+    
+    
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.headImageView);
         make.width.equalTo(@276);
@@ -222,6 +234,7 @@
     [self.vMask mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
+    
     
     
 
@@ -283,6 +296,18 @@
 
 
 
+
+
+- (void)setData{
+    NSDictionary *heartbeatMatchDict =  [JLSystemConfigUtil getInfoWithHeartbeatMatchDict:@"HeartbeatMatchDict"];
+    NSString *heartbeatMatchFreeTimeString =  heartbeatMatchDict[@"heartbeatMatchFreeTime"];
+    self.heartbeatMatchFreeTime = [heartbeatMatchFreeTimeString integerValue];
+}
+
+
+
+
+
 - (void)setAnchorUserInfo:(JLAnchorUserModel *)anchorUserInfo{
     _anchorUserInfo = anchorUserInfo;
     
@@ -294,12 +319,35 @@
     
     if ([self.anchorUserInfo.followFlag isEqualToString:@"1"]) {
         self.followBtn.selected = YES;
-        self.followBtn.backgroundColor = [UIColor colorWithHexString:@"#ECECEC"];
+        self.followBtn.backgroundColor = [UIColor colorWithHexString:@"#000000" alpha:0.3];
     }else{
         self.followBtn.selected = NO;
         self.followBtn.backgroundColor = [UIColor colorWithHexString:@"#D6007E"];
     }
     
+    
+    
+        // 主播有设备
+    if (self.anchorUserInfo.devicesNum > 0) {
+        
+        self.heartBtn.hidden = NO;
+        
+            // 自定义顶部消息
+        RCTextMessage *textMessage = [[RCTextMessage alloc] init];;
+        textMessage.content = @"The other side is connected to the toy";
+        textMessage.extra = @"1";
+        
+            //        textMessage
+        RCMessage *message = [[RCMessage alloc] init];
+        message.targetId = @"";
+        message.content = textMessage;
+        message.messageDirection = MessageDirection_SEND;
+        message.senderUserId = @"";
+        message.conversationType = ConversationType_PRIVATE;
+        [self.array addObject:message];
+        [self.tableView reloadData];
+    }
+
 }
 
 
@@ -414,8 +462,19 @@
 
 
 
+// 点击设备控制面板
+- (void)clickHeartBtnEvnet{
+    
+    if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showDiveceControlPanelAlertView)]) {
+        [[JLIMService shared].delegate showDiveceControlPanelAlertView];
+    }
+}
 
 
+
+
+
+// 关注
 - (void)clickFollowingBtnEvnet:(UIButton *)sender{
     Weakself(ws);
     if (self.followBtn.selected == YES) {
@@ -440,7 +499,7 @@
             NSLog(@"%@",result);
             NSLog(@"关注成功");
                 //        [SVProgressHUD showImage:nil status:@"关注成功"];
-            ws.followBtn.backgroundColor = [UIColor colorWithHexString:@"#ECECEC"];
+            ws.followBtn.backgroundColor = [UIColor colorWithHexString:@"#000000" alpha:0.3];
             [SVProgressHUD dismiss];
             ws.followBtn.selected = YES;
         } failued:^(NSError * _Nonnull error) {
@@ -505,10 +564,20 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     RCMessage *message =  self.array[indexPath.row];
 
+    
     if ([message.content isMemberOfClass:[RCTextMessage class]]) {
-        VideoViewTextMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VideoViewTextMessageCell"];
-        cell.message = message;
-        return  cell;
+        RCTextMessage *text = (RCTextMessage *)message.content;
+        if ([text.extra isEqualToString:@"1"]) {
+            // 自定义顶部消息
+            VideoViewTopTextMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VideoViewTopTextMessageCell"];
+            cell.message = message;
+            return  cell;
+
+        }else{
+            VideoViewTextMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VideoViewTextMessageCell"];
+            cell.message = message;
+            return  cell;
+        }
     }
     
     
@@ -546,6 +615,9 @@
         return;
     }
     
+    
+    
+    
     // 判断是否是该主播的消息
     if ([message.targetId isEqualToString:[NSString stringWithFormat:@"%ld",self.anchorUserInfo.userID]]) {
         
@@ -553,6 +625,17 @@
         if ([message.objectName isEqualToString:@"mikchat:recharge"]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self showRechargeView];
+            });
+            return;
+        }
+        
+        
+            // 设备邀请
+        if ([message.objectName isEqualToString:@"mikchat:devicecontrol"]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (self.deviceInvitemessageBlock) {
+                    self.deviceInvitemessageBlock();
+                }
             });
             return;
         }
@@ -695,9 +778,9 @@
         [view setTitle:@"Follow" forState:UIControlStateNormal];
         [view setTitle:@"UnFollow" forState:UIControlStateSelected];
         [view setImage:[UIImage jl_name:@"jl_follow_add" class:self] forState:UIControlStateNormal];
-        [view setImage:[UIImage jl_name:@"jl_follow_no" class:self] forState:UIControlStateSelected];
+        [view setImage:[UIImage jl_name:@"jl_follow_white_no" class:self] forState:UIControlStateSelected];
         [view setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [view setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+        [view setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         view.titleLabel.font = [UIFont systemFontOfSize:13];
         view.backgroundColor = [UIColor colorWithHexString:@"#D6007E"];
         view.layer.cornerRadius = 8;
@@ -707,6 +790,9 @@
     }
     return  _followBtn;
 }
+
+
+
 
 
 
@@ -768,6 +854,18 @@
 
 
 
+- (UIButton *)heartBtn{
+    if (!_heartBtn) {
+        UIButton *view = [[UIButton alloc] init];
+        [view setImage:[UIImage jl_name:@"jl_video_heart" class:self] forState:UIControlStateNormal];
+        [view addTarget:self action:@selector(clickHeartBtnEvnet) forControlEvents:UIControlEventTouchUpInside];
+        view.hidden = YES;
+        _heartBtn = view;
+    }
+    return  _heartBtn;
+}
+
+
 
 -(UITableView *) tableView
 {
@@ -794,6 +892,7 @@
         view.sectionHeaderHeight = 0;
         view.sectionFooterHeight = 0;
         [view registerClass:[VideoViewTextMessageCell class] forCellReuseIdentifier:@"VideoViewTextMessageCell"];
+        [view registerClass:[VideoViewTopTextMessageCell class] forCellReuseIdentifier:@"VideoViewTopTextMessageCell"];
         [view registerClass:[VideoViewAskGiftMessageCell class] forCellReuseIdentifier:@"VideoViewAskGiftMessageCell"];
         [view registerClass:[VideoViewGiftMessageCell class] forCellReuseIdentifier:@"VideoViewGiftMessageCell"];
 

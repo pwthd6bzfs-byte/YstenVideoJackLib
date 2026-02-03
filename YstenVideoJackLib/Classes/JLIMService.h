@@ -28,8 +28,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-// 弹出去充值(AlertView)
-- (void)showRechargeAlertView;
+// 弹出去充值提示弹窗(AlertView)
+- (void)showRechargeAlertView ;
+
+
+
+// 弹出设备控制面板弹窗(AlertView)
+- (void)showDiveceControlPanelAlertView;
+
+
+
+// 弹出主播邀请设备控制面板弹窗(AlertView)
+- (void)showAnchorInviteDiveceControlPanelAlertView;
 
 
 
@@ -71,15 +81,15 @@ NS_ASSUME_NONNULL_BEGIN
     
 
     
-    /// 拨打视频通话
+/// 拨打视频通话
 /// - Parameter jlAnchorId: 主播id
 - (void)pushCallVideoViewController:(NSString *)jlAnchorId;
 
 
 
-
 // 获取所有未读消息
 - (void)updateAllUnreadMessages:(nullable void (^)(int unreadCount))completion;
+
 
 
 /// 融云登出

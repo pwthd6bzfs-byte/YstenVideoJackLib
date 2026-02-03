@@ -128,7 +128,7 @@ static JLIMService *shared = nil;
     [[RCIM sharedRCIM]  registerMessageType:[JLVideoMessage class]];
     [[RCIM sharedRCIM]  registerMessageType:[JLGiftMessage class]];
     [[RCIM sharedRCIM]  registerMessageType:[JLAskGiftMessage class]];
-    [[RCIM sharedRCIM]  registerMessageType:[JLDeviceControlMessage class]];
+//    [[RCIM sharedRCIM]  registerMessageType:[JLDeviceControlMessage class]];
     [[RCIM sharedRCIM]  registerMessageType:[JLDeviceOrderMessage class]];
     [[RCIM sharedRCIM]  registerMessageType:[JLRecommendMessage class]];
     [[RCIM sharedRCIM]  registerMessageType:[JLHeartBeatMessage class]];
@@ -329,7 +329,6 @@ static JLIMService *shared = nil;
     if (nLeft == 0 && hasPackage == 0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"kNotificationMessageRecive" object: nil];
     }
-    
     
     // 代理消息(客户端使用)
     if (self.delegate && [self.delegate respondsToSelector:@selector(didReceiveMessage:)]) {

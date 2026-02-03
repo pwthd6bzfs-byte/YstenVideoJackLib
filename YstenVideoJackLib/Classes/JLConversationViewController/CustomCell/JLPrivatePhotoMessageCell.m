@@ -65,6 +65,31 @@
     JLMediaPrivateMessage *message = (JLMediaPrivateMessage *)self.model.content;
     self.message = message;
     
+    
+    Weakself(ws);
+        // 获取当前时间
+    NSDate *now = [NSDate date];
+    
+        // 获取时间戳
+    NSTimeInterval seconds = [now timeIntervalSince1970];
+    
+        // 将秒转换为毫秒
+    long long currentTimeStamp = seconds * 1000;
+    NSInteger expirationTime = self.message.expirationTime;
+    
+        
+    if (currentTimeStamp > expirationTime) {
+        
+        if (![self.model.extra isEqualToString:@"2"]) {
+            [[JLIMService shared] setMessageExtraStatus:@"2" messageId:self.model.messageId callback:^(BOOL result) {
+                ws.model.extra = @"2";
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationRcMessageUpdateSuccess object:self];
+                NSLog(@"解锁私密状态更新成功 (过期)");
+            }];
+        }
+    }
+
+    
     // 1:照片类型  2:视频类型
     if ([message.type isEqualToString:@"1"]) {
         

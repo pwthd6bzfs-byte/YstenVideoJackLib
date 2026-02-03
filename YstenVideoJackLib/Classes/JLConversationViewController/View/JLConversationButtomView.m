@@ -46,7 +46,8 @@
     [self addSubview:self.emojiBtn];
     [self addSubview:self.telBtn];
     [self addSubview:self.giftBtn];
-
+    [self addSubview:self.deviceBtn];
+    
 
     [self.leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentTxf);
@@ -101,6 +102,49 @@
     
     
     [self.giftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentTxf.mas_bottom).offset(8);
+        make.left.equalTo(self.telBtn.mas_right).offset(width);
+        make.size.mas_equalTo(CGSizeMake(40,40));
+    }];
+
+}
+
+
+
+- (void)addDeviceLayout{
+    CGFloat kSreenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat width = (kSreenWidth - 39.0*2 - 40*5)/4.0;
+    
+    [self.photoBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentTxf.mas_bottom).offset(8);
+        make.left.equalTo(self).offset(39);
+        make.size.mas_equalTo(CGSizeMake(40,40));
+    }];
+    
+    
+    [self.emojiBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentTxf.mas_bottom).offset(8);
+        make.left.equalTo(self.photoBtn.mas_right).offset(width);
+        make.size.mas_equalTo(CGSizeMake(40,40));
+    }];
+    
+    
+    [self.deviceBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentTxf.mas_bottom).offset(8);
+        make.left.equalTo(self.emojiBtn.mas_right).offset(width);
+        make.size.mas_equalTo(CGSizeMake(40,40));
+    }];
+    
+    
+    
+    [self.telBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentTxf.mas_bottom).offset(8);
+        make.left.equalTo(self.deviceBtn.mas_right).offset(width);
+        make.size.mas_equalTo(CGSizeMake(40,40));
+    }];
+    
+    
+    [self.giftBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentTxf.mas_bottom).offset(8);
         make.left.equalTo(self.telBtn.mas_right).offset(width);
         make.size.mas_equalTo(CGSizeMake(40,40));
@@ -176,6 +220,17 @@
 }
 
 
+
+// 设备点击
+- (void)clickDeviceBtnEvent{
+    if (self.clickDeviceBlock) {
+        self.clickDeviceBlock();
+    }
+}
+
+
+
+
 #pragma mark - Target Action
 - (void)voiceRecordButtonTouchDown:(UIButton *)sender {
 //    sender.backgroundColor = RCDynamicColor(@"auxiliary_background_2_color", @"0xe0e2e3", @"0x323232");
@@ -239,8 +294,8 @@
         btn.layer.cornerRadius = 12;
         btn.layer.masksToBounds = YES;
         [btn setTitleColor:[UIColor colorWithHexString:@"#000000"] forState:UIControlStateNormal];
-        [btn setTitle:@"按住 说话" forState:UIControlStateNormal];
-        [btn setTitle:@"松开 结束"
+        [btn setTitle:@"Hold to Talk" forState:UIControlStateNormal];
+        [btn setTitle:@"Release to send"
                        forState:UIControlStateHighlighted];
         btn.hidden = YES;
         [btn addTarget:self
@@ -369,6 +424,25 @@
     
     return  _giftBtn;
 }
+
+
+
+
+
+- (UIButton *)deviceBtn{
+    if (!_deviceBtn) {
+        UIButton *btn = [[UIButton alloc] init];
+        btn.backgroundColor = [UIColor clearColor];
+        [btn setImage:[UIImage jl_name:@"jl_device" class:self] forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(clickDeviceBtnEvent) forControlEvents:UIControlEventTouchUpInside];
+        _deviceBtn = btn;
+    }
+    
+    return  _deviceBtn;
+}
+
+
+
 
 
 

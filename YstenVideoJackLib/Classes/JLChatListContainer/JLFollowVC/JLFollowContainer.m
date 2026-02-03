@@ -9,7 +9,7 @@
 #import "JLFansVC.h"
 #import "JLFollowVC.h"
 #import "CustomNaviBarView.h"
-#import "config.h"
+#import "Config.h"
 #import <Masonry/Masonry.h>
 #import "UIColor+HexColor.h"
 #import <SDWebImage/UIImageView+WebCache.h>

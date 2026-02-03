@@ -9,7 +9,7 @@
 #import "RCMessageModel.h"
 #import <AVKit/AVKit.h>
 #import <AVFoundation/AVFoundation.h>
-#import "config.h"
+#import "Config.h"
 #import <Masonry/Masonry.h>
 #import "UIColor+HexColor.h"
 #import <SDWebImage/UIImageView+WebCache.h>

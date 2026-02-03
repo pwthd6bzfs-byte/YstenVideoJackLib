@@ -99,14 +99,12 @@
 
 - (void)clickbtn1:(UIButton *)btn{
     [self.view endEditing:YES];
-    
-    [[JLUserService shared] loginUserId:self.txf.text];
-    
-//    [[JLUserService shared] initServiceWithUserID:self.txf.text success:^(NSDictionary * _Nonnull result) {
-//        NSLog(@"%@",result);
-//    } failued:^(NSError * _Nonnull error) {
-//        NSLog(@"%@",error);
-//    }];
+        
+    [[JLUserService shared] initServiceWithUserID:self.txf.text success:^(NSDictionary * _Nonnull result) {
+        NSLog(@"%@",result);
+    } failued:^(NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
 }
 
 
@@ -132,6 +130,10 @@
 //    [[JLIMService shared] updateAllUnreadMessages:^(int unreadCount) {
 //        
 //    }];
+    
+    
+    
+    
 }
 
 
@@ -143,6 +145,7 @@
     }
     
     JLWebViewController *webVC = [[JLWebViewController alloc] init];
+    webVC.isNavigation = YES;
     [self.navigationController pushViewController:webVC animated:YES];
 }
 
@@ -218,5 +221,22 @@
         //        NSLog(@"%@",customMessage);
         //    }
 }
+
+
+
+    // 弹出设备控制面板弹窗(AlertView)
+- (void)showDiveceControlPanelAlertView{
+    NSLog(@"弹出设备控制面板弹窗");
+}
+
+
+
+    // 弹出主播邀请设备控制面板弹窗(AlertView)
+- (void)showAnchorInviteDiveceControlPanelAlertView{
+    NSLog(@"弹出主播邀请设备控制面板弹窗");
+}
+
+
+
 
 @end

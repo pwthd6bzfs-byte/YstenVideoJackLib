@@ -42,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIButton *giftBtn;
 
+@property (nonatomic, strong) UIButton *deviceBtn;
+
 
 
 @property (nonatomic,copy) void (^clickLeftBlock)(BOOL);
@@ -55,6 +57,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) void (^clickTelBlock)(void);
 
 @property (nonatomic,copy) void (^clickGiftBlock)(void);
+
+@property (nonatomic,copy) void (^clickDeviceBlock)(void);
+
+
+
+// 添加设备UI
+- (void)addDeviceLayout;
 
 @end
 

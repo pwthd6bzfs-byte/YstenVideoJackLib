@@ -163,7 +163,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (model.isTop == YES) {
         moreAction.image = [UIImage jl_name:@"jl_message_dwon" class:self];
     }else{
-        moreAction.image = [UIImage jl_name:@"jl_message_dwon" class:self];
+        moreAction.image = [UIImage jl_name:@"jl_message_up" class:self];
     }
     moreAction.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
     

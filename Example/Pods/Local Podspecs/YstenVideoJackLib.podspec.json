@@ -1,6 +1,6 @@
 {
   "name": "YstenVideoJackLib",
-  "version": "0.4.8",
+  "version": "0.5.0",
   "summary": "A short description of YstenVideoJackLib.",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/pwthd6bzfs-byte/YstenVideoJackLib",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/pwthd6bzfs-byte/YstenVideoJackLib.git",
-    "tag": "0.4.8"
+    "tag": "0.5.0"
   },
   "platforms": {
     "ios": "13.0"
@@ -22,7 +22,8 @@
   "resource_bundles": {
     "YstenVideoJackLib": [
       "YstenVideoJackLib/Assets/*.png",
-      "YstenVideoJackLib/Assets/*.mp3"
+      "YstenVideoJackLib/Assets/*.mp3",
+      "YstenVideoJackLib/Assets/*.json"
     ]
   },
   "frameworks": [
@@ -69,6 +70,9 @@
     ],
     "MJRefresh": [
       "3.7.5"
+    ],
+    "lottie-ios": [
+      "2.5.3"
     ]
   }
 }

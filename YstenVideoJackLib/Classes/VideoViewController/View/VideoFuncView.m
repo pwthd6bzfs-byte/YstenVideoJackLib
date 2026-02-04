@@ -25,6 +25,8 @@
 #import "JLAPIService.h"
 #import "UIImage+Add.h"
 #import "JLThreadSafeArray.h"
+#import <Lottie/Lottie.h>
+
 
 @interface VideoFuncView ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -53,7 +55,7 @@
 // 倒计时icon
 @property (nonatomic, strong) UIImageView *countdownImageView;
 // 爱心按钮
-@property (nonatomic, strong) UIButton *heartBtn;
+@property (nonatomic, strong) LOTAnimationView *animationView;
 // 消息TableView
 @property (nonatomic, strong) UITableView *tableView;
 // 金币不足提示
@@ -84,6 +86,7 @@
         self.isGetMeesage = YES;
         [self initialize];
         [self setData];
+        [self setupAnimation];
     }
     
     return self;
@@ -114,7 +117,7 @@
     [self addSubview:self.countdownView];
     [self addSubview:self.countdownImageView];
     [self addSubview:self.countdownLab];
-    [self addSubview:self.heartBtn];
+    [self addSubview:self.animationView];
     [self addSubview:self.tableView];
     [self addSubview:self.heartMatchExplainView];
     [self addSubview:self.rechargeView];
@@ -193,21 +196,36 @@
     }];
     
     
-    [self.heartBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+
+    [self.animationView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).offset(-9);
-        make.width.equalTo(@60);
-        make.height.equalTo(@60);
+        make.width.equalTo(@(60));
+        make.height.equalTo(@(60));
         make.bottom.equalTo(self.tableView.mas_top).offset(-12);
     }];
     
     
+    // 适配iphoneSE iphone 678  iphone 678 plus
+    if (kScreenHeight == 667 || kScreenHeight == 568 || kScreenHeight == 736) {
+        
+        [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.headImageView);
+            make.width.equalTo(@(276));
+            make.height.equalTo(@(180));
+            make.bottom.equalTo(self.rechargeView.mas_top).offset(-12);
+        }];
+
+    }else{
+        [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.headImageView);
+            make.width.equalTo(@(276));
+            make.height.equalTo(@(260));
+            make.bottom.equalTo(self.rechargeView.mas_top).offset(-12);
+        }];
+
+    }
+
     
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.headImageView);
-        make.width.equalTo(@276);
-        make.height.equalTo(@296);
-        make.bottom.equalTo(self.rechargeView.mas_top).offset(-12);
-    }];
     
     
     [self.rechargeView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -332,7 +350,7 @@
         // 主播有设备
     if (self.anchorUserInfo.devicesNum > 0) {
         
-        self.heartBtn.hidden = NO;
+        self.animationView.hidden = NO;
         
             // 自定义顶部消息
         RCTextMessage *textMessage = [[RCTextMessage alloc] init];;
@@ -375,11 +393,42 @@
 
 
 
-
+// 移除定时器
 - (void)removeTimer{
     [self.timer invalidate];
     self.timer = nil;
 }
+
+
+// 加载json动画
+- (void)setupAnimation {
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickHeartBtnEvnet)];
+    [self.animationView addGestureRecognizer:tap];
+    
+        // 设置动画视图
+    self.animationView.contentMode = UIViewContentModeScaleAspectFit;
+        // 播放动画
+    [self playAnimation];
+}
+
+- (void)playAnimation {
+        // 设置循环模式
+    self.animationView.loopAnimation = YES; // 循环播放
+                                            // self.animationView.loopAnimation = NO; // 播放一次
+    
+        // 设置播放速度
+    self.animationView.animationSpeed = 1.0;
+    
+        // 播放动画
+    [self.animationView play];
+//    
+//        // 带完成回调的播放
+//         [self.animationView playWithCompletion:^(BOOL animationFinished) {
+//             NSLog(@"动画播放完成");
+//         }];
+}
+
 
 
 
@@ -879,20 +928,6 @@
 
 
 
-
-- (UIButton *)heartBtn{
-    if (!_heartBtn) {
-        UIButton *view = [[UIButton alloc] init];
-        [view setImage:[UIImage jl_name:@"jl_video_heart" class:self] forState:UIControlStateNormal];
-        [view addTarget:self action:@selector(clickHeartBtnEvnet) forControlEvents:UIControlEventTouchUpInside];
-        view.hidden = YES;
-        _heartBtn = view;
-    }
-    return  _heartBtn;
-}
-
-
-
 -(UITableView *) tableView
 {
     if (!_tableView)
@@ -973,6 +1008,30 @@
     
     return _array;
 }
+
+
+
+- (LOTAnimationView *)animationView
+{
+    if (!_animationView) {
+        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+        NSURL *bundleURL = [bundle URLForResource:@"YstenVideoJackLib" withExtension:@"bundle"];
+        NSBundle *resourceBundle = [NSBundle bundleWithURL:bundleURL];
+//        NSString *path = [resourceBundle pathForResource:@"Success" ofType:@"json"];
+
+        LOTAnimationView *animationView = [LOTAnimationView animationNamed:@"Success" inBundle:resourceBundle];
+            //循环播放动画
+        animationView.loopAnimation = YES;
+        animationView.backgroundColor = [UIColor redColor];
+        animationView.hidden = YES;
+        _animationView = animationView;
+    }
+    return _animationView;
+}
+
+
+
+
 
 
 

@@ -60,13 +60,15 @@
 
 #define Weakself(weakSelf)  __weak __typeof(&*self)weakSelf = self;
 
-    ////屏幕宽度
+//屏幕宽度
 #define kScreenWidth ([[UIScreen mainScreen]bounds].size.width)
-    //屏幕高度
+//屏幕高度
 #define kScreenHeight ([[UIScreen mainScreen]bounds].size.height)
+// 比例系数
+//#define kRate    [UIScreen mainScreen].bounds.size.width/375.0
 
 
-    /// 状态栏高度
+/// 状态栏高度
 #define kStatusBarHeight ({ \
 CGFloat __height = 0; \
 if (@available(iOS 13.0, *)) { \

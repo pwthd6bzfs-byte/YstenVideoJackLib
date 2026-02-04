@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'YstenVideoJackLib'
-  s.version          = '0.4.9'
+  s.version          = '0.5.0'
   s.summary          = 'A short description of YstenVideoJackLib.'
 
 # This description is used to generate tags and improve search results.
@@ -36,7 +36,8 @@ TODO: Add long description of the pod here.
   s.resource_bundles = {
     'YstenVideoJackLib' => [
     'YstenVideoJackLib/Assets/*.png',
-    'YstenVideoJackLib/Assets/*.mp3']
+    'YstenVideoJackLib/Assets/*.mp3',
+    'YstenVideoJackLib/Assets/*.json']
   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
@@ -73,6 +74,6 @@ TODO: Add long description of the pod here.
    s.dependency 'Protobuf', '= 3.22.1'
    s.dependency 'JXCategoryView', '~>1.6.8'
    s.dependency 'MJRefresh', '3.7.5'
-#   s.dependency 'lottie-ios_Oc'
+   s.dependency 'lottie-ios', '2.5.3'
 
 end

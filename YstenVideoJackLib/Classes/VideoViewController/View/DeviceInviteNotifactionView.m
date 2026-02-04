@@ -71,7 +71,8 @@
     
     [self.textLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).offset(16);
-        make.centerX.equalTo(self);
+        make.left.equalTo(self).offset(16);
+        make.right.equalTo(self).offset(-16-24);
     }];
 
     [self.closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -212,6 +213,7 @@
         view.font = [UIFont systemFontOfSize:14];
         view.textAlignment = UITextAlignmentLeft;
         view.lineBreakMode = NSLineBreakByCharWrapping;
+        view.numberOfLines = 2;
         view.clipsToBounds = YES;
         _textLab = view;
     }
@@ -241,7 +243,7 @@
     if (!_takeOverBtn) {
         UIButton *view = [[UIButton alloc] init];
 //        view.backgroundColor = [UIColor colorWithHexString:@"#FE006B"];
-        [view setBackgroundImage:[UIImage imageNamed:@"jl_button_bg"] forState:UIControlStateNormal];
+        [view setBackgroundImage:[UIImage jl_name:@"jl_button_bg" class:self] forState:UIControlStateNormal];
         [view setTitle:@"" forState:UIControlStateNormal];
         view.layer.cornerRadius = 12;
         [view addTarget:self action:@selector(clicktakeOverBtnEvnet) forControlEvents:UIControlEventTouchUpInside];

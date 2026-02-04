@@ -72,6 +72,7 @@
 #import "JLSystemConfigUtil.h"
 #import "JLUserUtil.h"
 #import "CachedResourceLoader.h"
+#import "JLThreadSafeArray.h"
 #import "NSString+MD5.h"
 #import "PlayerManager.h"
 #import "JLDiviceVideoView.h"

@@ -13,9 +13,13 @@
 #import "JLUserService.h"
 #import "UIImage+Add.h"
 
-@interface JLDiviceVideoView()
+@interface JLDiviceVideoView()<UITableViewDelegate,UITableViewDataSource>
 /// 视图容器
 @property (nonatomic, strong) UIView *vContainer;
+
+@property (nonatomic, strong) UITableView *tableView;
+
+@property (nonatomic, strong) NSArray *deviceList;
 
     /// 点击开始视频回调方法
 @property (nonatomic, copy) void(^cliclStarVideoBtnBlock)(void);
@@ -26,10 +30,11 @@
 @implementation JLDiviceVideoView
 
 
-- (instancetype)initWitCliclStarVideoBtnBlock:(void(^)(void))starVideoBtnBlock{
+- (instancetype)initDeviceList:(NSArray *)deviceList WitCliclStarVideoBtnBlock:(void(^)(void))starVideoBtnBlock{
     self = [super init];
     if (self) {
         self.backgroundColor = [UIColor colorWithHexString:@"#000000" alpha:0.6];
+        self.deviceList = deviceList;
         self.cliclStarVideoBtnBlock = starVideoBtnBlock;
         [self setup];
     }
@@ -47,13 +52,6 @@
     self.vContainer = vContainer;
     [self addSubview:vContainer];
     Weakself(ws)
-    [vContainer mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@(234));
-        make.width.equalTo(@(285));
-        make.center.equalTo(ws);
-    }];
-    
-    
     
     UILabel *labTitle = [[UILabel alloc] init];
     labTitle.text = @"Unlock toy fun together";
@@ -67,27 +65,28 @@
     [vContainer addSubview:closeBtn];
 
     
-    UIView *viewContainer = [[UIView alloc] init];
-    viewContainer.backgroundColor = [UIColor whiteColor];
-    viewContainer.layer.cornerRadius = 16;
-    viewContainer.layer.masksToBounds = YES;
-    [vContainer addSubview:viewContainer];
-
+    [vContainer addSubview:self.tableView];
     
-    UIImageView *imgIcon = [[UIImageView alloc] init];
-//    imgIcon.image = [UIImage jl_name:@"" class:self];
-    imgIcon.backgroundColor = [UIColor redColor];
-    imgIcon.contentMode = UIViewContentModeScaleAspectFill;
-    [vContainer addSubview:imgIcon];
-
     
-    UILabel *labVibratorTitle = [[UILabel alloc] init];
-    labVibratorTitle.text = @"Vibrator";
-    labVibratorTitle.textColor = [UIColor blackColor];
-    labVibratorTitle.font = [UIFont systemFontOfSize:14];
-    [vContainer addSubview:labVibratorTitle];
-
-    
+//    UIView *viewContainer = [[UIView alloc] init];
+//    viewContainer.backgroundColor = [UIColor whiteColor];
+//    viewContainer.layer.cornerRadius = 16;
+//    viewContainer.layer.masksToBounds = YES;
+//    [vContainer addSubview:viewContainer];
+//
+//    
+//    UIImageView *imgIcon = [[UIImageView alloc] init];
+////    imgIcon.image = [UIImage jl_name:@"" class:self];
+//    imgIcon.backgroundColor = [UIColor redColor];
+//    imgIcon.contentMode = UIViewContentModeScaleAspectFill;
+//    [vContainer addSubview:imgIcon];
+//
+//    
+//    UILabel *labVibratorTitle = [[UILabel alloc] init];
+//    labVibratorTitle.text = @"Vibrator";
+//    labVibratorTitle.textColor = [UIColor blackColor];
+//    labVibratorTitle.font = [UIFont systemFontOfSize:14];
+//    [vContainer addSubview:labVibratorTitle];
     
     
     UILabel *labMark = [[UILabel alloc] init];
@@ -104,9 +103,17 @@
     [starVideoBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     starVideoBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     starVideoBtn.layer.cornerRadius = 24;
-    starVideoBtn.backgroundColor = [UIColor colorWithHexString:@"#FE006B"];
+    [starVideoBtn setBackgroundImage:[UIImage jl_name:@"jl_button_bg" class:self] forState:UIControlStateNormal];
     [starVideoBtn addTarget:self action:@selector(cliclStarVideoBtnEvnet) forControlEvents:UIControlEventTouchUpInside];
     [vContainer addSubview:starVideoBtn];
+
+    
+    [vContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(labTitle.mas_top).offset(-16);
+        make.bottom.equalTo(starVideoBtn.mas_bottom).offset(18);
+        make.width.equalTo(@(285));
+        make.center.equalTo(ws);
+    }];
 
     
     [labTitle mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -122,30 +129,18 @@
     }];
 
     
-    [viewContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(labTitle.mas_bottom).offset(14);
         make.left.equalTo(ws.vContainer).offset(17);
         make.right.equalTo(ws.vContainer).offset(-17);
-        make.height.equalTo(@48);
+        make.height.equalTo(@(48*self.deviceList.count));
     }];
 
-    
-    [imgIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(viewContainer);
-        make.left.equalTo(viewContainer).offset(10);
-        make.size.mas_offset(CGSizeMake(28, 28));
-    }];
-
-    
-    [labVibratorTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(viewContainer);
-        make.left.equalTo(imgIcon.mas_right).offset(10);
-    }];
-    
+        
     
     [labMark mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(vContainer);
-        make.top.equalTo(viewContainer.mas_bottom).offset(19);
+        make.top.equalTo(self.tableView.mas_bottom).offset(19);
     }];
     
     
@@ -156,6 +151,31 @@
     }];
 
 }
+
+
+
+
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.deviceList.count;
+}
+
+
+
+
+
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    JLDeviceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"JLDeviceCell"];
+    JLDeviceModel *model = self.deviceList[indexPath.row];
+    cell.model = model;
+    return  cell;
+}
+
+
+
 
 
 
@@ -176,17 +196,17 @@
 
 - (void)show{
     Weakself(ws)
-    [self layoutIfNeeded];
-    [self.vContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@(234));
-        make.width.equalTo(@(285));
-        make.center.equalTo(ws);
-    }];
+//    [self layoutIfNeeded];
+//    [self.vContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
+//        make.height.equalTo(@(234));
+//        make.width.equalTo(@(285));
+//        make.center.equalTo(ws);
+//    }];
     
-    [UIView animateWithDuration:0.3 animations:^{
+//    [UIView animateWithDuration:0.3 animations:^{
         self.alpha = 1;
-        [self layoutIfNeeded];
-    }];
+//        [self layoutIfNeeded];
+//    }];
 }
 
 
@@ -209,6 +229,150 @@
 
 
 
+
+-(UITableView *) tableView
+{
+    if (!_tableView)
+        {
+        
+        UITableView * view = [[UITableView alloc]initWithFrame:
+                              CGRectMake(0,
+                                         0,
+                                         0,
+                                         0 ) style:UITableViewStylePlain];
+        view.delegate = self;
+        view.dataSource = self;
+        view.contentInset = UIEdgeInsetsMake(0 , 0, 0, 0);
+        view.separatorColor = [UIColor clearColor];
+        view.separatorStyle = UITableViewCellSeparatorStyleNone;
+        view.estimatedRowHeight = 60;
+        view.rowHeight = UITableViewAutomaticDimension;
+        view.showsVerticalScrollIndicator = NO;
+        view.showsHorizontalScrollIndicator = NO;
+        view.backgroundColor = [UIColor clearColor];
+        view.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+        view.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+        view.sectionHeaderHeight = 0;
+        view.sectionFooterHeight = 0;
+        view.layer.cornerRadius = 24.0;
+        view.scrollEnabled = NO;
+        view.rowHeight = 48;
+        [view registerClass:[JLDeviceCell class] forCellReuseIdentifier:@"JLDeviceCell"];
+        
+        if (@available(iOS 11.0, *)) {
+            view.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
+        _tableView = view;
+        }
+    return _tableView;
+}
+
+
+
 @end
 
 
+
+
+
+
+@interface JLDeviceCell ()
+
+//@property (nonatomic, strong) UIView *vContainer;
+@property (nonatomic, strong) UIImageView *headImageView;
+@property (nonatomic, strong) UILabel *titleLab;
+
+@end
+
+@implementation JLDeviceCell
+
+
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        self.backgroundColor = [UIColor whiteColor];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        [self initialize];
+    }
+    return self;
+}
+
+
+
+
+
+
+- (void)initialize{
+//    [self.contentView addSubview:self.vContainer];
+    [self.contentView addSubview:self.headImageView];
+    [self.contentView addSubview:self.titleLab];
+    
+//    [self.vContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.contentView.mas_top).offset(20);
+//        make.bottom.equalTo(self.contentView);
+//        make.left.right.equalTo(self.contentView);
+//        make.height.equalTo(@64);
+//    }];
+    
+    
+    [self.headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView).offset(10);
+        make.centerY.equalTo(self.contentView);
+        make.size.mas_offset(CGSizeMake(28, 28));
+    }];
+    
+    
+    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.contentView);
+        make.left.equalTo(self.headImageView.mas_right).offset(10);
+    }];
+    
+}
+
+
+- (void)setModel:(JLDeviceModel *)model{
+    
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:model.pic]];
+    
+    self.titleLab.text = model.title;
+}
+
+
+
+//- (UIView *)vContainer{
+//    if (!_vContainer) {
+//        UIView *view = [[UIView alloc] init];
+//        view.backgroundColor = [UIColor clearColor];
+//        _vContainer = view;
+//    }
+//    return  _vContainer;
+//}
+
+
+
+- (UILabel *)titleLab{
+    if (!_titleLab) {
+        UILabel *view = [[UILabel alloc] init];
+        view.textColor = [UIColor colorWithHexString:@"#000000"];
+        view.text = @"";
+        view.font = [UIFont boldSystemFontOfSize:14];
+        _titleLab = view;
+    }
+    return  _titleLab;
+}
+
+
+- (UIImageView *)headImageView{
+    if (!_headImageView) {
+        UIImageView *view = [[UIImageView alloc] init];
+        view.contentMode = UIViewContentModeScaleAspectFill;
+        _headImageView = view;
+    }
+    return  _headImageView;
+}
+
+
+
+
+@end

@@ -75,7 +75,7 @@ static NSString *const NetworkErrorDomain = @"com.juli.weibu.NetworkErrorDomain"
             success(result);
         }else {
             failure([NSError errorWithDomain:NetworkErrorDomain code:[result[@"code"] integerValue] userInfo:@{NSLocalizedDescriptionKey:result[@"msg"]}]);
-            NSLog([NSString stringWithFormat:@"error path = %@, code = %@,msg = %@",path,result[@"code"],result[@"msg"]]);
+            NSLog(@"%@", [NSString stringWithFormat:@"error path = %@, code = %@,msg = %@",path,result[@"code"],result[@"msg"]]);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);

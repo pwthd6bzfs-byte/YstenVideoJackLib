@@ -42,6 +42,7 @@
 #import "AnchorFileOtherListModel.h"
 #import "JLAnchorUserModel.h"
 #import "TrendsModel.h"
+#import "JLDeviceModel.h"
 #import "JLGiftListModel.h"
 #import "JLSVGAQueueManager.h"
 #import "JLGiftListView.h"

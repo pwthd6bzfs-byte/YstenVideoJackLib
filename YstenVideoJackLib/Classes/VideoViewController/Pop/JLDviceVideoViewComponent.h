@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JLDviceVideoViewComponent : UIView
 
 
-+ (JLDiviceVideoView *)initWitCliclStarVideoBtnBlock:(void(^)(void))starVideoBtnBlock;
++ (JLDiviceVideoView *)initDeviceList:(NSArray *)DeviceList WitCliclStarVideoBtnBlock:(void(^)(void))starVideoBtnBlock;
 
 
 @end

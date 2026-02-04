@@ -14,10 +14,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 
     // 点击关闭邀请视图回调
-@property (nonatomic, copy) void(^clickCloseBlock)();
+@property (nonatomic, copy) void(^clickCloseBlock)(void);
+
+    // 点击接收邀请视图回调
+@property (nonatomic, copy) void(^clickReceiveBlock)(void);
 
 
-- (void)show:(JLAnchorUserModel *)anchorUserInfo;
+    // 主播信息详情
+@property (nonatomic, strong) JLAnchorUserModel *anchorUserInfo;
+
+- (void)show;
 
 - (void)hide;
 

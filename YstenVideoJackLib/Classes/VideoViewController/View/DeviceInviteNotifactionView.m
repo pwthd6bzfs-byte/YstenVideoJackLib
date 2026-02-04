@@ -134,7 +134,7 @@
 
 
 - (void)timerFired{
-    self.labTime.text = [NSString stringWithFormat:@"%lds",self.timeCount];
+    self.labTime.text = [NSString stringWithFormat:@"receive %lds",self.timeCount];
     self.timeCount -= 1;
     if (self.timeCount == 0) {
         [self hide];
@@ -154,10 +154,10 @@
 
 
 
-- (void)show:(JLAnchorUserModel *)anchorUserInfo{
+- (void)show{
     self.timeCount = 10;
-    self.labTime.text = [NSString stringWithFormat:@"%lds",self.timeCount];
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:anchorUserInfo.headFileName]];
+    self.labTime.text = [NSString stringWithFormat:@"receive %lds",self.timeCount];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.anchorUserInfo.headFileName]];
     self.hidden = NO;
     [self startTimer];
 }
@@ -179,9 +179,9 @@
 // 接收
 - (void)clicktakeOverBtnEvnet{
     [self hide];
-
-    if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showAnchorInviteDiveceControlPanelAlertView)]) {
-        [[JLIMService shared].delegate showAnchorInviteDiveceControlPanelAlertView];
+    
+    if (self.clickReceiveBlock) {
+        self.clickReceiveBlock();
     }
 }
 

@@ -291,6 +291,15 @@
 }
 
 
++ (void)userDeviceListWithAnchorld:(NSString *)anchorld success:(void (^)(NSDictionary *result))successBlock failued:(void (^)(NSError *error))failuedBlock{
+    [JLNetworkTool userDeviceListWithAnchorld:anchorld success:^(NSDictionary * _Nonnull result) {
+        successBlock(result);
+    } failued:^(NSError * _Nonnull error) {
+        failuedBlock(error);
+    }];
+}
+
+
 + (void)anchorCallCancel:(NSString *)channelId
                  success:(void (^)(NSDictionary *result))successBlock
                  failued:(void (^)(NSError *error))failuedBlock {

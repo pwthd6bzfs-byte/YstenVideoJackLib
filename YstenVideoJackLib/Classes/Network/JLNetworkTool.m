@@ -659,6 +659,21 @@
 }
 
 
+
+
++ (void)userDeviceListWithAnchorld:(NSString *)anchorld success:(void (^)(NSDictionary *result))successBlock failued:(void (^)(NSError *error))failuedBlock {
+    if (anchorld == nil) {
+        anchorld = @"";
+    }
+    [[JLNetworkManager sharedManager] getRequestWithPath:kServerPathUserDeviceList parameters:@{@"anchorId": anchorld} success:^(NSDictionary * _Nullable result) {
+        successBlock(result);
+    } failure:^(NSError * _Nullable error) {
+        failuedBlock(error);
+    }];
+}
+
+
+
 + (void)anchorCallCancel:(NSString *)channelId success:(void (^)(NSDictionary *result))successBlock failued:(void (^)(NSError *error))failuedBlock {
     [[JLNetworkManager sharedManager] postRequestWithPath:kServerPathAnchorCallCancel parameters:@{@"channelId":channelId} success:^(NSDictionary * _Nullable result) {
         successBlock(result);

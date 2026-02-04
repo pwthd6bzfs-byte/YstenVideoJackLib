@@ -7,12 +7,13 @@
 
 #import "JLDviceVideoViewComponent.h"
 #import <Masonry/Masonry.h>
+#import "JLUserService.h"
 #import "Config.h"
 
 @implementation JLDviceVideoViewComponent
 
-+ (JLDiviceVideoView *)initWitCliclStarVideoBtnBlock:(void(^)(void))starVideoBtnBlock{
-    JLDiviceVideoView *view = [[JLDiviceVideoView alloc] initWitCliclStarVideoBtnBlock:starVideoBtnBlock];
++ (JLDiviceVideoView *)initDeviceList:(NSArray *)DeviceList WitCliclStarVideoBtnBlock:(void(^)(void))starVideoBtnBlock{
+    JLDiviceVideoView *view = [[JLDiviceVideoView alloc] initDeviceList:DeviceList WitCliclStarVideoBtnBlock:starVideoBtnBlock];
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     [window addSubview:view];
     
@@ -24,6 +25,9 @@
     [view show];
     return view;
 }
+
+
+
 
 @end
     

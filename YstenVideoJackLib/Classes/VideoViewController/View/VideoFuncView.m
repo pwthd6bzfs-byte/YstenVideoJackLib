@@ -465,8 +465,8 @@
 // 点击设备控制面板
 - (void)clickHeartBtnEvnet{
     
-    if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showDiveceControlPanelAlertView)]) {
-        [[JLIMService shared].delegate showDiveceControlPanelAlertView];
+    if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showDiveceControlPanelAlertView:userCode:roomID:)]) {
+        [[JLIMService shared].delegate showDiveceControlPanelAlertView:[NSString stringWithFormat:@"%ld",self.anchorUserInfo.userID] userCode:self.anchorUserInfo.userCode roomID:self.channel];
     }
 }
 
@@ -571,6 +571,14 @@
             // 自定义顶部消息
             VideoViewTopTextMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VideoViewTopTextMessageCell"];
             cell.message = message;
+            
+            Weakself(ws);
+            cell.clickRemoteBtnBlock = ^{
+                if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showDiveceControlPanelAlertView:userCode:roomID:)]) {
+                    [[JLIMService shared].delegate showDiveceControlPanelAlertView:[NSString stringWithFormat:@"%ld",ws.anchorUserInfo.userID] userCode:ws.anchorUserInfo.userCode roomID:self.channel];
+                }
+            };
+            
             return  cell;
 
         }else{

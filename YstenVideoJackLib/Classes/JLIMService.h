@@ -23,23 +23,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-// 跳转用户个人中心界面
-- (void)pushPresonCenter:(NSString *)userId;
-
-
-
 // 弹出去充值提示弹窗(AlertView)
-- (void)showRechargeAlertView ;
+- (void)showRechargeAlertView;
 
 
 
 // 弹出设备控制面板弹窗(AlertView)
-- (void)showDiveceControlPanelAlertView;
+/// - Parameter anchorID: 主播id
+/// - Parameter userCode: 主播userCode
+- (void)showDiveceControlPanelAlertView:(NSString *)anchorID userCode:(NSString *)userCode roomID:(NSString *)roomID;
 
 
 
 // 弹出主播邀请设备控制面板弹窗(AlertView)
-- (void)showAnchorInviteDiveceControlPanelAlertView;
+/// - Parameter anchorID: 主播id
+/// - Parameter userCode: 主播userCode
+- (void)showAnchorInviteDiveceControlPanelAlertView:(NSString *)anchorID userCode:(NSString *)userCode roomID:(NSString *)roomID;
 
 
 

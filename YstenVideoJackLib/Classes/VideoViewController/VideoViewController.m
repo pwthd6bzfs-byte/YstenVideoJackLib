@@ -22,6 +22,7 @@
 #import <SVProgressHUD/SVProgressHUD.h>
 #import "JLUserService.h"
 #import "JLCustomMessage.h"
+#import "JLIMService.h"
 #import "JLPopupViewComponent.h"
 #import "DeviceInviteNotifactionView.h"
 
@@ -122,8 +123,6 @@
     
     
     if (self.isHeartMatch == YES){
-        // 关闭音乐
-        [self.videoCallView stopAuduio];
         // 隐藏拨打视图
         self.videoCallView.hidden = YES;
         
@@ -158,6 +157,7 @@
     // 主播信息
     self.videoCallView.anchorUserInfo = self.anchorUserInfo;
     self.videoFuncView.anchorUserInfo = self.anchorUserInfo;
+    self.deviceInviteNotifactionView.anchorUserInfo = self.anchorUserInfo;
 
         // 频道
     self.videoFuncView.channel = self.channel;
@@ -228,32 +228,39 @@
     self.videoFuncView.deviceInvitemessageBlock = ^{
         
         [ws.deviceInviteNotifactionView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).offset(kStatusBarHeight + 7);
-            make.left.equalTo(self.view).offset(16);
-            make.right.equalTo(self.view).offset(-16);
+            make.top.equalTo(ws.view).offset(kStatusBarHeight + 7);
+            make.left.equalTo(ws.view).offset(16);
+            make.right.equalTo(ws.view).offset(-16);
             make.height.equalTo(@196);
         }];
 
         
         [UIView animateWithDuration:0.3 animations:^{
-            [ws.deviceInviteNotifactionView show:ws.anchorUserInfo];
+            [ws.deviceInviteNotifactionView show];
             [ws.view layoutIfNeeded];
         }];
     };
     
     
     
-    // 收到设备邀请退出
+    // 点击设备邀请关闭回调
     self.deviceInviteNotifactionView.clickCloseBlock = ^{
         
         [ws.deviceInviteNotifactionView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).offset(-196);
-            make.left.equalTo(self.view).offset(16);
-            make.right.equalTo(self.view).offset(-16);
+            make.top.equalTo(ws.view).offset(-196);
+            make.left.equalTo(ws.view).offset(16);
+            make.right.equalTo(ws.view).offset(-16);
             make.height.equalTo(@196);
         }];
     };
     
+    
+    // 点击接收设备邀请
+    self.deviceInviteNotifactionView.clickReceiveBlock = ^{
+        if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showAnchorInviteDiveceControlPanelAlertView:userCode:roomID:)]) {
+            [[JLIMService shared].delegate showAnchorInviteDiveceControlPanelAlertView:[NSString stringWithFormat:@"%ld",ws.anchorUserInfo.userID] userCode:ws.anchorUserInfo.userCode roomID:ws.channel];
+        }
+    };
     
     
     
@@ -500,6 +507,9 @@
             
             if (error.code == 118) {
                 [SVProgressHUD showImage:nil status:@"Insufficient Balance"];
+                if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeAlertView)]) {
+                    [[JLIMService shared].delegate showRechargeAlertView];
+                }
             }
 
             NSLog(@"%@",error);
@@ -703,6 +713,8 @@
     
     // 隐藏拨打视图
     self.videoCallView.hidden = YES;
+    // 关闭音乐
+    [self.videoCallView stopAuduio];
     self.isAddJoinOfUid = YES;
     // 计算房间时间
     [self.videoFuncView startCountdown];

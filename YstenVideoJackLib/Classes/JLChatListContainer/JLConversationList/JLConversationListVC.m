@@ -47,7 +47,7 @@
     self.conversationListTableView.rcmj_footer = [UIView new];
     self.conversationListTableView.backgroundColor = [UIColor clearColor];
     self.conversationListTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headRefreshEvent)];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshUI) name:@"kNotificationMessageRecive" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshUI) name:kNotificationMessageListUpdateSuccess object:nil];
     
     
     

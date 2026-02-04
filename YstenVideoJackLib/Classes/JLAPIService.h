@@ -274,6 +274,11 @@ NS_ASSUME_NONNULL_BEGIN
                              failued:(void (^)(NSError *error))failuedBlock;
 
 
+// 设备列表
++ (void)userDeviceListWithAnchorld:(NSString *)anchorld success:(void (^)(NSDictionary *result))successBlock failued:(void (^)(NSError *error))failuedBlock;
+
+
+
 /// 主播拨打，用户拒绝接听
 /// - Parameters:
 ///   - channelId: 房间号

@@ -225,14 +225,14 @@
 
 
     // 弹出设备控制面板弹窗(AlertView)
-- (void)showDiveceControlPanelAlertView{
+- (void)showDiveceControlPanelAlertView:(NSString *)anchorID userCode:(NSString *)userCode roomID:(NSString *)roomID{
     NSLog(@"弹出设备控制面板弹窗");
 }
 
 
 
     // 弹出主播邀请设备控制面板弹窗(AlertView)
-- (void)showAnchorInviteDiveceControlPanelAlertView{
+- (void)showAnchorInviteDiveceControlPanelAlertView:(NSString *)anchorID userCode:(NSString *)userCode roomID:(NSString *)roomID{
     NSLog(@"弹出主播邀请设备控制面板弹窗");
 }
 

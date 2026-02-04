@@ -37,7 +37,10 @@
 #import <RongCloudOpenSource/RongIMKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "UIImage+Add.h"
+#import "JLSystemConfigUtil.h"
 #import "JLDviceVideoViewComponent.h"
+#import "JLWebViewController.h"
+#import "JLDeviceModel.h"
 
 
 @interface JLConversationViewController ()<RCMessageBlockDelegate,RCAlbumListViewControllerDelegate,JLInputContainerViewDelegate,RCVoiceRecordControlDelegate,SVGAPlayerDelegate>
@@ -136,6 +139,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(sendAskGiftMessge:)
                                                  name:kNotificationAskGiftSuccess object:nil];
+    
+    
+    // 消息监听
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didReceiveMessage:)
+                                                 name:kNotificationConversationMessageSuccess
+                                               object:nil];
+
 }
 
 
@@ -284,11 +295,8 @@
     
     // 点击设备
     self.buttomView.clickDeviceBlock = ^{
-        Weakself(ws);
-        [JLDviceVideoViewComponent initWitCliclStarVideoBtnBlock:^{
-            [ws.view endEditing:YES];
-            [ws sendVideoCall];
-        }];
+        [weakSelf.view endEditing:YES];
+        [weakSelf showDeviceVideoAlertView];
     };
     
     
@@ -601,8 +609,10 @@
         JLAnchorUserModel *newUserInfo = [JLAnchorUserModel modelWithJSON:result[@"data"]];
         ws.anchorUserInfo = newUserInfo;
         
-        // 添加设备UI
-        [ws.buttomView addDeviceLayout];
+        if (ws.anchorUserInfo.devicesNum > 0) {
+                // 添加设备UI
+            [ws.buttomView addDeviceLayout];
+        }
         
         ws.followBtn.hidden = NO;
         if ([ws.anchorUserInfo.followFlag isEqualToString:@"1"]) {
@@ -631,9 +641,53 @@
 
 // 点击用户头像
 - (void)didTapCellPortrait:(NSString *)userId{
-    if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(pushPresonCenter:)]) {
-        [[JLIMService shared].delegate pushPresonCenter:userId];
+    JLWebViewController *web = [[JLWebViewController alloc] init];
+    NSString *h5String = [JLSystemConfigUtil getInfoWithH5String:@"h5String"];
+    if (h5String && h5String.length > 0) {
+        web.h5String = [NSString stringWithFormat:@"%@/#/depth/detail/%@",h5String,userId];
     }
+    [self.navigationController pushViewController:web animated:YES];
+//    if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(pushPresonCenter:)]) {
+//        [[JLIMService shared].delegate pushPresonCenter:userId];
+//    }
+}
+
+
+
+
+// 显示设备视频弹窗
+- (void)showDeviceVideoAlertView{
+    Weakself(ws);
+    [SVProgressHUD show];
+    [JLAPIService userDeviceListWithAnchorld:[NSString stringWithFormat:@"%ld",ws.anchorUserInfo.userID] success:^(NSDictionary * _Nonnull result) {
+        [SVProgressHUD dismiss];
+        NSString *json = [result[@"data"] modelToJSONString];
+        NSArray *arr = [NSArray modelArrayWithClass:[JLDeviceModel class] json:json];
+        
+        [JLDviceVideoViewComponent initDeviceList:arr WitCliclStarVideoBtnBlock:^{
+            [SVProgressHUD dismiss];
+            [ws sendVideoCall];
+        }];
+    } failued:^(NSError * _Nonnull error) {
+        [SVProgressHUD dismiss];
+    }];
+}
+
+
+
+- (void)didReceiveMessage:(NSNotification *)notification{
+
+    RCMessage *message = notification.object;
+    
+        
+    // 主播邀请用户设备视频
+    if ([message.objectName isEqualToString:@"mikchat:deviceInvite"]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self showDeviceVideoAlertView];
+        });
+        return;
+    }
+
 }
 
 
@@ -792,6 +846,9 @@
         NSLog(@"%@",error);
         if (error.code == 118) {
             [SVProgressHUD showImage:nil status:@"Insufficient Balance"];
+            if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeAlertView)]) {
+                [[JLIMService shared].delegate showRechargeAlertView];
+            }
         }
     }];
 
@@ -890,7 +947,14 @@
         
         JLUserModel *userInfo = [[JLUserService shared] userInfo];
         if (userInfo.coins < ws.anchorUserInfo.coinVideoPrice) {
-            return [SVProgressHUD showInfoWithStatus:@"Insufficient Balance"];
+            [SVProgressHUD showImage:nil status:@"Insufficient Balance"];
+            
+            if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeAlertView)]) {
+                [[JLIMService shared].delegate showRechargeAlertView];
+            }
+
+            return;
+            
         }
 
         
@@ -1168,6 +1232,10 @@
         if (msgErrorCode == 1){
             [SVProgressHUD showImage:nil status:@"Insufficient Balance"];
             
+            if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeAlertView)]) {
+                [[JLIMService shared].delegate showRechargeAlertView];
+            }
+
                 // 通过 messageUID 获取对应的 message 信息
             RCMessage *blockMessage = [[RCCoreClient sharedCoreClient] getMessageByUId:blockedMessageInfo.blockedMsgUId];
             

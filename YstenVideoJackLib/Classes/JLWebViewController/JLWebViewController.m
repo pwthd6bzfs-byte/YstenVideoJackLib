@@ -42,7 +42,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.navigationBarHidden = !self.isNavigation;
 }
 
 
@@ -50,7 +50,7 @@
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     
-    self.navigationController.navigationBarHidden = NO;
+//    self.navigationController.navigationBarHidden = NO;
 }
 
 
@@ -84,7 +84,7 @@
     
     // 进度条
     //    [self setupProgressView]
-    self.navigationController.navigationBar.hidden = self.isNavigation;
+    self.navigationController.navigationBarHidden = !self.isNavigation;
     
     if (self.isNavigation == NO) {
         [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {

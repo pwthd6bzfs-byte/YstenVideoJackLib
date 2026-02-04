@@ -33,6 +33,7 @@
 #define kServerPathHeartBeat @"/ks-mikchat/video/heartbeat/match" // 心动速配
 
 #define kServerPathHeartBeatCancel @"/jlwbmk/video/heartbeat/exit/twin"  // 用户取消心动速配
+#define kServerPathUserDeviceList @"/jlwbmk/user-device/list"  // 设备列表
 
 
 #define kServerPathAnchorList @"/jlwbmk/anchor/major/list/twin"

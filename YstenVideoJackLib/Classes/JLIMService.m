@@ -128,14 +128,14 @@ static JLIMService *shared = nil;
     [[RCIM sharedRCIM]  registerMessageType:[JLVideoMessage class]];
     [[RCIM sharedRCIM]  registerMessageType:[JLGiftMessage class]];
     [[RCIM sharedRCIM]  registerMessageType:[JLAskGiftMessage class]];
-//    [[RCIM sharedRCIM]  registerMessageType:[JLDeviceControlMessage class]];
     [[RCIM sharedRCIM]  registerMessageType:[JLDeviceOrderMessage class]];
     [[RCIM sharedRCIM]  registerMessageType:[JLRecommendMessage class]];
     [[RCIM sharedRCIM]  registerMessageType:[JLHeartBeatMessage class]];
     [[RCIM sharedRCIM]  registerMessageType:[JLJoinHeartBeatMessage class]];
-    [[RCIM sharedRCIM]  registerMessageType:[JLDeviceInviteMessage class]];
     [[RCIM sharedRCIM]  registerMessageType:[JLMediaPrivateMessage class]];
-    
+//    [[RCIM sharedRCIM]  registerMessageType:[JLDeviceControlMessage class]];
+//    [[RCIM sharedRCIM]  registerMessageType:[JLDeviceInviteMessage class]];
+
     __weak __typeof(self)weakSelf = self;
     // 消息拦截器
 //    [RCCoreClient sharedCoreClient].messageInterceptor = (id)weakSelf;
@@ -326,8 +326,9 @@ static JLIMService *shared = nil;
             hasPackage:(BOOL)hasPackage{
     NSLog(@"%@",message);
 
+    
     if (nLeft == 0 && hasPackage == 0) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"kNotificationMessageRecive" object: nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationMessageListUpdateSuccess object: nil];
     }
     
     // 代理消息(客户端使用)
@@ -335,9 +336,11 @@ static JLIMService *shared = nil;
         [self.delegate didReceiveMessage:message];
     }
 
-    // 传递1v1视频聊天消息
+    // 1v1视频 聊天消息
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationRcMessageSuccess object:message];
     
+    // 私聊消息
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationConversationMessageSuccess object:message];
     
     
     if([message.content isKindOfClass:[JLCustomMessage class]]) {
@@ -442,7 +445,7 @@ static JLIMService *shared = nil;
         
         [[RCIM sharedRCIM] refreshUserInfoCache:info withUserId:info.userId];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"kNotificationMessageRecive" object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationMessageListUpdateSuccess object:self];
 
         completion(info);
     } failued:^(NSError * _Nonnull error) {

@@ -46,6 +46,13 @@
 // 更新某条消息状态
 #define kNotificationRcMessageUpdateSuccess @"kNotificationRcMessageUpdateSuccess"
 
+// 更新消息列表
+#define kNotificationMessageListUpdateSuccess @"kNotificationMessageListUpdateSuccess"
+
+// 私聊消息
+#define kNotificationConversationMessageSuccess @"kNotificationConversationMessageSuccess"
+
+
 
 // 监听融云消息
 #define kNotificationRcMessageSuccess @"kNotificationRcMessageSuccess"

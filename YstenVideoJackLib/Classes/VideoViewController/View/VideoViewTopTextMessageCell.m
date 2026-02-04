@@ -100,9 +100,10 @@
 
 - (void)clickRemoteBtnEvnet{
     
-    if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showDiveceControlPanelAlertView)]) {
-        [[JLIMService shared].delegate showDiveceControlPanelAlertView];
+    if (self.clickRemoteBtnBlock) {
+        self.clickRemoteBtnBlock();
     }
+    
 }
 
 

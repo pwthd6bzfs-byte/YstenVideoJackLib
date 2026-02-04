@@ -155,6 +155,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)cancelHeartBeatWithBatchId:(NSString *)batchId success:(void (^)(NSDictionary *result))successBlock failued:(void (^)(NSError *error))failuedBlock;
 
+
++ (void)userDeviceListWithAnchorld:(NSString *)anchorld success:(void (^)(NSDictionary *result))successBlock failued:(void (^)(NSError *error))failuedBlock;
+
 + (void)anchorCallCancel:(NSString *)channelId success:(void (^)(NSDictionary *result))successBlock failued:(void (^)(NSError *error))failuedBlock;
 
 + (void)anchorCallAccept:(NSString *)channelId success:(void (^)(NSDictionary *result))successBlock failued:(void (^)(NSError *error))failuedBlock;

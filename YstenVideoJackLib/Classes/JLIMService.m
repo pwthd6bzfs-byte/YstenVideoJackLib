@@ -128,11 +128,11 @@ static JLIMService *shared = nil;
     [[RCIM sharedRCIM]  registerMessageType:[JLVideoMessage class]];
     [[RCIM sharedRCIM]  registerMessageType:[JLGiftMessage class]];
     [[RCIM sharedRCIM]  registerMessageType:[JLAskGiftMessage class]];
-    [[RCIM sharedRCIM]  registerMessageType:[JLDeviceOrderMessage class]];
     [[RCIM sharedRCIM]  registerMessageType:[JLRecommendMessage class]];
     [[RCIM sharedRCIM]  registerMessageType:[JLHeartBeatMessage class]];
     [[RCIM sharedRCIM]  registerMessageType:[JLJoinHeartBeatMessage class]];
     [[RCIM sharedRCIM]  registerMessageType:[JLMediaPrivateMessage class]];
+//    [[RCIM sharedRCIM]  registerMessageType:[JLDeviceOrderMessage class]];
 //    [[RCIM sharedRCIM]  registerMessageType:[JLDeviceControlMessage class]];
 //    [[RCIM sharedRCIM]  registerMessageType:[JLDeviceInviteMessage class]];
 

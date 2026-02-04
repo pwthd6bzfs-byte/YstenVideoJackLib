@@ -678,7 +678,11 @@
     Weakself(ws)
     [[JLRTCService shared] endVideoCallWithSuccess:^(NSDictionary * _Nonnull result) {
         NSLog(@"退出1v1房间成功");
-        [ws dismissViewControllerAnimated:YES completion:nil];
+        [ws dismissViewControllerAnimated:YES completion:^{
+            if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(cancelRoomVideo)] ) {
+                [[JLIMService shared].delegate cancelRoomVideo];
+            }
+        }];
     } failued:^(NSError * _Nonnull error) {
         NSLog(@"退出1v1房间失败");
     }];
@@ -691,7 +695,11 @@
     ///   - service: 视频模块
     ///   - error: 异常错误
 - (void)rtcService:(JLRTCService *)service didOccurError:(NSError *)error{
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(cancelRoomVideo)] ) {
+            [[JLIMService shared].delegate cancelRoomVideo];
+        }
+    }];
 }
 
 
@@ -743,7 +751,11 @@
     ///   - service: 视频模块
     ///   - uid: 主播id
 - (void)rtcService:(JLRTCService *)service didOfflineOfUid:(NSUInteger)uid{
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(cancelRoomVideo)] ) {
+            [[JLIMService shared].delegate cancelRoomVideo];
+        }
+    }];
 }
 
 

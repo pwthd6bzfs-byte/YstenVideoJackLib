@@ -28,9 +28,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
+// 视频通话结束
+- (void)cancelRoomVideo;
+
+
+
 // 弹出设备控制面板弹窗(AlertView)
 /// - Parameter anchorID: 主播id
 /// - Parameter userCode: 主播userCode
+/// - Parameter roomID: 房间roomID
 - (void)showDiveceControlPanelAlertView:(NSString *)anchorID userCode:(NSString *)userCode roomID:(NSString *)roomID;
 
 
@@ -38,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 // 弹出主播邀请设备控制面板弹窗(AlertView)
 /// - Parameter anchorID: 主播id
 /// - Parameter userCode: 主播userCode
+/// - Parameter roomID: 房间roomID
 - (void)showAnchorInviteDiveceControlPanelAlertView:(NSString *)anchorID userCode:(NSString *)userCode roomID:(NSString *)roomID;
 
 

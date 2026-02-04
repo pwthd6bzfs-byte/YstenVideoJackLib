@@ -240,7 +240,8 @@
 - (UIButton *)takeOverBtn{
     if (!_takeOverBtn) {
         UIButton *view = [[UIButton alloc] init];
-        view.backgroundColor = [UIColor colorWithHexString:@"#FE006B"];
+//        view.backgroundColor = [UIColor colorWithHexString:@"#FE006B"];
+        [view setBackgroundImage:[UIImage imageNamed:@"jl_button_bg"] forState:UIControlStateNormal];
         [view setTitle:@"" forState:UIControlStateNormal];
         view.layer.cornerRadius = 12;
         [view addTarget:self action:@selector(clicktakeOverBtnEvnet) forControlEvents:UIControlEventTouchUpInside];

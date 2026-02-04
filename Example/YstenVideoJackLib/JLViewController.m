@@ -238,5 +238,11 @@
 
 
 
+// 视频通话结束
+- (void)cancelRoomVideo{
+    NSLog(@"视频通话结束");
+}
+
+
 
 @end

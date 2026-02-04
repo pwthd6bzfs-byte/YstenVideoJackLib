@@ -171,6 +171,12 @@
     JLDeviceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"JLDeviceCell"];
     JLDeviceModel *model = self.deviceList[indexPath.row];
     cell.model = model;
+    
+    if (indexPath.row == 0) {
+        cell.vline.hidden = YES;
+    }else{
+        cell.vline.hidden = false;
+    }
     return  cell;
 }
 
@@ -307,6 +313,7 @@
 //    [self.contentView addSubview:self.vContainer];
     [self.contentView addSubview:self.headImageView];
     [self.contentView addSubview:self.titleLab];
+    [self.contentView addSubview:self.vline];
     
 //    [self.vContainer mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.top.equalTo(self.contentView.mas_top).offset(20);
@@ -326,6 +333,14 @@
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView);
         make.left.equalTo(self.headImageView.mas_right).offset(10);
+    }];
+    
+    
+    [self.vline mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentView);
+        make.left.equalTo(self.titleLab);
+        make.right.equalTo(self.contentView);
+        make.height.equalTo(@0.5);
     }];
     
 }
@@ -348,6 +363,16 @@
 //    }
 //    return  _vContainer;
 //}
+
+
+- (UIView *)vline{
+    if (!_vline) {
+        UIView *view = [[UIView alloc] init];
+        view.backgroundColor = [UIColor colorWithHexString:@"#E9E9E9"];
+        _vline = view;
+    }
+    return  _vline;
+}
 
 
 

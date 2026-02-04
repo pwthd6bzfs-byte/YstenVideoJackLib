@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JLDeviceCell : UITableViewCell
 
+@property (nonatomic, strong) UIView *vline;
+
 @property (nonatomic, strong) JLDeviceModel *model;
 
 @end

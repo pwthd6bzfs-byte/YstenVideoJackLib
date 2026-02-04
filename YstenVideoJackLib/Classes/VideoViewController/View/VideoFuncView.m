@@ -24,6 +24,7 @@
 #import "JLCustomMessage.h"
 #import "JLAPIService.h"
 #import "UIImage+Add.h"
+#import "JLThreadSafeArray.h"
 
 @interface VideoFuncView ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -67,7 +68,7 @@
 
 
 // 数据源
-@property (nonatomic, strong) NSMutableArray *array;
+@property (nonatomic, strong) JLThreadSafeArray *array;
 
 @property (nonatomic, assign) NSInteger heartbeatMatchFreeTime;
 
@@ -271,8 +272,9 @@
         message.senderUserId = [NSString stringWithFormat:@"%ld",[JLUserService shared].userInfo.userID];
         message.conversationType = ConversationType_PRIVATE;
         
-        
+        // 添加消息
         [ws.array addObject:message];
+        
         if (ws.array.count > 0) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [ws.tableView reloadData];
@@ -344,6 +346,7 @@
         message.messageDirection = MessageDirection_SEND;
         message.senderUserId = @"";
         message.conversationType = ConversationType_PRIVATE;
+        // 添加顶部消息
         [self.array addObject:message];
         [self.tableView reloadData];
     }
@@ -638,6 +641,24 @@
         }
         
         
+            // 主播邀请用户设备视频
+        if ([message.objectName isEqualToString:@"mikchat:deviceInvite"]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+            });
+            return;
+        }
+
+        
+        // 互动指令消息
+        if ([message.objectName isEqualToString:@"mikchat:deviceorder"]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+            });
+            return;
+        }
+        
+        
             // 设备邀请
         if ([message.objectName isEqualToString:@"mikchat:devicecontrol"]) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -648,14 +669,11 @@
             return;
         }
         
+                
         
-//        // 不接收
-//        if ([message.content isMemberOfClass:[JLHeartBeatMessage class]]) {
-//            return;
-//        }
-        
-        
+        // 添加消息
         [self.array addObject:message];
+        
         if (self.array.count > 0) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];
@@ -947,9 +965,9 @@
 }
 
 
-- (NSMutableArray *)array{
+- (JLThreadSafeArray *)array{
     if (!_array) {
-        NSMutableArray *array = [[NSMutableArray alloc] init];
+        JLThreadSafeArray *array = [[JLThreadSafeArray alloc] init];
         _array = array;
     }
     

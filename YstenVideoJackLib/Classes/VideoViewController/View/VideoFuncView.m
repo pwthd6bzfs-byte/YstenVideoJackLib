@@ -25,7 +25,7 @@
 #import "JLAPIService.h"
 #import "UIImage+Add.h"
 #import "JLThreadSafeArray.h"
-#import <lottie_ios_Oc/Lottie.h>
+#import "Lottie.h"
 
 
 @interface VideoFuncView ()<UITableViewDelegate,UITableViewDataSource>

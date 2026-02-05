@@ -26,10 +26,14 @@
       "YstenVideoJackLib/Assets/*.json"
     ]
   },
-  "frameworks": [
-    "UIKit",
-    "MapKit"
-  ],
+  "ios": {
+    "frameworks": [
+      "UIKit",
+      "Foundation",
+      "CoreGraphics",
+      "SystemConfiguration"
+    ]
+  },
   "pod_target_xcconfig": {
     "ARCHS": "x86_64 arm64",
     "VALID_ARCHS": "x86_64 arm64",

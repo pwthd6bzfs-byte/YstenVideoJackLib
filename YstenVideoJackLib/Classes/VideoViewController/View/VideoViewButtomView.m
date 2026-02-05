@@ -94,20 +94,7 @@
 //        make.size.mas_equalTo(CGSizeMake(40,40));
 //    }];
     
-    
-    
-    if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark ) {
-            // 处于深色模式
-        NSLog(@"当前为深色模式");
-            // 在这里更新你的 UI 适配深色模式
-        self.contentTxf.textColor = [UIColor blackColor];
         
-    } else {
-            // 处于浅色模式
-        NSLog(@"当前为浅色模式");
-            // 在这里更新你的 UI 适配浅色模式
-    }
-
 }
 
 

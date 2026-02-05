@@ -55,7 +55,7 @@
 // 倒计时icon
 @property (nonatomic, strong) UIImageView *countdownImageView;
 // 爱心按钮
-@property (nonatomic, strong) JLLOTAnimationView *animationView;
+@property (nonatomic, strong) LOTAnimationView *animationView;
 //@property (nonatomic, strong) UIImageView *animationView;
 
 // 消息TableView
@@ -1013,14 +1013,14 @@
 
 
 
-- (JLLOTAnimationView *)animationView
+- (LOTAnimationView *)animationView
 {
     if (!_animationView) {
         NSBundle *bundle = [NSBundle bundleForClass:[self class]];
         NSURL *bundleURL = [bundle URLForResource:@"YstenVideoJackLib" withExtension:@"bundle"];
         NSBundle *resourceBundle = [NSBundle bundleWithURL:bundleURL];
 
-        JLLOTAnimationView *animationView = [JLLOTAnimationView animationNamed:@"jl_hd_btn_animation_nor" inBundle:resourceBundle];
+        LOTAnimationView *animationView = [LOTAnimationView animationNamed:@"jl_hd_btn_animation_nor" inBundle:resourceBundle];
             //循环播放动画
         animationView.loopAnimation = YES;
         animationView.backgroundColor = [UIColor clearColor];

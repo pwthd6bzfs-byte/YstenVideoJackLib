@@ -415,7 +415,6 @@
 - (void)playAnimation {
         // 设置循环模式
     self.animationView.loopAnimation = YES; // 循环播放
-                                            // self.animationView.loopAnimation = NO; // 播放一次
     
         // 设置播放速度
     self.animationView.animationSpeed = 1.0;

@@ -320,22 +320,26 @@
     Weakself(ws)
     [SVProgressHUD show];
     [JLAPIService getTradePrivacyUnlockWithUnLockId:[NSString stringWithFormat:@"%ld",self.message.unlockId] success:^(NSDictionary * _Nonnull result) {
-        NSLog(@"解锁私密成功");
         [SVProgressHUD dismiss];
 
+        BOOL isSuccess = result[@"data"][@"success"];
         
-        [self.blurEffectView removeFromSuperview];
+        if (isSuccess == YES) {
+            NSLog(@"解锁私密成功");
+            [self.blurEffectView removeFromSuperview];
+            
+            self.isCheckVideo = YES;
+            self.playBtn.userInteractionEnabled = YES;
+            self.vContainer.hidden = YES;
+            
+            
+            [[JLIMService shared] setMessageExtraStatus:@"1" messageId:self.model.messageId callback:^(BOOL result) {
+                ws.model.extra = @"1";
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationRcMessageUpdateSuccess object:self];
+                NSLog(@"解锁私密状态更新成功 (解锁)");
+            }];
+        }
         
-        self.isCheckVideo = YES;
-        self.playBtn.userInteractionEnabled = YES;
-        self.vContainer.hidden = YES;
-        
-        
-        [[JLIMService shared] setMessageExtraStatus:@"1" messageId:self.model.messageId callback:^(BOOL result) {
-            ws.model.extra = @"1";
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationRcMessageUpdateSuccess object:self];
-            NSLog(@"解锁私密状态更新成功 (解锁)");
-        }];
             //        [JLIMService setMessageExtraStatus]
     } failued:^(NSError * _Nonnull error) {
         NSLog(@"解锁私密失败");

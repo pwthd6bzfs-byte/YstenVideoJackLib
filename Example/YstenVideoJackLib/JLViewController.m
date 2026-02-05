@@ -27,9 +27,16 @@
 
 @implementation JLViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
+    
+        // 默认关闭深色模式
+    if (@available(iOS 13.0, *)) {
+        self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+    } else {
+            // Fallback on earlier versions
+    }
+
     self.view.backgroundColor = [UIColor whiteColor];
     [JLLocalizationUtil setLanguage:@"en"];
         // 测试环境

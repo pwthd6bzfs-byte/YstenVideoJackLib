@@ -73,6 +73,8 @@ static JLRTCService *shared = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+
+
 - (void)videoCallWithAnchorID:(NSInteger)anchorID success:(void(^)(NSString *channel,NSString *token,JLAnchorUserModel *anchorUserInfo))successBlock failued:(void (^)(NSError *error))failuedBlock {
     
     AgoraRtcEngineConfig *config = [[AgoraRtcEngineConfig alloc] init];

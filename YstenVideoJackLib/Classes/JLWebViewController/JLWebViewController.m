@@ -18,6 +18,7 @@
 #import "JLUserService.h"
 #import "JLAPIService.h"
 #import "JLRTCService.h"
+#import "JLIMService.h"
 #import "JLSystemConfigUtil.h"
 #import "JLHeartMatchController.h"
 #import "JLWeakScriptMessageDelegate.h"
@@ -57,7 +58,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    
+    // 判断皮肤颜色
+    if ([JLIMService shared].skinStyle == YES) {
+        if (@available(iOS 13.0, *)) {
+            self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+            self.view.backgroundColor = [UIColor blackColor];
+        } else {
+            self.view.backgroundColor = [UIColor whiteColor];
+        }
+
+    }else{
+        
+        if (@available(iOS 13.0, *)) {
+            self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+            self.view.backgroundColor = [UIColor whiteColor];
+        } else {
+            self.view.backgroundColor = [UIColor whiteColor];
+        }
+    }
     
 
     NSDictionary *dict = [JLSystemConfigUtil getInfoWithHeartbeatMatchDict:@"HeartbeatMatchDict"];
@@ -208,6 +227,7 @@
             //            @"versioncode":@"1.0.0",
             @"heartbeatMatchPrice":[NSString stringWithFormat:@"%@",self.heartbeatMatchPrice],
             @"deviceid":uuid,
+            @"skinStyle":[JLIMService shared].skinStyle == YES ? @"1" : @"0", // 皮肤  @"1" : 黑色  @"0" : @"白色"
             @"model":device.name,
             @"appname":@"lovespouse"
         };

@@ -41,7 +41,8 @@ TODO: Add long description of the pod here.
   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
-   s.frameworks = 'UIKit', 'MapKit'
+#   s.frameworks = 'UIKit', 'MapKit','CoreFoundation'
+   s.ios.frameworks = 'UIKit', 'Foundation', 'CoreGraphics', 'SystemConfiguration'
 
   # 排除 arm64 模拟器架构
 #  s.pod_target_xcconfig = { 'VALID_ARCHS' => 'x86_64 armv7 armv7s arm64' }
@@ -67,8 +68,8 @@ TODO: Add long description of the pod here.
  #  s.dependency 'MBProgressHUD','1.2.0'
   
    s.dependency 'Masonry','1.1.0'
-  
-   #图片加载
+#  
+#   #图片加载
    s.dependency 'SDWebImage', '5.9.0'
    s.dependency 'SVGAPlayer', '~>2.5.7'
    s.dependency 'Protobuf', '= 3.22.1'

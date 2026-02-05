@@ -27,8 +27,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showRechargeAlertView;
 
 
+// 开启全局IQkeyboard键盘
+- (void)openIQKeyboard;
 
-// 视频通话结束
+
+// 关闭全局IQkeyboard键盘
+- (void)closeIQKeyboard;
+
+
+// 视频通话结束 (开启全局IQkeyborad键盘)
 - (void)cancelRoomVideo;
 
 
@@ -66,6 +73,8 @@ NS_ASSUME_NONNULL_BEGIN
 // 设置代理，接收融云消息
 @property (nonatomic, weak) id<JLIMServiceDelegate> delegate;
 
+// 皮肤模式:  YES:黑色 NO:白色    默认NO
+@property (nonatomic, assign) BOOL skinStyle;
 
 + (instancetype)shared;
 

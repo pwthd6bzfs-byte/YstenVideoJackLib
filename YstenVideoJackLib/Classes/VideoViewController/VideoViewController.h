@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *token;
 @property (nonatomic, assign) NSInteger anchorID;
 @property (nonatomic, copy) NSString *anchorRtcToken;
+@property (nonatomic, assign) BOOL isStartVideo; // 是否属于startVideo点击进入
 @property (nonatomic, assign) BOOL isHeartMatch; // 是否属于心动速配
     /// 主播信息详情
 @property (nonatomic, strong) JLAnchorUserModel *anchorUserInfo;

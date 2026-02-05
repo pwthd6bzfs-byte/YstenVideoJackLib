@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		548374D42F3386ED0044E779 /* JLLLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548374D32F3386ED0044E779 /* JLLLViewController.swift */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -22,9 +21,9 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
-		827F829BE61DAE0A56253593 /* Pods_YstenVideoJackLib_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 575FF78310236DDC4620F2F7 /* Pods_YstenVideoJackLib_Example.framework */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
-		99E7815CF67522E61D62E664 /* Pods_YstenVideoJackLib_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928EFD487F657F21C1CB83B7 /* Pods_YstenVideoJackLib_Tests.framework */; };
+		9AE2961F0A530A517A7C9172 /* Pods_YstenVideoJackLib_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6632DE7BDBB4EC638C85C31B /* Pods_YstenVideoJackLib_Tests.framework */; };
+		B20B6E4F9448E41C125500EC /* Pods_YstenVideoJackLib_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B0BC0A3CEA84B5D2485FEE /* Pods_YstenVideoJackLib_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,9 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		548374D22F3386ED0044E779 /* YstenVideoJackLib_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YstenVideoJackLib_Example-Bridging-Header.h"; sourceTree = "<group>"; };
-		548374D32F3386ED0044E779 /* JLLLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JLLLViewController.swift; sourceTree = "<group>"; };
-		575FF78310236DDC4620F2F7 /* Pods_YstenVideoJackLib_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YstenVideoJackLib_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		20B0BC0A3CEA84B5D2485FEE /* Pods_YstenVideoJackLib_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YstenVideoJackLib_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58A195388D20070C39A /* YstenVideoJackLib_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YstenVideoJackLib_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -48,7 +45,6 @@
 		6003F595195388D20070C39A /* YstenVideoJackLib-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "YstenVideoJackLib-Info.plist"; sourceTree = "<group>"; };
 		6003F597195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F599195388D20070C39A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		6003F59B195388D20070C39A /* YstenVideoJackLib-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YstenVideoJackLib-Prefix.pch"; sourceTree = "<group>"; };
 		6003F59C195388D20070C39A /* JLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JLAppDelegate.h; sourceTree = "<group>"; };
 		6003F59D195388D20070C39A /* JLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JLAppDelegate.m; sourceTree = "<group>"; };
 		6003F5A5195388D20070C39A /* JLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JLViewController.h; sourceTree = "<group>"; };
@@ -60,10 +56,10 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
+		6632DE7BDBB4EC638C85C31B /* Pods_YstenVideoJackLib_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YstenVideoJackLib_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		850FBC3C8991EC0DA762439A /* YstenVideoJackLib.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = YstenVideoJackLib.podspec; path = ../YstenVideoJackLib.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		928EFD487F657F21C1CB83B7 /* Pods_YstenVideoJackLib_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YstenVideoJackLib_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9562CA0C110CF3E7DCF98DA6 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		97A15BD2244235A6B3851C50 /* Pods-YstenVideoJackLib_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YstenVideoJackLib_Tests.debug.xcconfig"; path = "Target Support Files/Pods-YstenVideoJackLib_Tests/Pods-YstenVideoJackLib_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		A4EADA372E381336A2A9F557 /* Pods-YstenVideoJackLib_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YstenVideoJackLib_Tests.release.xcconfig"; path = "Target Support Files/Pods-YstenVideoJackLib_Tests/Pods-YstenVideoJackLib_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -80,7 +76,7 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				827F829BE61DAE0A56253593 /* Pods_YstenVideoJackLib_Example.framework in Frameworks */,
+				B20B6E4F9448E41C125500EC /* Pods_YstenVideoJackLib_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,7 +87,7 @@
 				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				99E7815CF67522E61D62E664 /* Pods_YstenVideoJackLib_Tests.framework in Frameworks */,
+				9AE2961F0A530A517A7C9172 /* Pods_YstenVideoJackLib_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,8 +133,8 @@
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
-				575FF78310236DDC4620F2F7 /* Pods_YstenVideoJackLib_Example.framework */,
-				928EFD487F657F21C1CB83B7 /* Pods_YstenVideoJackLib_Tests.framework */,
+				20B0BC0A3CEA84B5D2485FEE /* Pods_YstenVideoJackLib_Example.framework */,
+				6632DE7BDBB4EC638C85C31B /* Pods_YstenVideoJackLib_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -151,11 +147,9 @@
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F5A5195388D20070C39A /* JLViewController.h */,
 				6003F5A6195388D20070C39A /* JLViewController.m */,
-				548374D32F3386ED0044E779 /* JLLLViewController.swift */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
-				548374D22F3386ED0044E779 /* YstenVideoJackLib_Example-Bridging-Header.h */,
 			);
 			name = "Example for YstenVideoJackLib";
 			path = YstenVideoJackLib;
@@ -167,7 +161,6 @@
 				6003F595195388D20070C39A /* YstenVideoJackLib-Info.plist */,
 				6003F596195388D20070C39A /* InfoPlist.strings */,
 				6003F599195388D20070C39A /* main.m */,
-				6003F59B195388D20070C39A /* YstenVideoJackLib-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -490,7 +483,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				548374D42F3386ED0044E779 /* JLLLViewController.swift in Sources */,
 				6003F59E195388D20070C39A /* JLAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* JLViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
@@ -625,7 +617,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 622A26BXT2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "YstenVideoJackLib/YstenVideoJackLib-Prefix.pch";
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "YstenVideoJackLib/YstenVideoJackLib-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MODULE_NAME = ExampleApp;
@@ -647,7 +639,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 622A26BXT2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "YstenVideoJackLib/YstenVideoJackLib-Prefix.pch";
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "YstenVideoJackLib/YstenVideoJackLib-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MODULE_NAME = ExampleApp;

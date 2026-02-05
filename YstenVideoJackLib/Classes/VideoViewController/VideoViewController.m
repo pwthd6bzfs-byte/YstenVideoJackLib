@@ -73,8 +73,23 @@
 }
 
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(closeIQKeyboard)] ) {
+        [[JLIMService shared].delegate closeIQKeyboard];
+    }
+}
+
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    
+    if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(openIQKeyboard)] ) {
+        [[JLIMService shared].delegate openIQKeyboard];
+    }
+
+    
     // 移除定时器
     [self.videoFuncView removeTimer];
     // 在视图消失时停止倒计时，避免内存泄漏
@@ -82,8 +97,19 @@
 }
 
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+        // 默认关闭深色模式
+    if (@available(iOS 13.0, *)) {
+        self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+    } else {
+            // Fallback on earlier versions
+    }
+
+    
     [self requestData];
     [self creatUI];
     [self setupLayouts];
@@ -723,6 +749,16 @@
     self.videoCallView.hidden = YES;
     // 关闭音乐
     [self.videoCallView stopAuduio];
+    
+    // 是否属于startVideo点击进入
+    if (self.isStartVideo == YES) {
+        // 自动调用面板
+        if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showDiveceControlPanelAlertView:userCode:roomID:)]) {
+            [[JLIMService shared].delegate showDiveceControlPanelAlertView:[NSString stringWithFormat:@"%ld",self.anchorUserInfo.userID] userCode:self.anchorUserInfo.userCode roomID:self.channel];
+        }
+    }
+    
+    
     self.isAddJoinOfUid = YES;
     // 计算房间时间
     [self.videoFuncView startCountdown];

@@ -77,6 +77,9 @@
 /// 主播信息详情
 @property (nonatomic, strong) JLAnchorUserModel *anchorUserInfo;
 
+/// 是否设备拨打
+@property (nonatomic, assign) BOOL isStartVideo;
+
 // 数据源
 @property (nonatomic, strong) JLGiftListModel *model;
 
@@ -109,6 +112,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+        // 默认关闭深色模式
+    if (@available(iOS 13.0, *)) {
+        self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+    } else {
+            // Fallback on earlier versions
+    }
     
     /// 消息拦截监听代理
     [RCCoreClient sharedCoreClient].messageBlockDelegate = self;
@@ -270,7 +279,7 @@
     self.buttomView.clickTelBlock = ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.view endEditing:YES];
-            [weakSelf sendVideoCall];
+            [weakSelf sendVideoCall:NO];
         });
     };
 
@@ -281,9 +290,9 @@
             [weakSelf.view endEditing:YES];
             if (weakSelf.model) {
                 [ws requestUserCoinComplete:^{
-                    [JLPopupViewComponent popupTableiViewWithModel:weakSelf.model returnModel:^(JLGiftModel * _Nonnull model,NSString * _Nonnull num) {
-                        [weakSelf sendGiftMessge:model num:num];
-                    }];
+                        [JLPopupViewComponent popupTableiViewWithModel:weakSelf.model returnModel:^(JLGiftModel * _Nonnull model,NSString * _Nonnull num) {
+                            [weakSelf sendGiftMessge:model num:num];
+                        }];
                 } isShowLoding:YES];
             }
         });
@@ -407,20 +416,7 @@
         make.height.equalTo(@300);
     }];
 
-    
         
-    if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark ) {
-            // 处于深色模式
-        NSLog(@"当前为深色模式");
-            // 在这里更新你的 UI 适配深色模式
-        self.customNaviBarView.backgroundColor = [UIColor clearColor];
-        self.buttomView.contentTxf.textColor = [UIColor blackColor];
-
-    } else {
-            // 处于浅色模式
-        NSLog(@"当前为浅色模式");
-            // 在这里更新你的 UI 适配浅色模式
-    }
 
 }
 
@@ -666,7 +662,7 @@
         
         [JLDviceVideoViewComponent initDeviceList:arr WitCliclStarVideoBtnBlock:^{
             [SVProgressHUD dismiss];
-            [ws sendVideoCall];
+            [ws sendVideoCall:YES];
         }];
     } failued:^(NSError * _Nonnull error) {
         [SVProgressHUD dismiss];
@@ -687,6 +683,17 @@
         });
         return;
     }
+    
+    
+        // 互动指令消息
+    if ([message.objectName isEqualToString:@"mikchat:deviceorder"]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+        });
+        return;
+    }
+    
+    
 
 }
 
@@ -915,54 +922,39 @@
 
 
 /// 拨打视频
-- (void)sendVideoCall{
+- (void)sendVideoCall:(BOOL)isStartVideo{
+    self.isStartVideo = isStartVideo;
     
     // 访问摄像头权限
     [self checkAndRequestCameraPermission];
-        
-//    Weakself(ws)
-//        // 拨打视频
-//    [[JLRTCService shared] videoCallWithAnchorID:[self.targetId integerValue] success:^(NSString * _Nonnull channel, NSString * _Nonnull token) {
-//        VideoViewController *controller = [[VideoViewController alloc] init];
-//        controller.modalPresentationStyle = 0;
-//        controller.channel = channel;
-//        controller.token = token;
-//        controller.isNeedPush = YES;
-//        controller.anchorID = [self.targetId integerValue];
-//        controller.anchorRtcToken = @"";
-//        controller.anchorUserInfo = ws.anchorUserInfo;
-//        [self presentViewController:controller animated:YES completion:nil];
-//        
-//    } failued:^(NSError * _Nonnull error) {
-//        
-//    }];
 }
 
 
 
 - (void)startUsingCamera{
     Weakself(ws)
+    
         // 拨打视频
     [[JLRTCService shared] videoCallWithAnchorID:[self.targetId integerValue] success:^(NSString * _Nonnull channel, NSString * _Nonnull token,JLAnchorUserModel * _Nonnull anchorUserInfo) {
         
-        JLUserModel *userInfo = [[JLUserService shared] userInfo];
-        if (userInfo.coins < ws.anchorUserInfo.coinVideoPrice) {
-            [SVProgressHUD showImage:nil status:@"Insufficient Balance"];
-            
-            if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeAlertView)]) {
-                [[JLIMService shared].delegate showRechargeAlertView];
-            }
-
-            return;
-            
-        }
-
+//        JLUserModel *userInfo = [[JLUserService shared] userInfo];
+//        if (userInfo.coins < ws.anchorUserInfo.coinVideoPrice) {
+//            [SVProgressHUD showImage:nil status:@"Insufficient Balance"];
+//            
+//            if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeAlertView)]) {
+//                [[JLIMService shared].delegate showRechargeAlertView];
+//            }
+//
+//            return;
+//            
+//        }
         
         VideoViewController *controller = [[VideoViewController alloc] init];
         controller.modalPresentationStyle = 0;
         controller.channel = channel;
         controller.token = token;
         controller.isNeedPush = YES;
+        controller.isStartVideo = ws.isStartVideo;
         controller.anchorID = [ws.targetId integerValue];
         controller.anchorRtcToken = @"";
         controller.anchorUserInfo = anchorUserInfo;

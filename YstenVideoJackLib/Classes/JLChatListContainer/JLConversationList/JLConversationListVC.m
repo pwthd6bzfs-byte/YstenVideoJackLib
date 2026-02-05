@@ -34,6 +34,12 @@
 
 - (void)viewDidLoad {
     
+    // 默认关闭深色模式
+    if (@available(iOS 13.0, *)) {
+        self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+    } else {
+            // Fallback on earlier versions
+    }
 
     [self.view addSubview:self.bgImageView];
     [self.bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {

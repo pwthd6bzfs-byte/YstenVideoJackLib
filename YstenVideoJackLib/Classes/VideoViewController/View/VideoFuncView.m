@@ -25,7 +25,7 @@
 #import "JLAPIService.h"
 #import "UIImage+Add.h"
 #import "JLThreadSafeArray.h"
-//#import "Lottie.h"
+#import "JLLOTtie.h"
 
 
 @interface VideoFuncView ()<UITableViewDelegate,UITableViewDataSource>
@@ -55,8 +55,8 @@
 // 倒计时icon
 @property (nonatomic, strong) UIImageView *countdownImageView;
 // 爱心按钮
-//@property (nonatomic, strong) LOTAnimationView *animationView;
-@property (nonatomic, strong) UIImageView *animationView;
+@property (nonatomic, strong) JLLOTAnimationView *animationView;
+//@property (nonatomic, strong) UIImageView *animationView;
 
 // 消息TableView
 @property (nonatomic, strong) UITableView *tableView;
@@ -408,21 +408,21 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickHeartBtnEvnet)];
     [self.animationView addGestureRecognizer:tap];
 //    
-//        // 设置动画视图
-//    self.animationView.contentMode = UIViewContentModeScaleAspectFit;
-//        // 播放动画
-//    [self playAnimation];
+        // 设置动画视图
+    self.animationView.contentMode = UIViewContentModeScaleAspectFit;
+        // 播放动画
+    [self playAnimation];
 }
 
 - (void)playAnimation {
         // 设置循环模式
-//    self.animationView.loopAnimation = YES; // 循环播放
-//    
-//        // 设置播放速度
-//    self.animationView.animationSpeed = 1.0;
-//    
-//        // 播放动画
-//    [self.animationView play];
+    self.animationView.loopAnimation = YES; // 循环播放
+    
+        // 设置播放速度
+    self.animationView.animationSpeed = 1.0;
+    
+        // 播放动画
+    [self.animationView play];
 //    
 //        // 带完成回调的播放
 //         [self.animationView playWithCompletion:^(BOOL animationFinished) {
@@ -657,6 +657,7 @@
 
     
     UITableViewCell *cell = [[UITableViewCell alloc] init];
+    cell.backgroundColor = [UIColor clearColor];
     return  cell;
 }
 
@@ -1012,36 +1013,36 @@
 
 
 
-//- (LOTAnimationView *)animationView
-//{
-//    if (!_animationView) {
-//        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-//        NSURL *bundleURL = [bundle URLForResource:@"YstenVideoJackLib" withExtension:@"bundle"];
-//        NSBundle *resourceBundle = [NSBundle bundleWithURL:bundleURL];
-//
-//        LOTAnimationView *animationView = [LOTAnimationView animationNamed:@"jl_hd_btn_animation_nor" inBundle:resourceBundle];
-//            //循环播放动画
-//        animationView.loopAnimation = YES;
-//        animationView.backgroundColor = [UIColor clearColor];
-//        animationView.hidden = YES;
-//        _animationView = animationView;
-//    }
-//    return _animationView;
-//}
-
-
-
-
-
-- (UIImageView *)animationView{
+- (JLLOTAnimationView *)animationView
+{
     if (!_animationView) {
-        UIImageView *view = [[UIImageView alloc] init];
-        view.contentMode = UIViewContentModeScaleAspectFill;
-        view.image = [UIImage jl_name:@"jl_video_heart" class:self];
-        _animationView = view;
+        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+        NSURL *bundleURL = [bundle URLForResource:@"YstenVideoJackLib" withExtension:@"bundle"];
+        NSBundle *resourceBundle = [NSBundle bundleWithURL:bundleURL];
+
+        JLLOTAnimationView *animationView = [JLLOTAnimationView animationNamed:@"jl_hd_btn_animation_nor" inBundle:resourceBundle];
+            //循环播放动画
+        animationView.loopAnimation = YES;
+        animationView.backgroundColor = [UIColor clearColor];
+        animationView.hidden = YES;
+        _animationView = animationView;
     }
-    return  _animationView;
+    return _animationView;
 }
+
+
+
+
+
+//- (UIImageView *)animationView{
+//    if (!_animationView) {
+//        UIImageView *view = [[UIImageView alloc] init];
+//        view.contentMode = UIViewContentModeScaleAspectFill;
+//        view.image = [UIImage jl_name:@"jl_video_heart" class:self];
+//        _animationView = view;
+//    }
+//    return  _animationView;
+//}
 
 
 

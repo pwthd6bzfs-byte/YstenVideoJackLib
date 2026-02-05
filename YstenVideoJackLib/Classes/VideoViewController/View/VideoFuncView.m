@@ -25,7 +25,7 @@
 #import "JLAPIService.h"
 #import "UIImage+Add.h"
 #import "JLThreadSafeArray.h"
-#import <Lottie/Lottie.h>
+#import <lottie_ios_Oc/Lottie.h>
 
 
 @interface VideoFuncView ()<UITableViewDelegate,UITableViewDataSource>
@@ -1017,12 +1017,11 @@
         NSBundle *bundle = [NSBundle bundleForClass:[self class]];
         NSURL *bundleURL = [bundle URLForResource:@"YstenVideoJackLib" withExtension:@"bundle"];
         NSBundle *resourceBundle = [NSBundle bundleWithURL:bundleURL];
-//        NSString *path = [resourceBundle pathForResource:@"Success" ofType:@"json"];
 
-        LOTAnimationView *animationView = [LOTAnimationView animationNamed:@"Success" inBundle:resourceBundle];
+        LOTAnimationView *animationView = [LOTAnimationView animationNamed:@"jl_hd_btn_animation_nor" inBundle:resourceBundle];
             //循环播放动画
         animationView.loopAnimation = YES;
-        animationView.backgroundColor = [UIColor redColor];
+        animationView.backgroundColor = [UIColor clearColor];
         animationView.hidden = YES;
         _animationView = animationView;
     }

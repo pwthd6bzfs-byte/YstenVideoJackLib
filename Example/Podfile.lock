@@ -59,7 +59,8 @@ PODS:
   - LookinServer/Core (1.2.8)
   - LookinServer/Swift (1.2.8):
     - LookinServer/Core
-  - lottie-ios (2.5.3)
+  - lottie-ios (4.3.3)
+  - lottie-ios_Oc (0.0.1)
   - Masonry (1.1.0)
   - MJRefresh (3.7.5)
   - Protobuf (3.22.1)
@@ -99,7 +100,7 @@ PODS:
     - AFNetworking (~> 4.0)
     - AgoraRtcEngine_iOS (= 4.5.0)
     - JXCategoryView (~> 1.6.8)
-    - lottie-ios (= 2.5.3)
+    - lottie-ios_Oc
     - Masonry (= 1.1.0)
     - MJRefresh (= 3.7.5)
     - Protobuf (= 3.22.1)
@@ -115,6 +116,7 @@ PODS:
 
 DEPENDENCIES:
   - LookinServer/Swift
+  - lottie-ios (= 4.3.3)
   - YstenVideoJackLib (from `../`)
 
 SPEC REPOS:
@@ -125,6 +127,7 @@ SPEC REPOS:
     - JXCategoryView
     - LookinServer
     - lottie-ios
+    - lottie-ios_Oc
     - Masonry
     - MJRefresh
     - Protobuf
@@ -146,7 +149,8 @@ SPEC CHECKSUMS:
   AgoraRtcEngine_iOS: 38b5e0a49bbad5616f284e6a4f9e4f5bb3fb3b2e
   JXCategoryView: 262d503acea0b1278c79a1c25b7332ffaef4d518
   LookinServer: 1b2b61c6402ae29fa22182d48f5cd067b4e99e80
-  lottie-ios: a50d5c0160425cd4b01b852bb9578963e6d92d31
+  lottie-ios: 25e7b2675dad5c3ddad369ac9baab03560c5bfdd
+  lottie-ios_Oc: 246311aa2a6106fe03cb34e3e30f8daf7e1e7d9a
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   Protobuf: d7f7c8329edf5eb8af65547a8ba3e9c1cee927d5
@@ -156,9 +160,9 @@ SPEC CHECKSUMS:
   SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
   SVGAPlayer: 318b85a78b61292d6ae9dfcd651f3f0d1cdadd86
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
-  YstenVideoJackLib: 6adf2d634e545076b40c95a9a63216d80e4c5f85
+  YstenVideoJackLib: af783b752fd7096fae01b05b8e2a19478d05daa0
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 987a0449165c3a4106acd75d65638ed20c629196
+PODFILE CHECKSUM: 5e9fb4cc2c312c384d25224b347a57ac68703a59
 
 COCOAPODS: 1.16.2

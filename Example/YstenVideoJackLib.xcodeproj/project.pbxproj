@@ -213,7 +213,7 @@
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
 				56326FFA2705F319C8B9263A /* [CP] Embed Pods Frameworks */,
-				02CF8F804BF06D091BA87A8A /* [CP] Copy Pods Resources */,
+				A6C95060923DA5CC302EC67F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -305,40 +305,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		02CF8F804BF06D091BA87A8A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-YstenVideoJackLib_Example/Pods-YstenVideoJackLib_Example-resources.sh",
-				"${PODS_ROOT}/RongCloudIM/RongCloudIM/RCConfig.plist",
-				"${PODS_ROOT}/RongCloudOpenSource/Resources/RongCloud.bundle",
-				"${PODS_ROOT}/RongCloudOpenSource/Resources/en.lproj",
-				"${PODS_ROOT}/RongCloudOpenSource/Resources/zh-Hans.lproj",
-				"${PODS_ROOT}/RongCloudOpenSource/Resources/ar.lproj",
-				"${PODS_ROOT}/RongCloudOpenSource/Resources/Emoji.plist",
-				"${PODS_ROOT}/RongCloudOpenSource/Resources/RCColor.plist",
-				"${PODS_ROOT}/RongCloudOpenSource/IMKit/Supporting Files/PrivacyInfo.xcprivacy",
-				"${PODS_CONFIGURATION_BUILD_DIR}/YstenVideoJackLib/YstenVideoJackLib.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RCConfig.plist",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RongCloud.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/en.lproj",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/zh-Hans.lproj",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ar.lproj",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Emoji.plist",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RCColor.plist",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PrivacyInfo.xcprivacy",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/YstenVideoJackLib.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YstenVideoJackLib_Example/Pods-YstenVideoJackLib_Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		56326FFA2705F319C8B9263A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -357,7 +323,6 @@
 				"${BUILT_PRODUCTS_DIR}/SVGAPlayer/SVGAPlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/YYKit/YYKit.framework",
-				"${BUILT_PRODUCTS_DIR}/lottie-ios-OC/Lottie.framework",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/AgoraInfra_iOS/aosl.framework/aosl",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/AgoraRtcEngine_iOS/AIAEC/AgoraAiEchoCancellationExtension.framework/AgoraAiEchoCancellationExtension",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/AgoraRtcEngine_iOS/AIAECLL/AgoraAiEchoCancellationLLExtension.framework/AgoraAiEchoCancellationLLExtension",
@@ -403,7 +368,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVGAPlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/aosl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AgoraAiEchoCancellationExtension.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AgoraAiEchoCancellationLLExtension.framework",
@@ -439,6 +403,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YstenVideoJackLib_Example/Pods-YstenVideoJackLib_Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A6C95060923DA5CC302EC67F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YstenVideoJackLib_Example/Pods-YstenVideoJackLib_Example-resources.sh",
+				"${PODS_ROOT}/RongCloudIM/RongCloudIM/RCConfig.plist",
+				"${PODS_ROOT}/RongCloudOpenSource/Resources/RongCloud.bundle",
+				"${PODS_ROOT}/RongCloudOpenSource/Resources/en.lproj",
+				"${PODS_ROOT}/RongCloudOpenSource/Resources/zh-Hans.lproj",
+				"${PODS_ROOT}/RongCloudOpenSource/Resources/ar.lproj",
+				"${PODS_ROOT}/RongCloudOpenSource/Resources/Emoji.plist",
+				"${PODS_ROOT}/RongCloudOpenSource/Resources/RCColor.plist",
+				"${PODS_ROOT}/RongCloudOpenSource/IMKit/Supporting Files/PrivacyInfo.xcprivacy",
+				"${PODS_CONFIGURATION_BUILD_DIR}/YstenVideoJackLib/YstenVideoJackLib.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RCConfig.plist",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RongCloud.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/en.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/zh-Hans.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ar.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Emoji.plist",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RCColor.plist",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PrivacyInfo.xcprivacy",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/YstenVideoJackLib.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YstenVideoJackLib_Example/Pods-YstenVideoJackLib_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B14F1C3D999AA3F789D89CFC /* [CP] Check Pods Manifest.lock */ = {

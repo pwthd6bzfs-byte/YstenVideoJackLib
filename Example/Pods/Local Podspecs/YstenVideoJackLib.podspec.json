@@ -1,6 +1,6 @@
 {
   "name": "YstenVideoJackLib",
-  "version": "0.5.1",
+  "version": "0.5.3",
   "summary": "A short description of YstenVideoJackLib.",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/pwthd6bzfs-byte/YstenVideoJackLib",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/pwthd6bzfs-byte/YstenVideoJackLib.git",
-    "tag": "0.5.1"
+    "tag": "0.5.3"
   },
   "platforms": {
     "ios": "13.0"
@@ -70,9 +70,6 @@
     ],
     "MJRefresh": [
       "3.7.5"
-    ],
-    "lottie-ios-OC": [
-      "1.0.0"
     ]
   }
 }

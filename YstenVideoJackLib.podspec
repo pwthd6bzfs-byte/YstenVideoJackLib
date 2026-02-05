@@ -74,5 +74,5 @@ TODO: Add long description of the pod here.
    s.dependency 'Protobuf', '= 3.22.1'
    s.dependency 'JXCategoryView', '~>1.6.8'
    s.dependency 'MJRefresh', '3.7.5'
-   s.dependency 'lottie-ios_Oc'
+   s.dependency 'lottie-ios_Oc','0.0.1'
 end

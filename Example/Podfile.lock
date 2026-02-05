@@ -99,7 +99,7 @@ PODS:
     - AFNetworking (~> 4.0)
     - AgoraRtcEngine_iOS (= 4.5.0)
     - JXCategoryView (~> 1.6.8)
-    - lottie-ios_Oc
+    - lottie-ios_Oc (= 0.0.1)
     - Masonry (= 1.1.0)
     - MJRefresh (= 3.7.5)
     - Protobuf (= 3.22.1)
@@ -156,7 +156,7 @@ SPEC CHECKSUMS:
   SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
   SVGAPlayer: 318b85a78b61292d6ae9dfcd651f3f0d1cdadd86
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
-  YstenVideoJackLib: c806c097e67c6f52da95593aac1e01eaeb591966
+  YstenVideoJackLib: 75d7338937c166c9776d173311fb8b42084fb415
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
 PODFILE CHECKSUM: 987a0449165c3a4106acd75d65638ed20c629196

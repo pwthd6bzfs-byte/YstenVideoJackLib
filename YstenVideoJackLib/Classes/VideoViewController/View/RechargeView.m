@@ -12,6 +12,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "UIImage+Add.h"
 #import "JLIMService.h"
+#import "NSObject+CurrentViewController.h"
 
 
 @interface  RechargeView()
@@ -76,8 +77,8 @@
 - (void)clickRechargeBtnEvnet{
     NSLog(@"去充值");
     
-    if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeAlertView)]) {
-        [[JLIMService shared].delegate showRechargeAlertView];
+    if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeAlertView:)]) {
+        [[JLIMService shared].delegate showRechargeAlertView:[NSObject currentViewController]];
     }
 }
 

@@ -533,8 +533,8 @@
             
             if (error.code == 118) {
                 [SVProgressHUD showImage:nil status:@"Insufficient Balance"];
-                if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeAlertView)]) {
-                    [[JLIMService shared].delegate showRechargeAlertView];
+                if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeAlertView:)]) {
+                    [[JLIMService shared].delegate showRechargeAlertView:ws];
                 }
             }
 
@@ -689,9 +689,12 @@
 
 // 取消拨打通话
 - (void)clickCancenCall{
+    [SVProgressHUD show];
     [JLAPIService userCancalCallChannelID:self.channel success:^(NSDictionary * _Nonnull result) {
+        [SVProgressHUD dismiss];
         NSLog(@"手动取消拨打通话成功");
     } failued:^(NSError * _Nonnull error) {
+        [SVProgressHUD dismiss];
         NSLog(@"手动取消拨打通话失败");
     }];
 }

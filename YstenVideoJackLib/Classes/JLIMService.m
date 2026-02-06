@@ -67,6 +67,9 @@ static JLIMService *shared = nil;
 
 
 - (void)initSystem{
+    self.model = @"2";
+    self.isInterfaceStyle = YES;
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
     [SVProgressHUD setMaximumDismissTimeInterval:1];
 
     [JLAPIService getH5ConfigDatasuccess:^(NSDictionary * _Nonnull result) {
@@ -252,6 +255,20 @@ static JLIMService *shared = nil;
 
 
 
+    /// 系统颜色模式开关 和 初始颜色模式Model值
+    /// - Parameter interfaceStyle: 是否开启跟随系统颜色模式
+    /// - Parameter model: 自定义颜色模式值
+- (void)getIsOverrideUserInterfaceStyle:(BOOL)isInterfaceStyle model:(NSString *)model{
+    _isInterfaceStyle = isInterfaceStyle;
+    _model = model;
+    
+    if (isInterfaceStyle == YES) {
+        
+    }else{
+            // 通知H5更换颜色
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationWebThemeSuccess object: nil];
+    }
+}
 
 
 

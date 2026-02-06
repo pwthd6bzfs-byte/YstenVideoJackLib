@@ -13,6 +13,8 @@
 #import <SVProgressHUD/SVProgressHUD.h>
 #import "JLUserService.h"
 #import "UIImage+Add.h"
+#import "JLIMService.h"
+#import "NSObject+CurrentViewController.h"
 
 @interface JLGiftListView()<UICollectionViewDelegate,UICollectionViewDataSource>
     /// 视图容器
@@ -287,7 +289,10 @@
         JLUserModel *user = [JLUserService shared].userInfo;
 
         if (priceCount > user.coins) {
-            [SVProgressHUD showImage:nil status:@"你的金币不足"];
+            [SVProgressHUD showImage:nil status:@"Insufficient Balance"];
+            if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeAlertView:)]) {
+                [[JLIMService shared].delegate showRechargeAlertView:[NSObject currentViewController]];
+            }
             return;
         }
                 

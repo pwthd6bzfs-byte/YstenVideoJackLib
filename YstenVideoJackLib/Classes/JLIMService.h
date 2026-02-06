@@ -24,8 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 // 弹出去充值提示弹窗(AlertView)
-- (void)showRechargeAlertView;
-
+- (void)showRechargeAlertView:(UIViewController *)vc;
 
 // 开启全局IQkeyboard键盘
 - (void)openIQKeyboard;
@@ -73,8 +72,10 @@ NS_ASSUME_NONNULL_BEGIN
 // 设置代理，接收融云消息
 @property (nonatomic, weak) id<JLIMServiceDelegate> delegate;
 
-// 皮肤模式:  YES:黑色 NO:白色    默认NO
-@property (nonatomic, assign) BOOL skinStyle;
+// 是否开启跟随系统颜色模式
+@property (nonatomic, assign) BOOL isInterfaceStyle;
+// 本地颜色模式 model  (白色1 暗黑2)
+@property (nonatomic, copy) NSString *model;
 
 + (instancetype)shared;
 
@@ -89,10 +90,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
+
 /// 跳转深度聊天
 /// - Parameter UINavigationViewConller: nav
  - (void)pushChatViewController:(UIViewController *)viewController;
-
     
 
     
@@ -107,28 +108,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
+
+/// 系统颜色模式开关 和 初始颜色模式Model值
+/// - Parameter interfaceStyle: 是否开启跟随系统颜色模式
+/// - Parameter model: 自定义颜色模式值
+- (void)getIsOverrideUserInterfaceStyle:(BOOL)interfaceStyle model:(NSString *)model;
+
+
+
+
 /// 融云登出
 - (void)logout;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

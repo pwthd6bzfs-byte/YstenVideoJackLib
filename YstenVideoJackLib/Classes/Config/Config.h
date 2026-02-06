@@ -52,6 +52,9 @@
 // 私聊消息
 #define kNotificationConversationMessageSuccess @"kNotificationConversationMessageSuccess"
 
+// 通知Web更换颜色
+#define kNotificationWebThemeSuccess @"kNotificationWebThemeSuccess"
+
 
 
 // 监听融云消息

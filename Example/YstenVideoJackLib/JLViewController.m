@@ -45,7 +45,6 @@
     [JLIMService shared].delegate = self;
     
     
-    
     UITextField *txf = [[UITextField alloc] init];
     txf.frame = CGRectMake(60, 120, 200, 50);
     txf.layer.borderColor = [UIColor blackColor].CGColor;

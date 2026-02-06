@@ -34,6 +34,7 @@
 /// 是否加载主播列表  NO 默认加载
 @property (nonatomic, assign) BOOL isDefault;
 
+
 @end
 
 @implementation JLWebViewController
@@ -51,33 +52,30 @@
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     
-//    self.navigationController.navigationBarHidden = NO;
+        //    self.navigationController.navigationBarHidden = NO;
 }
 
 
 
+    // 注意:参数为变化前的traitCollection
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+        // trait发生了改变
+    if ([self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection]) {
+            // 执行操作
+        [self toSetTheme];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // 判断皮肤颜色
-    if ([JLIMService shared].skinStyle == YES) {
-        if (@available(iOS 13.0, *)) {
-            self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
-            self.view.backgroundColor = [UIColor blackColor];
-        } else {
-            self.view.backgroundColor = [UIColor whiteColor];
-        }
-
-    }else{
-        
-        if (@available(iOS 13.0, *)) {
-            self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
-            self.view.backgroundColor = [UIColor whiteColor];
-        } else {
-            self.view.backgroundColor = [UIColor whiteColor];
-        }
-    }
     
+    [self initTheme];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toSetTheme) name:kNotificationWebThemeSuccess object:self];
+        
 
     NSDictionary *dict = [JLSystemConfigUtil getInfoWithHeartbeatMatchDict:@"HeartbeatMatchDict"];
     self.heartbeatMatchPrice = dict[@"heartbeatMatchPrice"];
@@ -150,6 +148,80 @@
 
 
 
+- (void)initTheme{
+    if ([JLIMService shared].isInterfaceStyle == YES) {
+        
+        if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+                // 当前是深色模式
+            if (@available(iOS 13.0, *)) {
+//                self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+                self.view.backgroundColor = [UIColor blackColor];
+                [JLIMService shared].model = @"2";
+            } else {
+                self.view.backgroundColor = [UIColor whiteColor];
+            }
+        } else {
+                // 当前不是深色模式
+            if (@available(iOS 13.0, *)) {
+//                self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+                self.view.backgroundColor = [UIColor whiteColor];
+                [JLIMService shared].model = @"1";
+            } else {
+                self.view.backgroundColor = [UIColor whiteColor];
+            }
+        }
+        
+    }else{
+            // 判断皮肤颜色
+        if ([[JLIMService shared].model isEqualToString:@"2"]) {
+            if (@available(iOS 13.0, *)) {
+//                self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+                self.view.backgroundColor = [UIColor blackColor];
+                [JLIMService shared].model = @"2";
+            } else {
+                self.view.backgroundColor = [UIColor whiteColor];
+            }
+            
+        }else{
+            
+            if (@available(iOS 13.0, *)) {
+//                self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+                self.view.backgroundColor = [UIColor whiteColor];
+                [JLIMService shared].model = @"1";
+            } else {
+                self.view.backgroundColor = [UIColor whiteColor];
+            }
+        }
+    }
+
+}
+
+
+
+
+- (void)toSetTheme{
+    [self initTheme];
+    
+    NSString *mode = @"";
+    if ([[JLIMService shared].model isEqualToString:@"1"]) {
+        mode = @"light";
+    }else{
+        mode = @"dark";
+    }
+    
+    NSDictionary *dict = @{@"theme":mode};
+    NSString *jsonString = [dict modelToJSONString];
+    NSString *js = [NSString stringWithFormat:@"%@(%@)", @"setTheme", jsonString];
+    [self.webView evaluateJavaScript:js completionHandler:^(id _Nullable htmlStr, NSError * _Nullable error) {
+        NSLog(@"%@",error);
+    }];
+
+}
+
+
+
+
+
 
 - (void)registerMessageHandlers {
         // 注册各种消息处理器
@@ -217,7 +289,6 @@
         
         NSDictionary *dict = @{
             @"reset":resetStr,
-            @"mode":@"1",
             @"sessionid":[NSString stringWithFormat:@"%ld",[JLUserService shared].userInfo.userID],
             @"userid":[NSString stringWithFormat:@"%ld",[JLUserService shared].userInfo.userID],
             @"lang":@"en",
@@ -227,7 +298,7 @@
             //            @"versioncode":@"1.0.0",
             @"heartbeatMatchPrice":[NSString stringWithFormat:@"%@",self.heartbeatMatchPrice],
             @"deviceid":uuid,
-            @"skinStyle":[JLIMService shared].skinStyle == YES ? @"1" : @"0", // 皮肤  @"1" : 黑色  @"0" : @"白色"
+            @"mode":[JLIMService shared].model,// 皮肤  @"1" : 黑色  @"2" : @"白色"
             @"model":device.name,
             @"appname":@"lovespouse"
         };
@@ -380,6 +451,7 @@
 
     // 记得移除观察者
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     NSLog(@"JLWebViewController 销毁");
 //    [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
 }

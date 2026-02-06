@@ -114,7 +114,7 @@
     
         // 默认关闭深色模式
     if (@available(iOS 13.0, *)) {
-        self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+        self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
     } else {
             // Fallback on earlier versions
     }
@@ -853,8 +853,8 @@
         NSLog(@"%@",error);
         if (error.code == 118) {
             [SVProgressHUD showImage:nil status:@"Insufficient Balance"];
-            if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeAlertView)]) {
-                [[JLIMService shared].delegate showRechargeAlertView];
+            if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeAlertView:)]) {
+                [[JLIMService shared].delegate showRechargeAlertView:ws];
             }
         }
     }];
@@ -1224,8 +1224,8 @@
         if (msgErrorCode == 1){
             [SVProgressHUD showImage:nil status:@"Insufficient Balance"];
             
-            if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeAlertView)]) {
-                [[JLIMService shared].delegate showRechargeAlertView];
+            if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeAlertView:)]) {
+                [[JLIMService shared].delegate showRechargeAlertView:self];
             }
 
                 // 通过 messageUID 获取对应的 message 信息

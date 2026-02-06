@@ -43,7 +43,7 @@
 #import "JLDeviceModel.h"
 
 
-@interface JLConversationViewController ()<RCMessageBlockDelegate,RCAlbumListViewControllerDelegate,JLInputContainerViewDelegate,RCVoiceRecordControlDelegate,SVGAPlayerDelegate>
+@interface JLConversationViewController ()<RCMessageBlockDelegate,RCIMMessageInterceptor,RCAlbumListViewControllerDelegate,JLInputContainerViewDelegate,RCVoiceRecordControlDelegate,SVGAPlayerDelegate>
 
 
 #define ButtomView_Height (112+34)
@@ -121,6 +121,7 @@
     
     /// 消息拦截监听代理
     [RCCoreClient sharedCoreClient].messageBlockDelegate = self;
+    
     self.isClickEmoji = NO;
     self.displayUserNameInCell = NO;
     self.chatSessionInputBarControl.hidden = YES;
@@ -638,9 +639,10 @@
 // 点击用户头像
 - (void)didTapCellPortrait:(NSString *)userId{
     JLWebViewController *web = [[JLWebViewController alloc] init];
-    NSString *h5String = [JLSystemConfigUtil getInfoWithH5String:@"h5String"];
-    if (h5String && h5String.length > 0) {
-        web.h5String = [NSString stringWithFormat:@"%@/#/depth/detail/%@",h5String,userId];
+    NSString *baseUrl = [JLSystemConfigUtil getInfoWithH5String:@"baseUrl"];
+    
+    if (baseUrl && baseUrl.length > 0) {
+        web.h5String = [NSString stringWithFormat:@"%@/#/depth/detail/%@",baseUrl,userId];
     }
     [self.navigationController pushViewController:web animated:YES];
 //    if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(pushPresonCenter:)]) {
@@ -752,7 +754,7 @@
 
 
 - (void)requestUserCoinComplete:(void(^)(void))completBlock isShowLoding:(BOOL)isShowLoding{
-    Weakself(ws)
+    Weakself(ws);
     if (isShowLoding == YES) {
         [SVProgressHUD show];
     }
@@ -961,6 +963,13 @@
         [ws presentViewController:controller animated:YES completion:nil];
         
     } failued:^(NSError * _Nonnull error) {
+        
+        // 余额不足
+        if (error.code == 118) {
+            if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeAlertView:)]) {
+                [[JLIMService shared].delegate showRechargeAlertView:ws];
+            }
+        }
         
     }];
 }
@@ -1248,6 +1257,8 @@
     }
 
 }
+
+
 
 
 

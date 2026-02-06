@@ -19,6 +19,7 @@
 #import "JLIMService.h"
 #import "JLAPIService.h"
 #import "UIImage+Add.h"
+#import "HeeeNoScreenShotView.h"
 
 @interface JLPrivateVideoView()
     /// 背景图片视图
@@ -38,6 +39,8 @@
 
 @property (nonatomic, assign) BOOL isCheckVideo;
 
+@property (nonatomic, strong) HeeeNoScreenShotView *screenshotView;
+
 
 @end
 
@@ -47,6 +50,7 @@
 - (instancetype)initWithModel:(RCMessageModel *)model{
     self = [super init];
     if (self) {
+        self.backgroundColor = [UIColor blackColor];
         self.model = model;
         JLMediaPrivateMessage *message = (JLMediaPrivateMessage *)model.content;
         [self setupModel:message];
@@ -58,16 +62,20 @@
 - (void)setupModel:(JLMediaPrivateMessage *)message{
     
     self.message = message;
+        
+//    [self addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchUpInside];
     
-    
-    
-        //    [self addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:self.screenshotView];
+    [self.screenshotView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
+    }];
+
     
     UIImageView *bgImage = [[UIImageView alloc] init];
     bgImage.contentMode = UIViewContentModeScaleAspectFill;
     [bgImage sd_setImageWithURL:[NSURL URLWithString:message.firstFrameImageUrl]];
     self.bgImage = bgImage;
-    [self addSubview:bgImage];
+    [self.screenshotView addSubview:bgImage];
     
     
         // 播放按钮
@@ -77,7 +85,7 @@
     [playBtn addTarget:self action:@selector(clickPlayBtnEvnet) forControlEvents:UIControlEventTouchUpInside];
     playBtn.userInteractionEnabled = NO;
     self.playBtn = playBtn;
-    [self addSubview:playBtn];
+    [self.screenshotView addSubview:playBtn];
 
     
     
@@ -85,7 +93,7 @@
     UIButton *closeBtn = [[UIButton alloc] init];
     [closeBtn setImage:[UIImage jl_name:@"jl_navBackBlackIcon" class:self] forState:UIControlStateNormal];
     [closeBtn addTarget:self action:@selector(clickCloseBtnEvnet) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:closeBtn];
+    [self.screenshotView addSubview:closeBtn];
     
     
     UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]; // 可选: Light, Dark, ExtraLight等
@@ -101,7 +109,7 @@
     vContainer.backgroundColor = [UIColor whiteColor];
     vContainer.layer.cornerRadius = 10;
     self.vContainer = vContainer;
-    [self addSubview:vContainer];
+    [self.screenshotView addSubview:vContainer];
     
     
     
@@ -317,7 +325,7 @@
 
 
 - (void)clickUnlockBtnEvnet{
-    Weakself(ws)
+    Weakself(ws);
     [SVProgressHUD show];
     [JLAPIService getTradePrivacyUnlockWithUnLockId:[NSString stringWithFormat:@"%ld",self.message.unlockId] success:^(NSDictionary * _Nonnull result) {
         [SVProgressHUD dismiss];
@@ -326,11 +334,11 @@
         
         if (isSuccess == YES) {
             NSLog(@"解锁私密成功");
-            [self.blurEffectView removeFromSuperview];
+            [ws.blurEffectView removeFromSuperview];
             
-            self.isCheckVideo = YES;
-            self.playBtn.userInteractionEnabled = YES;
-            self.vContainer.hidden = YES;
+            ws.isCheckVideo = YES;
+            ws.playBtn.userInteractionEnabled = YES;
+            ws.vContainer.hidden = YES;
             
             
             [[JLIMService shared] setMessageExtraStatus:@"1" messageId:self.model.messageId callback:^(BOOL result) {
@@ -338,6 +346,11 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationRcMessageUpdateSuccess object:self];
                 NSLog(@"解锁私密状态更新成功 (解锁)");
             }];
+        }else{
+            [SVProgressHUD showImage:nil status:@"Insufficient Balance"];
+            if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeAlertView:)]) {
+                [[JLIMService shared].delegate showRechargeAlertView:ws];
+            }
         }
         
             //        [JLIMService setMessageExtraStatus]
@@ -346,7 +359,7 @@
         [SVProgressHUD dismiss];
         if (error.code == 123 || error.code == 124) {
             [SVProgressHUD showImage:nil status:@"The record has expired."];
-            [[JLIMService shared] setMessageExtraStatus:@"2" messageId:self.model.messageId callback:^(BOOL result) {
+            [[JLIMService shared] setMessageExtraStatus:@"2" messageId:ws.model.messageId callback:^(BOOL result) {
                 ws.model.extra = @"2";
                 [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationRcMessageUpdateSuccess object:self];
                 NSLog(@"解锁私密状态更新成功 (过期)");
@@ -394,5 +407,17 @@
         [self removeFromSuperview];
     }];
 }
+
+
+
+- (HeeeNoScreenShotView *)screenshotView{
+    if (!_screenshotView) {
+        HeeeNoScreenShotView *view = [[HeeeNoScreenShotView alloc] init];
+        view.backgroundColor = [UIColor clearColor];
+        _screenshotView = view;
+    }
+    return  _screenshotView;
+}
+
 
 @end

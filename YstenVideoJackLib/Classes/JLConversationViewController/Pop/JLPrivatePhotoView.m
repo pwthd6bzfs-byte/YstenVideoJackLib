@@ -17,6 +17,7 @@
 #import "JLAPIService.h"
 #import "JLIMService.h"
 #import "UIImage+Add.h"
+#import "HeeeNoScreenShotView.h"
 
 @interface JLPrivatePhotoView()
     /// 背景图片视图
@@ -34,6 +35,9 @@
 
 @property (nonatomic, assign) BOOL isCheckPhoto;
 
+@property (nonatomic, assign) BOOL isComplete;
+
+@property (nonatomic, strong) HeeeNoScreenShotView *screenshotView;
 
 
 @end
@@ -57,7 +61,11 @@
     
     self.message = message;
     
-    
+    [self addSubview:self.screenshotView];
+    [self.screenshotView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
+    }];
+
 
 //    [self addTarget:self action:@selector(hide) forControlEvents:UIControlEventTouchUpInside];
         
@@ -65,14 +73,34 @@
     bgImage.contentMode = UIViewContentModeScaleAspectFill;
     [bgImage sd_setImageWithURL:[NSURL URLWithString:message.privacyUrl]];
     self.bgImage = bgImage;
-    [self addSubview:bgImage];
+    [self.screenshotView addSubview:bgImage];
+    
+    
+    Weakself(ws)
+    [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:self.message.privacyUrl] options:nil progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+        
+    } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+        
+        if (finished) {
+                // 下载完成且成功
+            NSLog(@"图片下载完成");
+            
+            ws.isComplete = YES;
+            
+        } else if (error) {
+            
+                // 下载失败
+            NSLog(@"下载失败: %@", error.localizedDescription);
+        }
+    }];
+
     
     
         // 备注
     UIButton *closeBtn = [[UIButton alloc] init];
     [closeBtn setImage:[UIImage jl_name:@"jl_navBackBlackIcon" class:self] forState:UIControlStateNormal];
     [closeBtn addTarget:self action:@selector(clickCloseBtnEvnet) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:closeBtn];
+    [self.screenshotView addSubview:closeBtn];
 
     
     UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]; // 可选: Light, Dark, ExtraLight等
@@ -88,7 +116,7 @@
     vContainer.backgroundColor = [UIColor whiteColor];
     vContainer.layer.cornerRadius = 10;
     self.vContainer = vContainer;
-    [self addSubview:vContainer];
+    [self.screenshotView addSubview:vContainer];
     
     
     
@@ -146,9 +174,7 @@
     [vContainer addSubview:unlockBtn];
     
     
-    
-    
-    Weakself(ws)
+        
     [vContainer mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@(332));
         make.left.right.equalTo(@(0));
@@ -257,6 +283,15 @@
 
 - (void)clickUnlockBtnEvnet{
     
+    if (self.isComplete == YES) {
+        [self UnLockImage];
+    }else{
+        [SVProgressHUD showImage:nil status:@"The image has not finished downloading. Please try again later."];
+    }
+}
+
+
+- (void)UnLockImage{
     Weakself(ws)
     [SVProgressHUD show];
     [JLAPIService getTradePrivacyUnlockWithUnLockId:[NSString stringWithFormat:@"%ld",self.message.unlockId] success:^(NSDictionary * _Nonnull result) {
@@ -271,28 +306,33 @@
             ws.vContainer.hidden = YES;
             
             
-            [[JLIMService shared] setMessageExtraStatus:@"1" messageId:self.model.messageId callback:^(BOOL result) {
+            [[JLIMService shared] setMessageExtraStatus:@"1" messageId:ws.model.messageId callback:^(BOOL result) {
                 ws.model.extra = @"1";
                 [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationRcMessageUpdateSuccess object:self];
                 NSLog(@"解锁私密状态更新成功 (解锁)");
             }];
+        }else{
+            [SVProgressHUD showImage:nil status:@"Insufficient Balance"];
+            if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeAlertView:)]) {
+                [[JLIMService shared].delegate showRechargeAlertView:ws];
+            }
         }
         
         
-//        [JLIMService setMessageExtraStatus]
+            //        [JLIMService setMessageExtraStatus]
     } failued:^(NSError * _Nonnull error) {
         NSLog(@"解锁私密失败");
         [SVProgressHUD dismiss];
         if (error.code == 123 || error.code == 124) {
             [SVProgressHUD showImage:nil status:@"The record has expired."];
-            [[JLIMService shared] setMessageExtraStatus:@"2" messageId:self.model.messageId callback:^(BOOL result) {
+            [[JLIMService shared] setMessageExtraStatus:@"2" messageId:ws.model.messageId callback:^(BOOL result) {
                 ws.model.extra = @"2";
                 [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationRcMessageUpdateSuccess object:self];
                 NSLog(@"解锁私密状态更新成功 (过期)");
             }];
         }
     }];
-    
+
 }
 
 
@@ -333,5 +373,16 @@
         [self removeFromSuperview];
     }];
 }
+
+
+- (HeeeNoScreenShotView *)screenshotView{
+    if (!_screenshotView) {
+        HeeeNoScreenShotView *view = [[HeeeNoScreenShotView alloc] init];
+        view.backgroundColor = [UIColor clearColor];
+        _screenshotView = view;
+    }
+    return  _screenshotView;
+}
+
 
 @end

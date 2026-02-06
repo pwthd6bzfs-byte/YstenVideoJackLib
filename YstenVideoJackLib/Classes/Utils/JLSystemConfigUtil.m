@@ -31,5 +31,16 @@
 }
 
 
++ (void)saveInfoWithBaseUrl:(NSString *)baseUrl{
+    [[NSUserDefaults standardUserDefaults] setObject:baseUrl forKey:@"baseUrl"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
++ (NSString *)getWithBaseUrl:(NSString *)baseUrl{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:baseUrl];
+}
+
+
 
 @end

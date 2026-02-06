@@ -72,16 +72,16 @@ static JLIMService *shared = nil;
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
     [SVProgressHUD setMaximumDismissTimeInterval:1];
 
-    [JLAPIService getH5ConfigDatasuccess:^(NSDictionary * _Nonnull result) {
-        
-        NSString *h5String =  result[@"data"][@"downloadH5Address"];
-        if (h5String) {
-            [JLSystemConfigUtil saveInfoWithH5String:h5String];
-        }
-        
-    } failued:^(NSError * _Nonnull error) {
-        
-    }];
+//    [JLAPIService getH5ConfigDatasuccess:^(NSDictionary * _Nonnull result) {
+//        
+//        NSString *h5String =  result[@"data"][@"downloadH5Address"];
+//        if (h5String) {
+//            [JLSystemConfigUtil saveInfoWithH5String:h5String];
+//        }
+//        
+//    } failued:^(NSError * _Nonnull error) {
+//        
+//    }];
     
     
     [JLAPIService getSystemConfigWithSuccess:^(NSDictionary * _Nonnull result) {
@@ -149,9 +149,10 @@ static JLIMService *shared = nil;
     [RCIM sharedRCIM].userInfoDataSource = self; // 用户信息提供者代理
     
     // IM全局UI及基础配置
-    RCKitConfigCenter.ui.globalConversationAvatarStyle = RC_USER_AVATAR_CYCLE;
-    RCKitConfigCenter.ui.globalMessageAvatarStyle = RC_USER_AVATAR_CYCLE;
+    RCKitConfigCenter.ui.globalConversationAvatarStyle = RC_USER_AVATAR_CYCLE; // 圆角头像
+    RCKitConfigCenter.ui.globalMessageAvatarStyle = RC_USER_AVATAR_CYCLE; // 圆角头像
     RCKitConfigCenter.font.secondLevel = 15;  // 全局二级文本大小
+    RCKitConfigCenter.message.showUnkownMessageNotificaiton = YES; // /11 未注册的消息类型是否显示本地通知，默认值是NO
 //    RCKitConfigCenter.message.enableEditMessage = NO; // 是否开启消息编辑
 }
 

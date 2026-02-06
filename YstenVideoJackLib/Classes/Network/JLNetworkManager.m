@@ -8,6 +8,7 @@
 #import "JLNetworkManager.h"
 #import "JLStorageUtil.h"
 #import "JLNetworkConfig.h"
+#import "JLSystemConfigUtil.h"
 
 static NSString *const NetworkErrorDomain = @"com.juli.weibu.NetworkErrorDomain";
 
@@ -30,12 +31,19 @@ static NSString *const NetworkErrorDomain = @"com.juli.weibu.NetworkErrorDomain"
 }
 
 - (void)setupNetworkEnvironment:(BOOL)status {
+    
+    NSString *baseUrl = @"";
     if (status) {
-        self.manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://api.eweibu.com"]];
-    }else {
-        self.manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString: @"https://testadminapi.yiimeet.com"]];
-
+        baseUrl = @"https://api.eweibu.com";
+    }else{
+        baseUrl = @"https://testadminapi.yiimeet.com";
     }
+    
+    // 储存baseUrl
+    [JLSystemConfigUtil saveInfoWithBaseUrl:baseUrl];
+    
+    self.manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:baseUrl]];
+
     
     self.manager.responseSerializer = [AFJSONResponseSerializer serializer];
     self.manager.requestSerializer.timeoutInterval = 15;

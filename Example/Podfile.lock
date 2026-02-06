@@ -94,7 +94,7 @@ PODS:
   - SVProgressHUD (2.3.1):
     - SVProgressHUD/Core (= 2.3.1)
   - SVProgressHUD/Core (2.3.1)
-  - YstenVideoJackLib (0.5.4):
+  - YstenVideoJackLib (0.5.5):
     - AFNetworking (~> 4.0)
     - AgoraRtcEngine_iOS (= 4.5.0)
     - JXCategoryView (~> 1.6.8)
@@ -152,9 +152,9 @@ SPEC CHECKSUMS:
   SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
   SVGAPlayer: 318b85a78b61292d6ae9dfcd651f3f0d1cdadd86
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
-  YstenVideoJackLib: 5b95a4aae5407af578d48c55ee94ff770d594197
+  YstenVideoJackLib: 6de54f4648976ce29b84091fb727d5242553ab57
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 51a76593c51e98dcbc029447761a792e6fd075ec
+PODFILE CHECKSUM: f261b2cb109bcc9222e7eac9e8b32350f46ba1c4
 
 COCOAPODS: 1.16.2

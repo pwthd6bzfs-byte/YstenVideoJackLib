@@ -31,6 +31,7 @@
 @property (nonatomic, strong) WKUserContentController *userContentController;
 @property (nonatomic, copy) NSString *heartbeatMatchPrice;
 @property (nonatomic, copy) NSString *token;
+
 /// 是否加载主播列表  NO 默认加载
 @property (nonatomic, assign) BOOL isDefault;
 
@@ -74,14 +75,13 @@
     [self initTheme];
     
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toSetTheme) name:kNotificationWebThemeSuccess object:self];
-        
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toSetTheme) name:kNotificationWebThemeSuccess object:nil];
 
     NSDictionary *dict = [JLSystemConfigUtil getInfoWithHeartbeatMatchDict:@"HeartbeatMatchDict"];
     self.heartbeatMatchPrice = dict[@"heartbeatMatchPrice"];
     
     
-        // 创建 WKWebView 配置
+    // 创建 WKWebView 配置
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
     config.allowsInlineMediaPlayback = YES; // 允许内联播放
     config.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone; // 不需要用户交互即可播放
@@ -90,6 +90,8 @@
     config.userContentController = self.userContentController;
         // 注册消息处理器
     [self registerMessageHandlers];
+    
+    
         // 创建 WKWebView
     self.webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:config];
     self.webView.navigationDelegate = self;
@@ -119,9 +121,9 @@
     
     if (self.isDefault == NO) {
         
-        NSString *h5String = [JLSystemConfigUtil getInfoWithH5String:@"h5String"];
-        if (h5String && h5String.length > 0) {
-            [self loadDefaultWeb:h5String];
+        NSString *baseUrl = [JLSystemConfigUtil getInfoWithH5String:@"baseUrl"];
+        if (baseUrl && baseUrl.length > 0) {
+            [self loadDefaultWeb:baseUrl];
         }
 
     }else{
@@ -448,6 +450,8 @@
 //        }
 //    }
 //}
+
+
 
     // 记得移除观察者
 - (void)dealloc {

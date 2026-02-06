@@ -17,6 +17,7 @@
 #import "UIView+CurrentViewController.h"
 #import "CustomNaviBarView.h"
 #import "UIScrollView+EmptyDataSet.h"
+#import "HeeeNoScreenShotView.h"
 #import "LOTCompositionContainer.h"
 #import "LOTLayerContainer.h"
 #import "LOTMaskContainer.h"

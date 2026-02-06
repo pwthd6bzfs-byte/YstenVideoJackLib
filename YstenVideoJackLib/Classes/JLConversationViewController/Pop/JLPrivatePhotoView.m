@@ -44,6 +44,7 @@
 - (instancetype)initWithModel:(RCMessageModel *)model{
     self = [super init];
     if (self) {
+        self.backgroundColor = [UIColor blackColor];
         self.model = model;
         JLMediaPrivateMessage *message = (JLMediaPrivateMessage *)model.content;
         [self setupModel:message];

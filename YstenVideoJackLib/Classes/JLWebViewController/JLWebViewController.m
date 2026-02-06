@@ -121,9 +121,9 @@
     
     if (self.isDefault == NO) {
         
-        NSString *baseUrl = [JLSystemConfigUtil getInfoWithH5String:@"baseUrl"];
-        if (baseUrl && baseUrl.length > 0) {
-            [self loadDefaultWeb:baseUrl];
+        NSString *h5String = [JLSystemConfigUtil getInfoWithH5String:@"h5String"];
+        if (h5String && h5String.length > 0) {
+            [self loadDefaultWeb:h5String];
         }
 
     }else{

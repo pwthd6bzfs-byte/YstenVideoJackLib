@@ -72,16 +72,16 @@ static JLIMService *shared = nil;
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
     [SVProgressHUD setMaximumDismissTimeInterval:1];
 
-//    [JLAPIService getH5ConfigDatasuccess:^(NSDictionary * _Nonnull result) {
-//        
-//        NSString *h5String =  result[@"data"][@"downloadH5Address"];
-//        if (h5String) {
-//            [JLSystemConfigUtil saveInfoWithH5String:h5String];
-//        }
-//        
-//    } failued:^(NSError * _Nonnull error) {
-//        
-//    }];
+    [JLAPIService getH5ConfigDatasuccess:^(NSDictionary * _Nonnull result) {
+        
+        NSString *h5String =  result[@"data"][@"downloadH5Address"];
+        if (h5String) {
+            [JLSystemConfigUtil saveInfoWithH5String:h5String];
+        }
+        
+    } failued:^(NSError * _Nonnull error) {
+        
+    }];
     
     
     [JLAPIService getSystemConfigWithSuccess:^(NSDictionary * _Nonnull result) {

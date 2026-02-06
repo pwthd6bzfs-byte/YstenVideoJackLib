@@ -639,10 +639,10 @@
 // 点击用户头像
 - (void)didTapCellPortrait:(NSString *)userId{
     JLWebViewController *web = [[JLWebViewController alloc] init];
-    NSString *baseUrl = [JLSystemConfigUtil getInfoWithH5String:@"baseUrl"];
+    NSString *h5String = [JLSystemConfigUtil getInfoWithH5String:@"h5String"];
     
-    if (baseUrl && baseUrl.length > 0) {
-        web.h5String = [NSString stringWithFormat:@"%@/#/depth/detail/%@",baseUrl,userId];
+    if (h5String && h5String.length > 0) {
+        web.h5String = [NSString stringWithFormat:@"%@/#/depth/detail/%@",h5String,userId];
     }
     [self.navigationController pushViewController:web animated:YES];
 //    if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(pushPresonCenter:)]) {

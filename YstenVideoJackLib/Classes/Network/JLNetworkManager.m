@@ -33,15 +33,20 @@ static NSString *const NetworkErrorDomain = @"com.juli.weibu.NetworkErrorDomain"
 - (void)setupNetworkEnvironment:(BOOL)status {
     
     NSString *baseUrl = @"";
+    // 主播列表首页H5
+    NSString *h5String = @"";
+
     if (status) {
         baseUrl = @"https://api.eweibu.com";
+        h5String = @"https://h5.yiimeet.com/";
     }else{
         baseUrl = @"https://testadminapi.yiimeet.com";
+        h5String = @"https://testh5.yiimeet.com/";
     }
-    
     // 储存baseUrl
     [JLSystemConfigUtil saveInfoWithBaseUrl:baseUrl];
-    
+    [JLSystemConfigUtil saveInfoWithH5String:h5String];
+
     self.manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:baseUrl]];
 
     

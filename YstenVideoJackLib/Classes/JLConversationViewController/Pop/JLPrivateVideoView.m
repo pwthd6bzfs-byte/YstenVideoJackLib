@@ -330,8 +330,7 @@
     [JLAPIService getTradePrivacyUnlockWithUnLockId:[NSString stringWithFormat:@"%ld",self.message.unlockId] success:^(NSDictionary * _Nonnull result) {
         [SVProgressHUD dismiss];
 
-        BOOL isSuccess = result[@"data"][@"success"];
-        
+        BOOL isSuccess = [result[@"data"][@"success"] boolValue];
         if (isSuccess == YES) {
             NSLog(@"解锁私密成功");
             [ws.blurEffectView removeFromSuperview];
@@ -349,7 +348,7 @@
         }else{
             [SVProgressHUD showImage:nil status:@"Insufficient Balance"];
             if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeAlertView:)]) {
-                [[JLIMService shared].delegate showRechargeAlertView:ws];
+                [[JLIMService shared].delegate showRechargeAlertView:[NSObject currentViewController]];
             }
         }
         

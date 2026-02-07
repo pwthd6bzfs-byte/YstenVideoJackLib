@@ -98,6 +98,10 @@
     [super viewWillAppear:animated];
     
     self.navigationController.navigationBarHidden = YES;
+    
+    NSLog(@"showUnkownMessage=%d, showUnkownMessageNotificaiton=%d",
+          RCKitConfigCenter.message.showUnkownMessage,
+          RCKitConfigCenter.message.showUnkownMessageNotificaiton);
 }
 
 

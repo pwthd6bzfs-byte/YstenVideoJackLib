@@ -26,6 +26,13 @@ NS_ASSUME_NONNULL_BEGIN
 // 弹出去充值提示弹窗(AlertView)
 - (void)showRechargeAlertView:(UIViewController *)vc;
 
+
+
+// 去解锁vip
+- (void)JumpToUnlockVIP;
+
+
+
 // 开启全局IQkeyboard键盘
 - (void)openIQKeyboard;
 

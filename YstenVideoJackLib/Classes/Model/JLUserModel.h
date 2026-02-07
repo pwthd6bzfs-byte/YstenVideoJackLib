@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) NSInteger videoPrice;
 @property (nonatomic,copy) NSString  *vipExpireDay;
 @property (nonatomic,copy) NSString  *vipExpireFlag;
-@property (nonatomic,copy) NSString  *vipFlag;
+@property (nonatomic,copy) NSString *vipFlag;
 @property (nonatomic,assign) NSInteger  coins;
 @property (nonatomic, assign) NSInteger cardQuantity;
 

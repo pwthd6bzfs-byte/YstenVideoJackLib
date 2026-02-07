@@ -611,6 +611,15 @@
             [ws.buttomView addDeviceLayout];
         }
         
+        
+        JLUserModel *userInfo = [JLUserService shared].userInfo;
+        if ([userInfo.vipFlag isEqualToString:@"1"]) {
+            ws.buttomView.contentTxf.placeholder = @"";
+        }else{
+            ws.buttomView.contentTxf.placeholder = @"1 Gold / Message";
+        }
+        
+        
         ws.followBtn.hidden = NO;
         if ([ws.anchorUserInfo.followFlag isEqualToString:@"1"]) {
             ws.followBtn.selected = YES;
@@ -1064,6 +1073,18 @@
     }
     
 }
+
+/// 未注册消息Cell显示的回调
+/// - Parameter collectionView:          当前CollectionView
+/// - Parameter collectionViewLayout:    当前CollectionView Layout
+/// - Parameter indexPath:               该Cell对应的消息Cell数据模型在数据源中的索引值
+/// - Returns: 未注册消息Cell需要显示的高度
+- (CGSize)rcUnkownConversationCollectionView:(UICollectionView *)collectionView
+                                      layout:(UICollectionViewLayout *)collectionViewLayout
+                      sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    return CGSizeMake(0.0, 0.0);
+}
+
 
 
 

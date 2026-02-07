@@ -24,6 +24,7 @@
 #import "JLWeakScriptMessageDelegate.h"
 #import "NSObject+CurrentNavigationViewController.h"
 #import "Config.h"
+#import "JLIMService.h"
 
 @interface JLWebViewController ()<WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler>
 
@@ -243,6 +244,8 @@
     [self.userContentController addScriptMessageHandler:weakDelegate name:@"navigateToChat"]; // 跳转聊天
     [self.userContentController addScriptMessageHandler:weakDelegate name:@"startVideoCall"]; // 跳转通话
     [self.userContentController addScriptMessageHandler:weakDelegate name:@"goNewPageH5"]; // 跳转H5
+
+    [self.userContentController addScriptMessageHandler:weakDelegate name:@"onClickRecharge"]; // 直接打开充值页面
     
     [self.userContentController addScriptMessageHandler:weakDelegate name:@"openNotifications"]; // 通知
     [self.userContentController addScriptMessageHandler:weakDelegate name:@"qoToCheckInCenter"]; // 任务中心
@@ -397,6 +400,9 @@
         //
     if ([message.name isEqualToString:@"goSubscribeVip"]) {
             // 处理
+        if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(JumpToUnlockVIP)]) {
+            [[JLIMService shared].delegate JumpToUnlockVIP];
+        }
         
     }
     

@@ -197,6 +197,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * weight;
 
 
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -344,7 +344,7 @@
         view.backgroundColor = [UIColor whiteColor];
         view.layer.cornerRadius = 12;
         view.layer.masksToBounds = YES;
-        view.placeholder = @"Membership is free";
+        view.placeholder = @"";
         view.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
         view.leftViewMode = UITextFieldViewModeAlways;
         view.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];

@@ -62,6 +62,8 @@
 @property (nonatomic, assign) BOOL isAddJoinOfUid;
 
 
+@property (nonatomic, strong) HeeeNoScreenShotView *screenshotView;
+
 
 
 @end
@@ -171,13 +173,14 @@
     self.queueManager = [[JLSVGAQueueManager alloc] initWithPlayer:self.svgaPlayer];
     
     
-    [self.view addSubview:self.remoteView];
-    [self.view addSubview:self.videoFuncView];
-    [self.view addSubview:self.videoCallView];
-    [self.view addSubview:self.localView];
-    [self.view addSubview:self.localBtn];
-    [self.view addSubview:self.deviceInviteNotifactionView];
-    [self.view addSubview:self.svgaPlayer];
+    [self.view addSubview:self.screenshotView];
+    [self.screenshotView addSubview:self.remoteView];
+    [self.screenshotView addSubview:self.videoFuncView];
+    [self.screenshotView addSubview:self.videoCallView];
+    [self.screenshotView addSubview:self.localView];
+    [self.screenshotView addSubview:self.localBtn];
+    [self.screenshotView addSubview:self.deviceInviteNotifactionView];
+    [self.screenshotView addSubview:self.svgaPlayer];
     
     
     // 主播信息
@@ -403,6 +406,10 @@
     }];
     
     
+    [self.screenshotView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+
 }
 
 
@@ -883,6 +890,16 @@
 
 
 
+
+
+- (HeeeNoScreenShotView *)screenshotView{
+    if (!_screenshotView) {
+        HeeeNoScreenShotView *view = [[HeeeNoScreenShotView alloc] init];
+        view.backgroundColor = [UIColor clearColor];
+        _screenshotView = view;
+    }
+    return  _screenshotView;
+}
 
 
 

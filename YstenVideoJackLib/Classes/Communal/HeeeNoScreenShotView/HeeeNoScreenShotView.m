@@ -7,7 +7,7 @@
 
 #import "HeeeNoScreenShotView.h"
 
-@interface HeeeNoScreenShotView ()
+@interface HeeeNoScreenShotView ()<UITextFieldDelegate>
 @property (nonatomic,strong) UITextField *textField;
 @property (nonatomic,strong) UIView *clearView;
 
@@ -74,10 +74,17 @@
   }
 }
 
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    return NO;
+}
+
 - (UITextField *)textField {
   if (!_textField) {
     _textField = [[UITextField alloc] init];
     _textField.secureTextEntry = YES;
+    _textField.delegate = self;
+//    _textField.userInteractionEnabled = NO;
   }
   
   return _textField;

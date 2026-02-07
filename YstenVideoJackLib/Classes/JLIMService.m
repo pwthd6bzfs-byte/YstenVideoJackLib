@@ -152,8 +152,8 @@ static JLIMService *shared = nil;
     RCKitConfigCenter.ui.globalConversationAvatarStyle = RC_USER_AVATAR_CYCLE; // 圆角头像
     RCKitConfigCenter.ui.globalMessageAvatarStyle = RC_USER_AVATAR_CYCLE; // 圆角头像
     RCKitConfigCenter.font.secondLevel = 15;  // 全局二级文本大小
-    RCKitConfigCenter.message.showUnkownMessage = NO; // /// 是否在会话页面和会话列表界面显示未注册的消息类型，默认值是 YES
-    RCKitConfigCenter.message.showUnkownMessageNotificaiton = YES; // 未注册的消息类型是否显示本地通知，默认值是NO
+    RCKitConfigCenter.message.showUnkownMessage = NO; // 是否在会话页面和会话列表界面显示未注册的消息类型，默认值是 YES
+//    RCKitConfigCenter.message.showUnkownMessageNotificaiton = YES; // 未注册的消息类型是否显示本地通知，默认值是NO
 //    RCKitConfigCenter.message.enableEditMessage = NO; // 是否开启消息编辑
 }
 

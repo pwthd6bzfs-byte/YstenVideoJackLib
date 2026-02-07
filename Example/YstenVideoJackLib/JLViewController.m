@@ -253,4 +253,11 @@
 
 
 
+
+- (void)JumpToUnlockVIP{
+    NSLog(@"点击h5解锁");
+}
+
+
+
 @end

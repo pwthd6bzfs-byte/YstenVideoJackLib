@@ -399,6 +399,7 @@
     
         //
     if ([message.name isEqualToString:@"goSubscribeVip"]) {
+        NSLog(@"点击h5解锁vip回调");
             // 处理
         if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(JumpToUnlockVIP)]) {
             [[JLIMService shared].delegate JumpToUnlockVIP];

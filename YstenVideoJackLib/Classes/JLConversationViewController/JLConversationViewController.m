@@ -20,6 +20,7 @@
 #import "JLCustomMessage.h"
 #import "JLGiftMessageCell.h"
 #import "JLAskGiftMessageCell.h"
+#import "JLDeviceOrderMessageCell.h"
 #import "JLPrivatePhotoMessageCell.h"
 #import "JLVideoMessageCell.h"
 #import "JLAnchorUserModel.h"
@@ -171,7 +172,7 @@
     [self registerClass:[JLAskGiftMessageCell class] forMessageClass:[JLAskGiftMessage class]];
     [self registerClass:[JLVideoMessageCell class] forMessageClass:[JLVideoMessage class]];
     [self registerClass:[JLPrivatePhotoMessageCell class] forMessageClass:[JLMediaPrivateMessage class]];
-
+    [self registerClass:[JLDeviceOrderMessage class] forMessageClass:[JLDeviceOrderMessageCell class]];
 }
 
 

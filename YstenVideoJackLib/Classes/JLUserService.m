@@ -53,7 +53,26 @@ static JLUserService *shared = nil;
     [JLNetworkTool loginWithType:@"6" token:userID success:^(NSDictionary * _Nonnull result) {
         NSDictionary *data = result[@"data"];
         [JLStorageUtil cleanUserInfo];
-        [JLStorageUtil saveUserToken:data[@"token"] userID:data[@"id"] userRole:data[@"userCategory"]];
+                
+        NSString *token = data[@"token"];
+        NSString *ID = data[@"id"];
+        NSString *userCategory = data[@"userCategory"];
+        
+        if (token.length <= 0 || token == nil) {
+            token = @"";
+        }
+        
+        if (ID.length <= 0 || ID == nil) {
+            ID = @"";
+        }
+
+        
+        if (userCategory.length <= 0 || userCategory == nil) {
+            userCategory = @"";
+        }
+
+        
+        [JLStorageUtil saveUserToken:token userID:ID userRole:userCategory];
         [[JLIMService shared] initService];
         // 获取用户数据
         [ws fetchUserInfo];

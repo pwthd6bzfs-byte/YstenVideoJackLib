@@ -103,6 +103,7 @@
 #import "JLFollowCell.h"
 #import "JLFollowListModel.h"
 #import "JLAskGiftMessageCell.h"
+#import "JLDeviceOrderMessageCell.h"
 #import "JLGiftMessageCell.h"
 #import "JLPrivatePhotoMessageCell.h"
 #import "JLVideoMessageCell.h"

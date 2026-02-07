@@ -29,6 +29,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showRechargeAlertView:(UIViewController *)vc;
 
 
+    // 弹出去充值页面弹窗(AlertView)
+- (void)showRechargeViewController:(UIViewController *)vc;
+
+
 
 // 去解锁vip
 - (void)JumpToUnlockVIP;

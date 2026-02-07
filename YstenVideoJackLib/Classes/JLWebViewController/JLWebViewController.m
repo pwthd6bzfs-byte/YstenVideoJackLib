@@ -408,6 +408,16 @@
     }
     
     
+    
+    if ([message.name isEqualToString:@"onClickRecharge"]) {
+            // 处理
+        if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeViewController:)]) {
+            [[JLIMService shared].delegate showRechargeViewController:self];
+        }
+        
+    }
+
+    
     if ([message.name isEqualToString:@"closePage"]) {
         [self.navigationController popViewControllerAnimated:NO];
     }

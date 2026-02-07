@@ -135,7 +135,7 @@ static JLIMService *shared = nil;
     [[RCIM sharedRCIM]  registerMessageType:[JLHeartBeatMessage class]];
     [[RCIM sharedRCIM]  registerMessageType:[JLJoinHeartBeatMessage class]];
     [[RCIM sharedRCIM]  registerMessageType:[JLMediaPrivateMessage class]];
-//    [[RCIM sharedRCIM]  registerMessageType:[JLDeviceOrderMessage class]];
+    [[RCIM sharedRCIM]  registerMessageType:[JLDeviceOrderMessage class]];
 //    [[RCIM sharedRCIM]  registerMessageType:[JLDeviceControlMessage class]];
 //    [[RCIM sharedRCIM]  registerMessageType:[JLDeviceInviteMessage class]];
 

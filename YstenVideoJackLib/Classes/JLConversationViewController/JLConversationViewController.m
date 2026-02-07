@@ -651,6 +651,14 @@
 
 // 点击用户头像
 - (void)didTapCellPortrait:(NSString *)userId{
+    
+    JLUserModel *userInfo = [JLUserService shared].userInfo;
+    
+    if ([[NSString stringWithFormat:@"%ld",userInfo.userID] isEqualToString:userId]) {
+        return;
+    }
+    
+    
     JLWebViewController *web = [[JLWebViewController alloc] init];
     NSString *h5String = [JLSystemConfigUtil getInfoWithH5String:@"h5String"];
     

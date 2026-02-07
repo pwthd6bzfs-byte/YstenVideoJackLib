@@ -888,9 +888,15 @@
 }
 
     ///消息是否存储，是否计入未读数
+//+ (RCMessagePersistent)persistentFlag {
+//    return MessagePersistent_STATUS;
+//}
+
+    ///消息是否存储，是否计入未读数
 + (RCMessagePersistent)persistentFlag {
-    return MessagePersistent_STATUS;
+    return MessagePersistent_NONE;
 }
+
 
     /// NSCoding
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {

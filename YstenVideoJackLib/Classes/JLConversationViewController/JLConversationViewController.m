@@ -172,7 +172,7 @@
     [self registerClass:[JLAskGiftMessageCell class] forMessageClass:[JLAskGiftMessage class]];
     [self registerClass:[JLVideoMessageCell class] forMessageClass:[JLVideoMessage class]];
     [self registerClass:[JLPrivatePhotoMessageCell class] forMessageClass:[JLMediaPrivateMessage class]];
-    [self registerClass:[JLDeviceOrderMessage class] forMessageClass:[JLDeviceOrderMessageCell class]];
+    [self registerClass:[JLDeviceOrderMessageCell class] forMessageClass:[JLDeviceOrderMessage class]];
 }
 
 

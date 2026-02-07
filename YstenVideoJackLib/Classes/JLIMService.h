@@ -24,13 +24,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-
 // 弹出去充值提示弹窗(AlertView)
 - (void)showRechargeAlertView:(UIViewController *)vc;
 
 
-    // 弹出去充值页面弹窗(AlertView)
-- (void)showRechargeViewController:(UIViewController *)vc;
+// 直接跳转充值页面
+- (void)pushRechargeViewController:(UIViewController *)vc;
 
 
 

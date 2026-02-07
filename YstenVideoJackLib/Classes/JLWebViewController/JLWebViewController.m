@@ -411,10 +411,9 @@
     
     if ([message.name isEqualToString:@"onClickRecharge"]) {
             // 处理
-        if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeViewController:)]) {
-            [[JLIMService shared].delegate showRechargeViewController:self];
+        if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(pushRechargeViewController:)]) {
+            [[JLIMService shared].delegate pushRechargeViewController:self];
         }
-        
     }
 
     

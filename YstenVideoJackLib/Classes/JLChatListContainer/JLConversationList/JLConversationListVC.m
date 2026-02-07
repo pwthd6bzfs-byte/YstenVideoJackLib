@@ -59,7 +59,7 @@
     
         // 自定义空视图
     self.emptyConversationView = self.emptyView;
-    
+
 }
 
 

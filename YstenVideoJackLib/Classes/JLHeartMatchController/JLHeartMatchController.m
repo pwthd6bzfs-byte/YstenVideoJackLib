@@ -322,7 +322,11 @@
     NSInteger count = self.model.anchors.count;
     int randomNumber = arc4random_uniform(count);
 
-    [self.randomView sd_setImageWithURL:self.iamges[randomNumber] placeholderImage:[UIImage jl_name:@"jl_heartMatch_head" class:self]];
+    if ((self.iamges) != nil && (self.iamges.count) >= count) {
+        [self.randomView sd_setImageWithURL:self.iamges[randomNumber] placeholderImage:[UIImage jl_name:@"jl_heartMatch_head" class:self]];
+    }else{
+        self.randomView.image = [UIImage jl_name:@"jl_heartMatch_head" class:self];
+    }
     
     
     [self addSubviewAtRandomPosition:self.randomView toView:self.allowedAreaView];

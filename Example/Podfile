@@ -5,7 +5,7 @@ platform :ios, '13.0'
 target 'YstenVideoJackLib_Example' do
   pod 'YstenVideoJackLib', :path => '../'
 
-#  pod 'YstenVideoJackLib', '0.6.0'
+#  pod 'YstenVideoJackLib', '0.6.2'
 
 
   pod 'LookinServer', :subspecs => ['Swift'], :configurations => ['Debug']

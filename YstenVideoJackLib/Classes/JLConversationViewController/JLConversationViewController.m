@@ -20,7 +20,6 @@
 #import "JLCustomMessage.h"
 #import "JLGiftMessageCell.h"
 #import "JLAskGiftMessageCell.h"
-#import "JLDeviceOrderMessageCell.h"
 #import "JLPrivatePhotoMessageCell.h"
 #import "JLVideoMessageCell.h"
 #import "JLAnchorUserModel.h"
@@ -100,9 +99,9 @@
     
     self.navigationController.navigationBarHidden = YES;
     
-    NSLog(@"showUnkownMessage=%d, showUnkownMessageNotificaiton=%d",
-          RCKitConfigCenter.message.showUnkownMessage,
-          RCKitConfigCenter.message.showUnkownMessageNotificaiton);
+//    NSLog(@"showUnkownMessage=%d, showUnkownMessageNotificaiton=%d",
+//          RCKitConfigCenter.message.showUnkownMessage,
+//          RCKitConfigCenter.message.showUnkownMessageNotificaiton);
 }
 
 
@@ -172,7 +171,7 @@
     [self registerClass:[JLAskGiftMessageCell class] forMessageClass:[JLAskGiftMessage class]];
     [self registerClass:[JLVideoMessageCell class] forMessageClass:[JLVideoMessage class]];
     [self registerClass:[JLPrivatePhotoMessageCell class] forMessageClass:[JLMediaPrivateMessage class]];
-    [self registerClass:[JLDeviceOrderMessageCell class] forMessageClass:[JLDeviceOrderMessage class]];
+//    [self registerClass:[JLDeviceOrderMessageCell class] forMessageClass:[JLDeviceOrderMessage class]];
 }
 
 

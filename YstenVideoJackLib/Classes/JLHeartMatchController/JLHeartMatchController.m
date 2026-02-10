@@ -322,7 +322,9 @@
     NSInteger count = self.model.anchors.count;
     int randomNumber = arc4random_uniform(count);
 
-    if ((self.iamges) != nil && (self.iamges.count) >= count) {
+    
+    // 主播头像数量 == 匹配主播数量 &&  主播大于0个
+    if ((self.iamges) != nil && ((self.iamges.count) == count) && (count > 0)) {
         [self.randomView sd_setImageWithURL:self.iamges[randomNumber] placeholderImage:[UIImage jl_name:@"jl_heartMatch_head" class:self]];
     }else{
         self.randomView.image = [UIImage jl_name:@"jl_heartMatch_head" class:self];

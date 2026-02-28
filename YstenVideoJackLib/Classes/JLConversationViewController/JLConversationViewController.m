@@ -41,6 +41,9 @@
 #import "JLDviceVideoViewComponent.h"
 #import "JLWebViewController.h"
 #import "JLDeviceModel.h"
+#import "RCloudMediaManager.h"
+#import "RCGIFImage.h"
+#import "RCSightMessage+imkit.h"
 
 
 @interface JLConversationViewController ()<RCMessageBlockDelegate,RCIMMessageInterceptor,RCAlbumListViewControllerDelegate,JLInputContainerViewDelegate,RCVoiceRecordControlDelegate,SVGAPlayerDelegate>
@@ -83,6 +86,10 @@
 // 数据源
 @property (nonatomic, strong) JLGiftListModel *model;
 
+// 设备邀请的目标会话ID
+@property (nonatomic, copy) NSString *deviceInvitationTargetId;
+
+
 @end
 
 @implementation JLConversationViewController
@@ -99,16 +106,16 @@
     
     self.navigationController.navigationBarHidden = YES;
     
-//    NSLog(@"showUnkownMessage=%d, showUnkownMessageNotificaiton=%d",
-//          RCKitConfigCenter.message.showUnkownMessage,
-//          RCKitConfigCenter.message.showUnkownMessageNotificaiton);
+        //    NSLog(@"showUnkownMessage=%d, showUnkownMessageNotificaiton=%d",
+        //          RCKitConfigCenter.message.showUnkownMessage,
+        //          RCKitConfigCenter.message.showUnkownMessageNotificaiton);
 }
 
 
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-//    self.navigationController.navigationBarHidden = NO;
+        //    self.navigationController.navigationBarHidden = NO;
 }
 
 
@@ -123,7 +130,7 @@
             // Fallback on earlier versions
     }
     
-    /// 消息拦截监听代理
+        /// 消息拦截监听代理
     [RCCoreClient sharedCoreClient].messageBlockDelegate = self;
     
     self.isClickEmoji = NO;
@@ -144,23 +151,23 @@
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
-    // 更新某条消息状态
+        // 更新某条消息状态
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(rcMessageUpdateSuccess)
                                                  name:kNotificationRcMessageUpdateSuccess object:nil];
-
-    // 回赠礼物
+    
+        // 回赠礼物
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(sendAskGiftMessge:)
                                                  name:kNotificationAskGiftSuccess object:nil];
     
     
-    // 消息监听
+        // 消息监听
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveMessage:)
                                                  name:kNotificationConversationMessageSuccess
                                                object:nil];
-
+    
 }
 
 
@@ -171,13 +178,13 @@
     [self registerClass:[JLAskGiftMessageCell class] forMessageClass:[JLAskGiftMessage class]];
     [self registerClass:[JLVideoMessageCell class] forMessageClass:[JLVideoMessage class]];
     [self registerClass:[JLPrivatePhotoMessageCell class] forMessageClass:[JLMediaPrivateMessage class]];
-//    [self registerClass:[JLDeviceOrderMessageCell class] forMessageClass:[JLDeviceOrderMessage class]];
+        //    [self registerClass:[JLDeviceOrderMessageCell class] forMessageClass:[JLDeviceOrderMessage class]];
 }
 
 
 - (void)addSubViews{
     __weak __typeof(self)weakSelf = self;
-
+    
         // 将其添加到父视图
     [self.view addSubview:self.customNaviBarView];
     self.customNaviBarView.clickBackBtnEvent = ^{
@@ -198,7 +205,7 @@
         make.left.right.equalTo(self.view);
         make.top.equalTo(self.view).offset(kStatusBarHeight);
     }];
-
+    
     
     
     [self.view addSubview:self.keyboardMaskView];
@@ -207,14 +214,14 @@
     self.util = [[RCConversationVCUtil alloc] init:self];
     
     
-    // 点击发送消息
+        // 点击发送消息
     self.buttomView.clickSendBlock = ^{
         if (weakSelf.buttomView.contentTxf.text.length <= 0){
             [SVProgressHUD showImage:nil status:@"The content cannot be empty."];
             return;
         }
         
-                
+        
         RCTextMessage *textMessage = [[RCTextMessage alloc] init];;
         textMessage.content = weakSelf.buttomView.contentTxf.text;
         
@@ -244,22 +251,22 @@
             NSLog(@"%@",errorMessage);
         }];
     };
-
+    
     
     
     Weakself(ws)
         // 点击左按钮
     self.buttomView.clickLeftBlock = ^(BOOL result) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            // 显示录音icon布局
+                // 显示录音icon布局
             if (result == YES) {
                 [ws hideKeyboard];
             }
         });
     };
-
     
-    // 点击相册
+    
+        // 点击相册
     self.buttomView.clickPhotoBlock = ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.view endEditing:YES];
@@ -272,32 +279,32 @@
             }];
         });
     };
-
     
-    // 点击表情按钮
+    
+        // 点击表情按钮
     self.buttomView.clickEmojiBlock = ^{
         [weakSelf clickEmojiBtn];
     };
-
     
-    // 点击通话视频
+    
+        // 点击通话视频
     self.buttomView.clickTelBlock = ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.view endEditing:YES];
             [weakSelf sendVideoCall:NO];
         });
     };
-
     
-    // 点击礼物
+    
+        // 点击礼物
     self.buttomView.clickGiftBlock = ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.view endEditing:YES];
             if (weakSelf.model) {
                 [ws requestUserCoinComplete:^{
-                        [JLPopupViewComponent popupTableiViewWithModel:weakSelf.model returnModel:^(JLGiftModel * _Nonnull model,NSString * _Nonnull num) {
-                            [weakSelf sendGiftMessge:model num:num];
-                        }];
+                    [JLPopupViewComponent popupTableiViewWithModel:weakSelf.model returnModel:^(JLGiftModel * _Nonnull model,NSString * _Nonnull num) {
+                        [weakSelf sendGiftMessge:model num:num];
+                    }];
                 } isShowLoding:YES];
             }
         });
@@ -307,7 +314,7 @@
     
     
     
-    // 点击设备
+        // 点击设备
     self.buttomView.clickDeviceBlock = ^{
         [weakSelf.view endEditing:YES];
         [weakSelf showDeviceVideoAlertView];
@@ -318,7 +325,7 @@
     
     
     
-    // 点击插入表情
+        // 点击插入表情
     self.emojiView.clickSelectEmojiBlock = ^(NSString * string) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.buttomView.contentTxf insertText:string];
@@ -327,7 +334,7 @@
     
     
     
-    // 点击删除表情
+        // 点击删除表情
     self.emojiView.clickDelEmojiBlock = ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.buttomView.contentTxf deleteBackward];
@@ -390,7 +397,7 @@
     
     CGFloat conversationViewFrameY = CGRectGetMaxY([UIApplication sharedApplication].statusBarFrame) +
     CGRectGetMaxY(self.navigationController.navigationBar.bounds);
-        
+    
     CGFloat height =  (kScreenHeight - conversationViewFrameY - ButtomView_Height);
     self.heihgt = height;
     self.conversationViewFrameY = conversationViewFrameY;
@@ -420,9 +427,9 @@
         make.left.right.mas_equalTo(self.view);
         make.height.equalTo(@300);
     }];
-
-        
-
+    
+    
+    
 }
 
 
@@ -444,7 +451,7 @@
 
 
 
-// 空白区域回收键盘
+    // 空白区域回收键盘
 - (void)hideKeyboard {
     if (self.isClickEmoji == YES){
         [self.conversationMessageCollectionView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -536,7 +543,7 @@
     [self.buttomView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@(ButtomView_Height));
     }];
-
+    
     
     [UIView animateWithDuration:duration animations:^{
         [self.view layoutIfNeeded];
@@ -582,7 +589,7 @@
 
 
 
-// 请求接口数据
+    // 请求接口数据
 - (void)requestData{
     
     Weakself(ws)
@@ -603,7 +610,7 @@
         [self.customNaviBarView setTitle:userInfo.name];
     }
     
-    // 获取主播详情信息
+        // 获取主播详情信息
     [JLAPIService getAnchorDetailInfo:[self.targetId integerValue] userCode:@"" success:^(NSDictionary * _Nonnull result) {
         NSLog(@"%@",result);
         
@@ -643,13 +650,13 @@
     } failued:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
-
+    
 }
 
 
 
 
-// 点击用户头像
+    // 点击用户头像
 - (void)didTapCellPortrait:(NSString *)userId{
     
     JLUserModel *userInfo = [JLUserService shared].userInfo;
@@ -666,26 +673,27 @@
         web.h5String = [NSString stringWithFormat:@"%@/#/depth/detail/%@",h5String,userId];
     }
     [self.navigationController pushViewController:web animated:YES];
-//    if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(pushPresonCenter:)]) {
-//        [[JLIMService shared].delegate pushPresonCenter:userId];
-//    }
+        //    if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(pushPresonCenter:)]) {
+        //        [[JLIMService shared].delegate pushPresonCenter:userId];
+        //    }
 }
 
 
 
 
-// 显示设备视频弹窗
+    // 显示设备视频弹窗
 - (void)showDeviceVideoAlertView{
     Weakself(ws);
     [SVProgressHUD show];
-    [JLAPIService userDeviceListWithAnchorld:[NSString stringWithFormat:@"%ld",ws.anchorUserInfo.userID] success:^(NSDictionary * _Nonnull result) {
+    [JLAPIService userDeviceListWithAnchorld:[NSString stringWithFormat:@"%@",self.deviceInvitationTargetId] success:^(NSDictionary * _Nonnull result) {
         [SVProgressHUD dismiss];
         NSString *json = [result[@"data"] modelToJSONString];
         NSArray *arr = [NSArray modelArrayWithClass:[JLDeviceModel class] json:json];
         
         [JLDviceVideoViewComponent initDeviceList:arr WitCliclStarVideoBtnBlock:^{
             [SVProgressHUD dismiss];
-            [ws sendVideoCall:YES];
+            self.isStartVideo = YES;
+            [ws startUsingCamera:ws.deviceInvitationTargetId];
         }];
     } failued:^(NSError * _Nonnull error) {
         [SVProgressHUD dismiss];
@@ -695,13 +703,18 @@
 
 
 - (void)didReceiveMessage:(NSNotification *)notification{
-
-    RCMessage *message = notification.object;
     
-        
-    // 主播邀请用户设备视频
+    RCMessage *message = notification.object;
+    self.deviceInvitationTargetId = @"";
+    
+        // 主播邀请用户设备视频
     if ([message.objectName isEqualToString:@"mikchat:deviceInvite"]) {
         dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if (![self.targetId isEqualToString:message.targetId]) {
+                return;
+            }
+            self.deviceInvitationTargetId =  message.targetId;
             [self showDeviceVideoAlertView];
         });
         return;
@@ -717,14 +730,14 @@
     }
     
     
-
+    
 }
 
 
 
 
 
-// 点击关注
+    // 点击关注
 - (void)clickFollowBtnEvnet{
     Weakself(ws);
     
@@ -742,7 +755,7 @@
             NSLog(@"%@",error);
             [SVProgressHUD dismiss];
         }];
-
+        
     }else{
         [SVProgressHUD show];
             // 获取主播详情信息
@@ -828,43 +841,43 @@
     id passedObject = notification.object;
     NSDictionary *askGiftMessageDict = passedObject;
     JLAskGiftMessage *askGiftMessage = [JLAskGiftMessage modelWithDictionary:askGiftMessageDict];
-    //    Weakself(ws)
-//    JLUserModel *userInfo = [JLUserService shared].userInfo;
-//    
-//    
-//        // Type 2 发送礼物
-//    JLGiftMessage *giftMessage = [JLGiftMessage messageWithType:@"2" channelId:askGiftMessage.channelId giftId:askGiftMessage.giftId giftCode:askGiftMessage.giftCode userId:@(userInfo.userID) userCategory:[JLUserService shared].userInfo.userCategory giveNum:giveNum nickName:[JLUserService shared].userInfo.nickName userRole:askGiftMessage.userRole giftUrl:askGiftMessage.giftUrl giftName:askGiftMessage.giftName giftPrice:askGiftMessage.giftPrice giftSvgaUrl:askGiftMessage.giftSvgaUrl];
-//    
-//    RCMessage *message = [[RCMessage alloc] init];
-//    message.targetId = [NSString stringWithFormat:@"%@",self.targetId];
-//    message.content = giftMessage;
-//    message.messageDirection = MessageDirection_SEND;
-//    
-//    message.senderUserId = [NSString stringWithFormat:@"%ld",userInfo.userID];
-//    message.conversationType = ConversationType_PRIVATE;
-//    
-//    
-//    JLGiftModel *giftModel = [[JLGiftModel alloc] init];
-//    giftModel.giftSvgaUrl = giftMessage.giftSvgaUrl;
-//    giftModel.giftName = giftMessage.giftName;
-//    
-//    
-//    [SVProgressHUD show];
-//    [[RCIM sharedRCIM] sendMessage:message pushContent:nil pushData:NULL successBlock:^(RCMessage * _Nonnull successMessage) {
-//        NSLog(@"%@",successMessage);
-//        [SVProgressHUD dismiss];
-//        [ws addSvgaUrl:askGiftMessage.giftSvgaUrl];
-//    } errorBlock:^(RCErrorCode nErrorCode, RCMessage * _Nonnull errorMessage) {
-//        [SVProgressHUD dismiss];
-//        NSLog(@"%@",errorMessage);
-//    }];
+        //    Weakself(ws)
+        //    JLUserModel *userInfo = [JLUserService shared].userInfo;
+        //
+        //
+        //        // Type 2 发送礼物
+        //    JLGiftMessage *giftMessage = [JLGiftMessage messageWithType:@"2" channelId:askGiftMessage.channelId giftId:askGiftMessage.giftId giftCode:askGiftMessage.giftCode userId:@(userInfo.userID) userCategory:[JLUserService shared].userInfo.userCategory giveNum:giveNum nickName:[JLUserService shared].userInfo.nickName userRole:askGiftMessage.userRole giftUrl:askGiftMessage.giftUrl giftName:askGiftMessage.giftName giftPrice:askGiftMessage.giftPrice giftSvgaUrl:askGiftMessage.giftSvgaUrl];
+        //
+        //    RCMessage *message = [[RCMessage alloc] init];
+        //    message.targetId = [NSString stringWithFormat:@"%@",self.targetId];
+        //    message.content = giftMessage;
+        //    message.messageDirection = MessageDirection_SEND;
+        //
+        //    message.senderUserId = [NSString stringWithFormat:@"%ld",userInfo.userID];
+        //    message.conversationType = ConversationType_PRIVATE;
+        //
+        //
+        //    JLGiftModel *giftModel = [[JLGiftModel alloc] init];
+        //    giftModel.giftSvgaUrl = giftMessage.giftSvgaUrl;
+        //    giftModel.giftName = giftMessage.giftName;
+        //
+        //
+        //    [SVProgressHUD show];
+        //    [[RCIM sharedRCIM] sendMessage:message pushContent:nil pushData:NULL successBlock:^(RCMessage * _Nonnull successMessage) {
+        //        NSLog(@"%@",successMessage);
+        //        [SVProgressHUD dismiss];
+        //        [ws addSvgaUrl:askGiftMessage.giftSvgaUrl];
+        //    } errorBlock:^(RCErrorCode nErrorCode, RCMessage * _Nonnull errorMessage) {
+        //        [SVProgressHUD dismiss];
+        //        NSLog(@"%@",errorMessage);
+        //    }];
     
     Weakself(ws)
     NSString *giveNum = @"1";
     if ([askGiftMessage.giveNum integerValue] > 0){
         giveNum = askGiftMessage.giveNum;
     }
-
+    
     
     [SVProgressHUD show];
     [JLUserService sendGiftInfoWithAnchorId:[self.targetId integerValue] channelId:@"" giftId:askGiftMessage.giftId giveNum:giveNum success:^(NSDictionary * _Nonnull result) {
@@ -881,7 +894,7 @@
             }
         }
     }];
-
+    
 }
 
 
@@ -890,33 +903,33 @@
     // 发送礼物
 - (void)sendGiftMessge:(JLGiftModel *)model num:(NSString *)num{
     
-//    JLUserModel *userInfo = [JLUserService shared].userInfo;
-//        // Type 2 发送礼物
-//    JLGiftMessage *giftMessage = [JLGiftMessage messageWithType:@"2" channelId:@"" giftId:model.ID giftCode:model.giftCode userId:@(userInfo.userID) userCategory:[JLUserService shared].userInfo.userCategory giveNum:num nickName:[JLUserService shared].userInfo.nickName userRole:@"" giftUrl:model.giftIcon giftName:model.giftName giftPrice:model.giftPrice giftSvgaUrl:model.giftSvgaUrl];
-//    
-//    RCMessage *message = [[RCMessage alloc] init];
-//    message.targetId = [NSString stringWithFormat:@"%@",self.targetId];
-//    message.content = giftMessage;
-//    message.messageDirection = MessageDirection_SEND;
-//    
-//    message.senderUserId = [NSString stringWithFormat:@"%ld",userInfo.userID];
-//    message.conversationType = ConversationType_PRIVATE;
-//    
-//    
-//    JLGiftModel *giftModel = [[JLGiftModel alloc] init];
-//    giftModel.giftSvgaUrl = giftMessage.giftSvgaUrl;
-//    giftModel.giftName = giftMessage.giftName;
-//    
-//    [SVProgressHUD show];
-//    Weakself(ws)
-//    [[RCIM sharedRCIM] sendMessage:message pushContent:nil pushData:NULL successBlock:^(RCMessage * _Nonnull successMessage) {
-//        NSLog(@"%@",successMessage);
-//        [SVProgressHUD dismiss];
-//        [ws addSvgaUrl:model.giftSvgaUrl];
-//    } errorBlock:^(RCErrorCode nErrorCode, RCMessage * _Nonnull errorMessage) {
-//        NSLog(@"%@",errorMessage);
-//        [SVProgressHUD dismiss];
-//    }];
+        //    JLUserModel *userInfo = [JLUserService shared].userInfo;
+        //        // Type 2 发送礼物
+        //    JLGiftMessage *giftMessage = [JLGiftMessage messageWithType:@"2" channelId:@"" giftId:model.ID giftCode:model.giftCode userId:@(userInfo.userID) userCategory:[JLUserService shared].userInfo.userCategory giveNum:num nickName:[JLUserService shared].userInfo.nickName userRole:@"" giftUrl:model.giftIcon giftName:model.giftName giftPrice:model.giftPrice giftSvgaUrl:model.giftSvgaUrl];
+        //
+        //    RCMessage *message = [[RCMessage alloc] init];
+        //    message.targetId = [NSString stringWithFormat:@"%@",self.targetId];
+        //    message.content = giftMessage;
+        //    message.messageDirection = MessageDirection_SEND;
+        //
+        //    message.senderUserId = [NSString stringWithFormat:@"%ld",userInfo.userID];
+        //    message.conversationType = ConversationType_PRIVATE;
+        //
+        //
+        //    JLGiftModel *giftModel = [[JLGiftModel alloc] init];
+        //    giftModel.giftSvgaUrl = giftMessage.giftSvgaUrl;
+        //    giftModel.giftName = giftMessage.giftName;
+        //
+        //    [SVProgressHUD show];
+        //    Weakself(ws)
+        //    [[RCIM sharedRCIM] sendMessage:message pushContent:nil pushData:NULL successBlock:^(RCMessage * _Nonnull successMessage) {
+        //        NSLog(@"%@",successMessage);
+        //        [SVProgressHUD dismiss];
+        //        [ws addSvgaUrl:model.giftSvgaUrl];
+        //    } errorBlock:^(RCErrorCode nErrorCode, RCMessage * _Nonnull errorMessage) {
+        //        NSLog(@"%@",errorMessage);
+        //        [SVProgressHUD dismiss];
+        //    }];
     
     Weakself(ws)
     [SVProgressHUD show];
@@ -934,7 +947,7 @@
 
 
 
-// 更新某条消息状态
+    // 更新某条消息状态
 - (void)rcMessageUpdateSuccess{
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.conversationMessageCollectionView reloadData];
@@ -944,34 +957,25 @@
 
 
 
-/// 拨打视频
+    /// 拨打视频
 - (void)sendVideoCall:(BOOL)isStartVideo{
     self.isStartVideo = isStartVideo;
     
-    // 访问摄像头权限
+        // 访问摄像头权限
     [self checkAndRequestCameraPermission];
 }
 
 
-
 - (void)startUsingCamera{
+    [self startUsingCamera:self.targetId];
+}
+
+
+- (void)startUsingCamera:(NSString *)targetId{
     Weakself(ws)
     
-        // 拨打视频
-    [[JLRTCService shared] videoCallWithAnchorID:[self.targetId integerValue] success:^(NSString * _Nonnull channel, NSString * _Nonnull token,JLAnchorUserModel * _Nonnull anchorUserInfo) {
-        
-//        JLUserModel *userInfo = [[JLUserService shared] userInfo];
-//        if (userInfo.coins < ws.anchorUserInfo.coinVideoPrice) {
-//            [SVProgressHUD showImage:nil status:@"Insufficient Balance"];
-//            
-//            if ([JLIMService shared].delegate && [[JLIMService shared].delegate respondsToSelector:@selector(showRechargeAlertView)]) {
-//                [[JLIMService shared].delegate showRechargeAlertView];
-//            }
-//
-//            return;
-//            
-//        }
-        
+    // 拨打视频
+    [[JLRTCService shared] videoCallWithAnchorID:[targetId integerValue] success:^(NSString * _Nonnull channel, NSString * _Nonnull token,JLAnchorUserModel * _Nonnull anchorUserInfo) {
         VideoViewController *controller = [[VideoViewController alloc] init];
         controller.modalPresentationStyle = 0;
         controller.channel = channel;
@@ -1003,7 +1007,66 @@
 - (void)albumListViewController:(RCAlumListTableViewController *)albumListViewController
                  selectedImages:(NSArray *)selectedImages
                 isSendFullImage:(BOOL)enable{
-    [self.util doSendSelectedMediaMessage:selectedImages fullImageRequired:NO];
+//    [self.util doSendSelectedMediaMessage:selectedImages fullImageRequired:NO];
+        //耗时操作异步执行，以免阻塞主线程
+//    RCConversationViewController *chatVC = self;
+    BOOL destructMessageMode = self.chatSessionInputBarControl.destructMessageMode;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        for (int i = 0; i < selectedImages.count; i++) {
+            @autoreleasepool {
+                id item = [selectedImages objectAtIndex:i];
+                if ([item isKindOfClass:NSData.class]) {
+                    NSData *imageData = (NSData *)item;
+                    UIImage *image = [UIImage imageWithData:imageData];
+                    image = [RCKitUtility fixOrientation:image];
+                        // 保留原有逻辑并添加大图缩小的功能
+                    [[RCloudMediaManager sharedManager] downsizeImage:image
+                                                      completionBlock:^(UIImage *outimage, BOOL doNothing) {
+                        RCImageMessage *imagemsg;
+                        if (doNothing || !outimage) {
+                            imagemsg = [RCImageMessage messageWithImage:image];
+                            imagemsg.full = NO;
+                        } else if (outimage) {
+                            NSData *newImageData = UIImageJPEGRepresentation(outimage, 1);
+                            imagemsg = [RCImageMessage messageWithImageData:newImageData];
+                            imagemsg.full = NO;
+                        }
+                        imagemsg.destructDuration = [self getMessageDestructDuration:imagemsg destructMessageMode:destructMessageMode];
+                        [self SendImageMessage:imagemsg pushContent:nil];
+                    }
+                                                        progressBlock:^(UIImage *outimage, BOOL doNothing){
+                        
+                    }];
+                } else if ([item isKindOfClass:NSDictionary.class]) {
+                    NSDictionary *assertInfo = item;
+                    if ([assertInfo objectForKey:@"avAsset"]) {
+                        AVAsset *model = assertInfo[@"avAsset"];
+                        UIImage *image = assertInfo[@"thumbnail"];
+                        NSString *localPath = assertInfo[@"localPath"];
+                        dispatch_sync(dispatch_get_main_queue(), ^{
+                            NSUInteger duration = round(CMTimeGetSeconds(model.duration));
+                            RCSightMessage *sightMsg =
+                            [RCSightMessage messageWithAsset:model thumbnail:image duration:duration];
+                            sightMsg.localPath = localPath;
+                            sightMsg.destructDuration = [self getMessageDestructDuration:sightMsg destructMessageMode:destructMessageMode];
+                            [self SendImageMessage:sightMsg pushContent:nil];
+                        });
+                    } else {
+                        NSData *gifImageData = (NSData *)[assertInfo objectForKey:@"imageData"];
+                        RCGIFImage *gifImage = [RCGIFImage animatedImageWithGIFData:gifImageData];
+                        if (gifImage) {
+                            RCGIFMessage *gifMsg = [RCGIFMessage messageWithGIFImageData:gifImageData
+                                                                                   width:gifImage.size.width
+                                                                                  height:gifImage.size.height];
+                            gifMsg.destructDuration = [self getMessageDestructDuration:gifMsg destructMessageMode:destructMessageMode];
+                            [self SendImageMessage:gifMsg pushContent:nil];
+                        }
+                    }
+                }
+                [NSThread sleepForTimeInterval:0.5];
+            }
+        }
+    });
 }
 
 
@@ -1095,6 +1158,57 @@
                                       layout:(UICollectionViewLayout *)collectionViewLayout
                       sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     return CGSizeMake(0.0, 0.0);
+}
+
+
+
+
+// 获取时间
+- (NSUInteger)getMessageDestructDuration:(RCMessageContent *)content destructMessageMode:(BOOL)destructMessageMode {
+    NSUInteger duration = content.destructDuration;
+    if (destructMessageMode) {
+        if ([content isKindOfClass:[RCTextMessage class]]) {
+            RCTextMessage *msg = (RCTextMessage *)content;
+            if (msg.content.length <= 20) {
+                duration = 10;
+            } else {
+                duration = 10 + (int)(msg.content.length - 20) / 2;
+            }
+        } else if ([content isKindOfClass:[RCVoiceMessage class]] || [content isKindOfClass:[RCHQVoiceMessage class]] ||
+                   [content isKindOfClass:[RCSightMessage class]]) {
+            duration = 10;
+        } else if ([content isKindOfClass:[RCImageMessage class]] || [content isKindOfClass:[RCGIFMessage class]]) {
+            duration = 30;
+        }
+    }
+    return duration;
+}
+
+
+
+- (void)SendImageMessage:(RCMessageContent *)messageContent pushContent:(NSString *)pushContent {
+    if (messageContent.destructDuration > 0) {
+        pushContent = RCLocalizedString(@"BurnAfterRead");
+    }
+    
+
+    RCMessage *message = [[RCMessage alloc] initWithType:self.conversationType targetId:self.targetId channelId:self.channelId direction:MessageDirection_SEND content:messageContent];
+    
+    JLUserModel *userInfo = [JLUserService shared].userInfo;
+    NSDictionary *dict = @{@"nickName":userInfo.nickName,
+                           @"headFileName":userInfo.headFileName,
+                           @"targetID":[NSString stringWithFormat:@"%ld",userInfo.userID],
+    };
+    messageContent.extra = [dict modelToJSONString];
+
+    [[RCIM sharedRCIM] sendMessage:message
+                       pushContent:pushContent
+                          pushData:nil
+                      successBlock:^(RCMessage *successMessage) {
+        NSLog(@"图片发送成功");
+    } errorBlock:^(RCErrorCode nErrorCode, RCMessage *errorMessage) {
+        DebugLog(@"error: %@", @(nErrorCode));
+    }];
 }
 
 
